@@ -1,4 +1,5 @@
 name: microCMS Deploy
+
 on:
   repository_dispatch:
     types: [Tohoku_Bolt]
@@ -6,9 +7,11 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    
     env:
       MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
       MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+    
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -37,18 +40,18 @@ jobs:
             **/.git*
             **/.git*/**
             **/node_modules/**
-            **/image/**              # 画像は削除しない
-            **/images/**             # 画像は削除しない
-            **/*.jpg                 # 画像ファイルは削除しない
+            **/image/**
+            **/images/**
+            **/*.jpg
             **/*.jpeg
             **/*.png
             **/*.gif
             **/*.webp
             **/*.svg
-            **/*.woff                # フォントは削除しない
+            **/*.woff
             **/*.woff2
             **/*.ttf
             **/*.eot
             **/*.otf
-            **/.htaccess             # .htaccessは削除しない（追加推奨）
-            **/robots.txt            # robots.txtは削除しない（追加推奨）
+            **/.htaccess
+            **/robots.txt
