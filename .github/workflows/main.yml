@@ -3,7 +3,9 @@ name: microCMS Deploy
 on:
   repository_dispatch:
     types: [Tohoku_Bolt]
-
+  push:                
+    branches:
+      - main          
 jobs:
   build:
     runs-on: ubuntu-latest
