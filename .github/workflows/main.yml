@@ -1,7 +1,7 @@
 name: microCMS Deploy
 on:
   repository_dispatch:
-    types: [Tohoku_Bolt]
+    types: [Tohoku_Bolt] # WebhookのEvent Typeと一致
 
 jobs:
   build:
@@ -20,3 +20,13 @@ jobs:
 
       - name: Build
         run: npm run build
+
+      # 📦 完成品（distフォルダ）をエックスサーバーへ配送
+      - name: Deploy to Xserver
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/ # Astroが生成するフォルダ
+          server-dir: /7plus1.jp/public_html/ # エックスサーバー上の公開ディレクトリ
