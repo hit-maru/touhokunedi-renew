@@ -43,3 +43,9 @@ jobs:
             **/*.png
             **/*.gif
             **/*.webp
+            **/*.svg
+            **/*.woff
+            **/*.woff2
+            **/*.ttf
+            **/*.eot
+            **/*.otf
