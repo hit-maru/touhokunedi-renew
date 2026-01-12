@@ -32,20 +32,23 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
+          dangerous-salt-provider: ${{ secrets.FTP_PASSWORD }}
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-            **/image/**
-            **/images/**
-            **/*.jpg
+            **/image/**              # 画像は削除しない
+            **/images/**             # 画像は削除しない
+            **/*.jpg                 # 画像ファイルは削除しない
             **/*.jpeg
             **/*.png
             **/*.gif
             **/*.webp
             **/*.svg
-            **/*.woff
+            **/*.woff                # フォントは削除しない
             **/*.woff2
             **/*.ttf
             **/*.eot
             **/*.otf
+            **/.htaccess             # .htaccessは削除しない（追加推奨）
+            **/robots.txt            # robots.txtは削除しない（追加推奨）
