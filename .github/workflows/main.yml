@@ -35,7 +35,6 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
-          dangerous-salt-provider: ${{ secrets.FTP_PASSWORD }}
           exclude: |
             **/.git*
             **/.git*/**
@@ -53,5 +52,3 @@ jobs:
             **/*.ttf
             **/*.eot
             **/*.otf
-            **/.htaccess
-            **/robots.txt
