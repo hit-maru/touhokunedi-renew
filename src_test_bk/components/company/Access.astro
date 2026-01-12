@@ -1,0 +1,92 @@
+---
+// src/components/company/Access.astro
+const locations = [
+  { 
+    label: "HQ", 
+    title: "本社・工場", 
+    zip: "971-8184", 
+    addr: "福島県いわき市泉町黒須野字砂利59番地", // 正しい住所
+    tel: "(0246)56-4751 [代]", 
+    fax: "(0246)56-4575", 
+    color: "#008B9B",
+    mapQuery: "福島県いわき市泉町黒須野字砂利59番地"
+  },
+  { 
+    label: "TOKYO", 
+    title: "東京本社・東京営業部", 
+    zip: "110-0015", 
+    addr: "東京都台東区東上野1丁目26-2 オーラムビル4F", 
+    tel: "(03)6284-7130", 
+    fax: "(03)6284-7131", 
+    color: "#1A1A1A",
+    mapQuery: "東京都台東区東上野1丁目26-2 オーラムビル"
+  },
+  { 
+    label: "SENDAI", 
+    title: "仙台営業部", 
+    zip: "983-0043", 
+    addr: "宮城県仙台市宮城野区萩野町4-4-35", 
+    tel: "(022)284-2675", 
+    fax: "(022)284-2655", 
+    color: "#455A64",
+    mapQuery: "宮城県仙台市宮城野区萩野町4-4-35"
+  },
+  { 
+    label: "KORIYAMA", 
+    title: "郡山営業所", 
+    zip: "963-0725", 
+    addr: "福島県郡山市田村町金屋字新家99-1", 
+    tel: "(024)943-3311", 
+    fax: "(024)943-0222", 
+    color: "#37474F",
+    mapQuery: "福島県郡山市田村町金屋字新家99-1"
+  }
+];
+---
+
+<section id="access" class="py-16 bg-gray-50 text-[#1A1A1A]">
+  <div class="container mx-auto px-6 max-w-5xl">
+    <div class="mb-10 text-[#008B9B]">
+      <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
+        <span class="w-1.5 h-6 bg-[#E64A19]"></span>アクセス
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {locations.map((loc) => (
+        <div class="bg-white p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          {/* ラベル白抜き：強制的に白(#FFFFFF)を指定 */}
+          <div class="flex items-center gap-2 mb-4">
+            <span 
+              class="text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm"
+              style={`background-color: ${loc.color}; color: #FFFFFF !important;`}
+            >
+              {loc.label}
+            </span>
+            <h3 class="font-mb101 font-black text-lg text-[#1A1A1A]">{loc.title}</h3>
+          </div>
+
+          {/* 墨文字指定 */}
+          <div class="text-[#1A1A1A] text-sm leading-relaxed mb-6">
+            <p class="font-bold">〒{loc.zip}</p>
+            <p class="mb-2">{loc.addr}</p>
+            <div class="text-[11px] font-bold flex flex-wrap gap-x-4">
+              <span class="text-[#1A1A1A]">TEL: {loc.tel}</span>
+              <span class="text-[#1A1A1A]">FAX: {loc.fax}</span>
+            </div>
+          </div>
+
+          {/* マップ：API不要の確実なカラー表示 */}
+          <div class="mt-auto aspect-video w-full bg-gray-100 border border-gray-200 overflow-hidden rounded-sm">
+            <iframe 
+              src={`https://www.google.com/maps?output=embed&q=${encodeURIComponent(loc.mapQuery)}&z=15&t=m&hl=ja`}
+              class="w-full h-full border-0" 
+              allowfullscreen="" 
+              loading="lazy"
+            ></iframe>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>

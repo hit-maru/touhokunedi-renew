@@ -1,0 +1,119 @@
+---
+// src/components/company/Philosophy.astro
+---
+<section id="philosophy" class="py-20 bg-gray-50 text-ink">
+  <div class="container mx-auto px-6 max-w-5xl">
+    
+    {/* 見出し */}
+    <div class="mb-10 text-primary">
+      <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
+        <span class="w-1.5 h-6 bg-accent"></span>経営ビジョン体系図
+      </h2>
+    </div>
+
+    {/* 体系図エリア：丸さん指定の 80% 縮小 (640px -> 512px) */}
+    <div class="bg-white p-8 md:p-14 shadow-sm border border-gray-100 flex flex-col items-center mb-16">
+      <div class="w-full max-w-[512px]">
+        <img 
+          src="/images/vision-pyramid.webp" 
+          alt="経営ビジョン体系図" 
+          class="w-full h-auto" 
+          loading="lazy"
+        />
+      </div>
+    </div>
+
+    {/* 事業説明 2段構成 */}
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-16 gap-y-12 max-w-5xl mx-auto">
+      
+      {/* 1. 製造事業 */}
+      <div class="flex flex-col">
+        <div class="flex items-baseline gap-3 mb-6 border-b border-gray-200 pb-2">
+          <span class="text-primary font-serif font-normal text-3xl leading-none tracking-tighter">01</span>
+          <h3 class="font-mb101 font-black text-xl text-ink">製造事業</h3>
+        </div>
+        
+        <div class="space-y-6">
+          <div>
+            <p class="font-mb101 font-bold text-sm mb-2 text-ink">熱間鍛造・熱処理技術を中核に、ボルトや締結品を製造しています</p>
+            <p class="font-sans text-[13px] leading-relaxed text-gray-600 font-medium">
+              これまで培ってきた“匠の技”に最新設備や研究機関との連携で得た高度な知見を組み合わせ、国内外のお客様へ高品質なネジ・ボルト・締結品をお届けしています。
+            </p>
+          </div>
+
+          <div class="grid grid-cols-1 gap-4 bg-white p-5 border border-gray-100 shadow-sm">
+            <div>
+              <h4 class="text-primary font-mb101 text-[12px] font-bold mb-1">● 熱間鍛造とは</h4>
+              <p class="font-sans text-[12px] text-gray-600 leading-relaxed">高温に加熱した金属に圧力を加え、形状を成形する技術。高い強度と精密さが求められます。</p>
+            </div>
+            <div>
+              <h4 class="text-primary font-mb101 text-[12px] font-bold mb-1">● 熱処理とは</h4>
+              <p class="font-sans text-[12px] text-gray-600 leading-relaxed">金属を加熱・冷却し、硬度や性質を自在に変化させる技術。耐久性や性能を高める要となります。</p>
+            </div>
+          </div>
+
+          <div>
+            <h4 class="font-mb101 font-bold text-[13px] text-ink mb-3 border-l-4 border-primary pl-3">製造事業のビジョン</h4>
+            <p class="font-sans text-[12px] text-gray-600 mb-4 leading-relaxed">国内外における社の価値をさらに高め、顧客から安心と信頼を得られる締結品メーカーとして持続的に成長することを目指しています。</p>
+            <ul class="space-y-2 font-sans text-[12px] text-gray-600 font-medium">
+              {[
+                "培った技術力（熱間鍛造、熱処理、品質保証等）をさらに強化します。",
+                "頼られ、選ばれる会社として、業界No.1を目指します。",
+                "付加価値の高いボルトを世界中に広め、社会に貢献していきます。",
+                "地球環境に配慮し、社員が健康で楽しく働ける企業風土を構築していきます。",
+                "社員も会社も「少しずつ」着実に成長し、社員とその家族の幸せを追求していきます。"
+              ].map(item => (
+                <li class="flex gap-2">
+                  <span class="text-primary mt-1 text-[8px]">■</span>
+                  <span>{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      {/* 2. 販売事業 */}
+      <div class="flex flex-col">
+        <div class="flex items-baseline gap-3 mb-6 border-b border-gray-200 pb-2">
+          <span class="text-primary font-serif font-normal text-3xl leading-none tracking-tighter">02</span>
+          <h3 class="font-mb101 font-black text-xl text-ink">販売事業</h3>
+        </div>
+
+        <div class="space-y-6">
+          <div>
+            <p class="font-mb101 font-bold text-sm mb-2 text-ink">あらゆる締結品を取り扱う、フルアソートメントサービスを提供</p>
+            <p class="font-sans text-[13px] leading-relaxed text-gray-600 font-medium">
+              福島県・宮城県を中心に地域密着型の営業体制を築き、近隣エリアのお客様へ最適なネジ製品を提案・供給しています。
+            </p>
+          </div>
+
+          <div class="flex flex-wrap gap-2">
+            {["用途に沿った商品のご提案", "幅広い品ぞろえ", "正確・迅速な納品体制"].map(tag => (
+              <span class="bg-gray-100 text-ink text-[11px] font-bold px-3 py-1 rounded-sm border border-gray-200 font-mb101">{tag}</span>
+            ))}
+          </div>
+
+          <div>
+            <h4 class="font-mb101 font-bold text-[13px] text-ink mb-3 border-l-4 border-primary pl-3">販売事業のビジョン</h4>
+            <p class="font-sans text-[12px] text-gray-600 mb-4 leading-relaxed">
+              安心・信頼のネジを安定的に供給し、地域No.1の売上を目指します。そのために、少しずつ社員も会社も成長を重ね、以下の3つの基本を強化しています。
+            </p>
+            <ul class="grid grid-cols-1 gap-2 font-sans text-[12px] text-gray-600 font-bold mb-4">
+              <li class="flex items-center gap-2 bg-paper-white p-2 border border-gray-100">
+                <span class="text-primary">▶</span> 幅広い品揃えと商品知識 / 提案力 / 即納体制
+              </li>
+            </ul>
+            <p class="font-sans text-[12px] text-gray-600 leading-relaxed italic">
+              さらにちょっとした加工であれば、営業マン自ら行い、外注加工先とも連携を強化し、多様な要望に応えられる技術力とサービスを提供。また自社工場の製品も供給可能です。
+            </p>
+            <p class="font-sans text-[12px] text-gray-600 mt-4 leading-relaxed">
+              今後の人材不足に備え、働きやすい環境を整え、社員一人ひとりのやりがいと幸せを高めていきます。
+            </p>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>

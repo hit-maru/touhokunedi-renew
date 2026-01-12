@@ -1,0 +1,117 @@
+---
+// src/components/Header.astro
+---
+<header class="fixed top-0 left-0 w-full bg-white z-[60] border-b border-gray-100">
+  <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+    
+    <div class="flex flex-col justify-center">
+      <a href="/" class="flex items-center gap-3 group">
+        <img src="/images/T-nedzi-mark.png" alt="東北ネヂ製造 マーク" class="h-8 md:h-10 w-auto" />
+        <div class="flex items-center whitespace-nowrap">
+          <span class="text-gray-900 font-bold leading-none" style="font-family: 'Shin Go Bold', sans-serif; font-size: 1.5rem;">東北ネヂ製造</span>
+          <span class="text-gray-900 font-bold leading-none" style="font-family: 'Shin Go Bold', sans-serif; font-size: 1.05rem; margin-left: 2px; transform: scale(0.7); transform-origin: left center;">株式会社</span>
+        </div>
+      </a>
+      <div class="hidden md:block text-[9px] leading-[1.4] text-gray-500 font-medium mt-1 whitespace-nowrap">
+        日本工業規格表示認証工場 ISO9001/14001/45001認証取得<br /> 熱間鍛造ボルト・ねじメーカー
+      </div>
+    </div>
+
+    <div class="hidden md:flex items-center gap-8">
+      <nav class="flex gap-8 items-center text-gray-600 font-sans">
+        <a href="/company" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">企業情報</a>
+        <a href="/manufacture" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">製造事業</a>
+        <a href="/sales" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">販売事業</a>
+        <a href="/recruit" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">採用情報</a>
+        <a href="/news" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">お知らせ</a>
+      </nav>
+      
+      <a href="/en" class="text-[#E64A19] border-l border-gray-300 pl-6 flex items-center gap-1 hover:opacity-70 transition-opacity text-sm font-sans">
+       <span class="text-gray-900 font-bold">JP</span>
+       <span class="text-xs font-normal text-gray-400">/ EN</span>
+      </a>
+      
+      <a href="/contact" class="px-4 py-1.5 border border-gray-900 text-sm font-bold hover:bg-gray-900 hover:text-white transition-all uppercase font-serif tracking-widest">
+       お問合せ
+      </a>
+    </div>
+
+    <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-8 h-8 relative z-[70] focus:outline-none" aria-label="Menu">
+      <span id="line1" class="w-6 h-0.5 bg-gray-900 transition-all duration-300 origin-center"></span>
+      <span id="line2" class="w-6 h-0.5 bg-gray-900 my-1.5 transition-all duration-300"></span>
+      <span id="line3" class="w-6 h-0.5 bg-gray-900 transition-all duration-300 origin-center"></span>
+    </button>
+  </div>
+
+  <div id="mobile-menu" class="fixed inset-0 bg-white z-[65] transform translate-x-full transition-transform duration-500 ease-in-out md:hidden">
+    <div class="flex flex-col h-full pt-32 px-10">
+      <ul class="flex flex-col gap-6">
+        <li><a href="/company" class="mobile-link text-lg font-bold">企業情報</a></li>
+        <li><a href="/manufacture" class="mobile-link text-lg font-bold">製造事業</a></li>
+        <li><a href="/sales" class="mobile-link text-lg font-bold">販売事業</a></li>
+        <li><a href="/recruit" class="mobile-link text-lg font-bold">採用情報</a></li>
+        <li><a href="/news" class="mobile-link text-lg font-bold">お知らせ</a></li>
+        <li class="pt-4 border-t border-gray-200">
+          <a href="/en" class="mobile-link text-[#E64A19] text-base font-bold flex items-center gap-2">
+            <span>🌐</span>
+            <span>English Site</span>
+          </a>
+        </li>
+      </ul>
+      <div class="mt-auto pb-12">
+        <a href="/contact" class="mobile-link block w-full bg-gray-900 text-white text-center py-4 font-bold rounded-sm uppercase font-serif tracking-widest">
+          Contact
+        </a>
+      </div>
+    </div>
+  </div>
+
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/20 opacity-0 pointer-events-none transition-opacity duration-500 z-[64]"></div>
+</header>
+
+<script>
+  // メニュー操作に必要な要素を取得
+  const menuBtn = document.getElementById('menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const menuBackdrop = document.getElementById('menu-backdrop');
+  const line1 = document.getElementById('line1');
+  const line2 = document.getElementById('line2');
+  const line3 = document.getElementById('line3');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  function toggleMenu() {
+    // メニュー本体のスライド切り替え
+    mobileMenu?.classList.toggle('translate-x-full');
+    mobileMenu?.classList.toggle('translate-x-0');
+
+    // 背景のオーバーレイの表示切り替え
+    menuBackdrop?.classList.toggle('opacity-0');
+    menuBackdrop?.classList.toggle('pointer-events-none');
+    
+    // ハンバーガーアイコンのアニメーション（Xへの変化）
+    line1?.classList.toggle('rotate-45');
+    line1?.classList.toggle('translate-y-2');
+    line2?.classList.toggle('opacity-0');
+    line3?.classList.toggle('-rotate-45');
+    line3?.classList.toggle('-translate-y-2');
+
+    // 背景固定の切り替え（メニュー開閉時に背面がスクロールしないように）
+    document.body.classList.toggle('overflow-hidden');
+  }
+
+  if (menuBtn && mobileMenu && menuBackdrop) {
+    // ボタンクリック時のイベント
+    menuBtn.addEventListener('click', toggleMenu);
+    // 背景部分クリック時にも閉じる
+    menuBackdrop.addEventListener('click', toggleMenu);
+
+    // メニュー内のリンクをクリックしたら自動で閉じる
+    mobileLinks.forEach(link => {
+      link.addEventListener('click', () => {
+        if (!mobileMenu.classList.contains('translate-x-full')) {
+          toggleMenu();
+        }
+      });
+    });
+  }
+</script>

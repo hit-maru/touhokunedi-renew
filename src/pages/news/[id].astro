@@ -1,0 +1,84 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import { getNews, getNewsDetail } from '../../lib/microcms';
+import { format } from 'date-fns';
+
+// 1. 静的書き出しのパスを設定（必須！）
+export async function getStaticPaths() {
+  const response = await getNews({ fields: ["id"] });
+  return response.contents.map((content) => ({
+    params: { id: content.id },
+  }));
+}
+
+const { id } = Astro.params;
+
+// 2. 記事詳細データを取得
+// 変数名を 'news' に統一して、下のHTMLと合わせます
+const news = await getNewsDetail(id as string);
+
+// IDがない、または記事が見つからない場合は一覧へ戻す
+if (!id || !news) {
+  return Astro.redirect(`${import.meta.env.BASE_URL}/news`);
+}
+---
+
+<Layout title={news.title}>
+  <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
+    <div class="container mx-auto px-6">
+      <a 
+        href={`${import.meta.env.BASE_URL}/news`}
+        class="inline-flex items-center gap-2 text-[#008B9B] hover:underline mb-6 font-sans text-sm font-medium"
+      >
+        ← お知らせ一覧に戻る
+      </a>
+    </div>
+  </div>
+
+  <article class="py-16 bg-white">
+    <div class="container mx-auto px-6 max-w-3xl">
+      <div class="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
+        <time datetime={news.publishedAt} class="text-gray-400 font-serif text-sm">
+          {format(new Date(news.publishedAt), 'yyyy年MM月dd日')}
+        </time>
+        {news.category && news.category.length > 0 && (
+          <span class="text-[10px] font-bold px-3 py-1.5 bg-[#008B9B] text-white rounded-sm uppercase tracking-widest">
+            {news.category[0]}
+          </span>
+        )}
+      </div>
+
+      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 leading-relaxed font-mincho">
+        {news.title}
+      </h1>
+
+      {news.thumbnail && (
+        <div class="mb-12 rounded-sm overflow-hidden shadow-md max-w-xl mx-auto">
+          <img src={news.thumbnail.url} alt={news.title} class="w-full h-auto" />
+        </div>
+      )}
+
+      {/* microCMSのリッチエディタ内容を表示 */}
+      <div 
+        class="post-content prose prose-lg max-w-none font-sans leading-relaxed text-gray-700"
+        set:html={news.content}
+      />
+    </div>
+  </article>
+</Layout>
+
+<style is:global>
+  /* 記事内の装飾（必要に応じて） */
+  .post-content h2 {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #333;
+    margin-top: 2rem;
+    margin-bottom: 1rem;
+    border-left: 4px solid #008B9B;
+    padding-left: 1rem;
+  }
+  .post-content p {
+    margin-bottom: 1.5rem;
+  }
+</style>

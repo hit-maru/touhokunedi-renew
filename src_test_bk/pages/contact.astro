@@ -1,0 +1,119 @@
+---
+// src/pages/contact.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="お問合せ">
+  
+  {/* ヒーローエリア：規準統一 ＋ 下余白ツメ (pt-20 pb-8) */}
+  <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
+    <div class="container mx-auto px-6">
+      <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">お問合せ</h1>
+      <p class="text-gray-500 font-serif tracking-wider uppercase">CONTACT</p>
+    </div>
+  </div>
+
+  <section class="pt-12 pb-24 bg-white">
+    <div class="container mx-auto px-6 max-w-4xl">
+      
+      {/* お電話（15pxの壁：本文は font-sans） */}
+      <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
+        <h2 class="text-2xl font-bold text-[#008B9B] mb-4 flex items-center gap-3 font-mb101">
+          📞 <span class="pt-1">お電話でのお問合せ</span>
+        </h2>
+        <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
+          「急ぎで在庫確認がしたい」「図面を見ながら相談したい」など、お急ぎの場合はお電話がスムーズです。営業担当がその場で対応いたします。
+        </p>
+        <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+          <div>
+            <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">Main Factory / Head Office</p>
+            <a href="tel:0246564571" class="text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors">
+              0246-56-4571
+            </a>
+            <p class="font-sans text-[12px] text-gray-500 mt-2 font-medium">受付時間：8:00〜17:00（土日祝除く）</p>
+          </div>
+        </div>
+      </div>
+
+      {/* メールフォーム選択エリア */}
+      <h2 class="text-[#008B9B] font-mb101 text-3xl font-bold mb-8 text-center">メールフォーム</h2>
+      <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium text-center">
+        お問合せ内容に応じて、専門の担当者が対応いたします。<br>
+        該当するボタンを選択してください。
+      </p>
+
+      {/* 選択ボタン */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
+        <a href="/contact-manufacture" class="block p-8 border-2 border-[#008B9B] rounded-sm text-center hover:bg-[#008B9B] hover:text-white transition-all group shadow-sm hover:shadow-lg">
+          <div class="text-3xl mb-4">🏭</div>
+          <h3 class="text-lg font-bold mb-2 font-mb101">製造に関する<br>お問合せ</h3>
+          <p class="text-sm opacity-80 font-sans">特注品・技術相談</p>
+        </a>
+        
+        <a href="/contact-sales" class="block p-8 border-2 border-[#E64A19] rounded-sm text-center hover:bg-[#E64A19] hover:text-white transition-all group shadow-sm hover:shadow-lg">
+          <div class="text-3xl mb-4">📦</div>
+          <h3 class="text-lg font-bold mb-2 font-mb101">販売に関する<br>お問合せ</h3>
+          <p class="text-sm opacity-80 font-sans">在庫確認・見積もり</p>
+        </a>
+        
+        <a href="/contact-recruit" class="block p-8 border-2 border-[#F5A623] rounded-sm text-center hover:bg-[#F5A623] hover:text-white transition-all group shadow-sm hover:shadow-lg">
+          <div class="text-3xl mb-4">👥</div>
+          <h3 class="text-lg font-bold mb-2 font-mb101">採用に関する<br>お問合せ</h3>
+          <p class="text-sm opacity-80 font-sans">エントリー・採用質問</p>
+        </a>
+      </div>
+
+      {/* 区切り線 */}
+      <div class="border-t border-gray-200 mb-16 relative">
+        <span class="absolute left-1/2 -translate-x-1/2 -top-3 bg-white px-4 text-sm text-gray-500 font-sans">または</span>
+      </div>
+
+      {/* その他のお問合せフォーム */}
+      <div class="bg-gray-50 p-8 md:p-12 border border-gray-200 rounded-sm">
+        <h3 class="text-[#008B9B] font-mb101 text-2xl font-bold mb-4 text-center">その他のお問合せ</h3>
+        <p class="font-sans text-[14px] text-gray-600 mb-8 leading-relaxed font-medium text-center">
+          上記以外のお問合せは、こちらのフォームをご利用ください。<br>
+          通常、3営業日以内に担当者よりご連絡いたします。
+        </p>
+
+        <form action="https://formspree.io/f/mqeezbva" method="POST" class="space-y-8">
+          <div>
+            <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              貴社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <input type="text" id="company" name="company" placeholder="例）東北ネヂ製造株式会社" class="w-full bg-white border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input type="text" id="name" name="name" placeholder="例）東北 太郎" class="w-full bg-white border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+            </div>
+            <div>
+              <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input type="email" id="email" name="email" placeholder="例）info@touhokunedi.com" class="w-full bg-white border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <textarea id="message" name="message" rows="6" placeholder="ご自由にご記入ください" class="w-full bg-white border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required></textarea>
+          </div>
+
+          <div class="text-center pt-8">
+            <button type="submit" class="bg-[#008B9B] text-white font-bold px-24 py-4 min-w-[320px] font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1">
+              内容を確認して送信する
+            </button>
+          </div>
+        </form>
+      </div>
+    </div>
+  </section>
+
+</Layout>

@@ -1,0 +1,143 @@
+---
+// src/components/company/Certification.astro
+const certs = [
+  { group: "ISO 認証登録証明書", items: [
+    { file: "iso9001.webp", title: "ISO 9001", sub: "品質マネジメントシステム", label: "認証登録番号", code: "00494" },
+    { file: "iso14001.webp", title: "ISO 14001", sub: "環境マネジメントシステム", label: "認証登録番号", code: "14966-B" },
+    { file: "iso45001.webp", title: "ISO 45001", sub: "労働安全衛生マネジメントシステム", label: "認証登録番号", code: "14966-D" }
+  ]},
+  { group: "JIS 日本産業規格表示認証書", items: [
+    { file: "product-rail.webp", title: "JIS E 1107", sub: "継目板用及びレール締結用のボルト及びナット", label: "表示認定品", code: "JQ0208022" },
+    { file: "product-rail-02.webp", title: "JIS E 1107", sub: "継目板用及びレール締結用のボルト及びナット", label: "附属書", code: "JQ0208022" },
+    { file: "jis-1.webp", title: "JIS E 1109", sub: "レール用ねじくぎ", label: "表示認定品", code: "JQ0208024" },
+    { file: "quality_jis_dogspikes-01.webp", title: "JIS B 1180", sub: "六角ボルト", label: "表示認定品", code: "JQ0208021" }, // デッドリンク修正 .jpg -> .png
+    { file: "quality_jis_dogspikes-02.webp", title: "JIS B 1180", sub: "六角ボルト", label: "附属書", code: "JQ0208021" }
+  ]}
+];
+
+// その他の認定・受賞：画像左・2段構成・ベースライン同期
+const otherCerts = [
+  { era: "平成29年", month: "12月", title: "地域未来牽引企業に選出", logo: "logo_S_rgb-300x259.webp" },
+  { era: "令和6年", month: "3月", title: "健康経営優良法人 2024 認定", logo: "Logo_Yuryo2024_Chusho_color_tate-3.webp" },
+  { era: "令和6年", month: "7月", title: "女性活躍推進法に基づく「えるぼし」企業認定（認定段階2）", logo: "step-02.webp" },
+  { era: "令和7年", month: "1月", title: "福島県次世代育成支援「働く女性応援」「仕事と生活の調和」推進企業認定", logo: "WLB.webp" },
+  { era: "令和7年", month: "3月", title: "健康経営優良法人2025認定", logo: "KIfH2025.webp" }
+];
+---
+
+<section id="certification" class="py-20 bg-white border-t border-gray-100">
+  <div class="container mx-auto px-6 max-w-5xl">
+    
+    <div class="mb-10 text-primary">
+      <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
+        <span class="w-1.5 h-6 bg-accent"></span>認証・資格
+      </h2>
+    </div>
+
+    {/* 上段：ISO/JIS 証書エリア */}
+    {certs.map((group) => (
+      <div class="mb-16">
+        <h3 class="font-mb101 font-black text-lg text-ink mb-6 border-b border-gray-200 pb-1">
+          {group.group}
+        </h3>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-x-8 gap-y-16">
+          {group.items.map(cert => (
+            <div class="flex flex-col items-center cursor-pointer lightbox-trigger" data-src={`/images/${cert.file}`} data-title={cert.title}>
+              <div class="bg-white border border-gray-200 p-2 shadow-sm w-full aspect-[1/1.4] overflow-hidden flex items-center justify-center transition-all hover:border-primary">
+                <img src={`/images/${cert.file}`} alt={cert.title} class="w-full h-full object-contain" loading="lazy" />
+              </div>
+              <div class="mt-4 text-center space-y-1">
+                <p class="text-ink font-sans text-[11px] leading-tight">
+                  日本産業規格の番号：<span class="text-primary font-serif font-bold text-[17px] tracking-tight">{cert.title}</span>
+                </p>
+                <p class="text-ink font-sans text-[11px] leading-tight">
+                  {cert.label}：{cert.sub}
+                </p>
+                <p class="text-ink font-sans text-[11px] leading-tight">
+                  認証番号：<span class="text-primary font-serif font-bold text-[17px] tracking-tight">{cert.code}</span>
+                </p>
+              </div>
+            </div>
+          ))}
+        </div>
+      </div>
+    ))}
+
+    {/* 下段：その他の認定・受賞（赤入れ指示 ＆ リンク修正 完全反映） */}
+    <div class="bg-gray-50 p-8 md:p-12 border border-gray-100">
+      <h3 class="font-mb101 font-black text-lg text-ink mb-12 border-b border-gray-200 pb-2">その他の認定・受賞</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12 lg:gap-y-14">
+        {otherCerts.map(item => (
+          <div class="flex items-start gap-4 md:gap-6">
+            
+            {/* 左：ロゴ。画像の上端を右側「年」の天に完全同期 */}
+            <div class="w-16 md:w-20 shrink-0 pt-[1px]">
+              <img 
+                src={`/images/${item.logo}`} 
+                alt={item.title} 
+                class="w-full h-auto object-contain object-top"
+                loading="lazy"
+              />
+            </div>
+
+            {/* 右：テキストブロック */}
+            <div class="flex flex-col">
+              <span class="text-ink font-sans text-[11px] font-bold leading-none mb-2">
+                {item.era}
+              </span>
+              
+              <div class="flex items-baseline gap-3">
+                <div class="flex items-baseline gap-0.5 shrink-0">
+                  <span class="text-primary font-serif font-bold text-[17px] leading-none">
+                    {item.month.replace('月', '')}
+                  </span>
+                  <span class="text-ink font-sans text-[11px] font-bold">月</span>
+                </div>
+                <p class="text-[13px] text-ink font-medium leading-tight font-sans">
+                  {item.title}
+                </p>
+              </div>
+            </div>
+
+          </div>
+        ))}
+      </div>
+    </div>
+  </div>
+
+  <div id="cert-modal" class="fixed inset-0 z-[100] hidden flex items-center justify-center bg-ink/90 p-4 cursor-zoom-out">
+    <div class="max-w-4xl max-h-[90vh] relative bg-white p-2 shadow-2xl">
+      <img id="modal-img" src="" alt="" class="max-w-full max-h-[80vh] object-contain" />
+      <p id="modal-caption" class="text-ink font-bold text-center mt-4 font-mb101"></p>
+      <button class="absolute -top-10 right-0 text-white text-3xl hover:text-gray-300">×</button>
+    </div>
+  </div>
+</section>
+
+<script>
+  const triggers = document.querySelectorAll('.lightbox-trigger');
+  const modal = document.getElementById('cert-modal');
+  const modalImg = document.getElementById('modal-img') as HTMLImageElement;
+  const modalCaption = document.getElementById('modal-caption');
+
+  if (modal && modalImg && modalCaption) {
+    triggers.forEach(trigger => {
+      trigger.addEventListener('click', () => {
+        const src = trigger.getAttribute('data-src');
+        const title = trigger.getAttribute('data-title');
+        if (src) {
+          modalImg.src = src;
+          modalCaption.textContent = title || '';
+          modal.classList.remove('hidden');
+          document.body.style.overflow = 'hidden';
+        }
+      });
+    });
+
+    modal.addEventListener('click', () => {
+      modal.classList.add('hidden');
+      document.body.style.overflow = 'auto';
+    });
+  }
+</script>

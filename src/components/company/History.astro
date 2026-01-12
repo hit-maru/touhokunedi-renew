@@ -1,0 +1,96 @@
+---
+// src/components/company/History.astro
+// 丸さん提示の全歴史情報を1文字も漏らさず定義
+const historyData = [
+  { ad: "1943", era: "昭和18年", month: "10月", content: "常磐炭田への資材供給を目的として『炭坑機器製作組合ボルト工場』をいわき市平字正月町49で創業。資本金80万円" },
+  { ad: "1950", era: "昭和25年", month: "9月", content: "株式会社に組織変更、社名を『東北ネヂ製造株式会社』とする。資本金300万円に増資" },
+  { ad: "1954", era: "昭和29年", month: "7月", content: "六角ボルトJIS表示許可" },
+  { ad: "1957", era: "昭和32年", month: "2月", content: "継目板ボルト、ナットJIS表示許可" },
+  { ad: "1960", era: "昭和35年", month: "9月", content: "資本金600万円に増資" },
+  { ad: "1971", era: "昭和46年", month: "4月", content: "資本金1,200万円に増資。東京営業所開設" },
+  { ad: "1971", era: "昭和46年", month: "5月", content: "仙台営業所開設" },
+  { ad: "1973", era: "昭和48年", month: "6月", content: "本社、工場、現在地に全面移転" },
+  { ad: "1974", era: "昭和49年", month: "4月", content: "レール用ネヂくぎ、JIS表示許可" },
+  { ad: "1974", era: "昭和49年", month: "9月", content: "資本金1,800万円に増資" },
+  { ad: "1975", era: "昭和50年", month: "4月", content: "郡山営業所開設" },
+  { ad: "1991", era: "平成3年", month: "6月", content: "郡山営業所、現在地に全面移転" },
+  { ad: "1995", era: "平成7年", month: "5月", content: "六角ボルト、JIS表示 8.8～12.9追加認可" },
+  { ad: "2002", era: "平成14年", month: "3月", content: "ISO9002認証取得" },
+  { ad: "2003", era: "平成15年", month: "9月", content: "ISO9001認証取得" },
+  { ad: "2004", era: "平成16年", month: "9月", content: "東京営業所、現在地に移転" },
+  { ad: "2009", era: "平成21年", month: "1月", content: "新JIS制度へ移行し、六角ボルトの認証範囲を変更" },
+  { ad: "2011", era: "平成23年", month: "3月", content: "震災後、3日間で操業を再開" },
+  { ad: "2011", era: "平成23年", month: "11月", content: "仙台営業所、現在地に移転" },
+  { ad: "2015", era: "平成27年", month: "3月", content: "がんばる中小企業300選 受賞" },
+  { ad: "2015", era: "平成27年", month: "8月", content: "ラジオ体操優良団体表彰 受賞" },
+  { ad: "2016", era: "平成28年", month: "8月", content: "いわき販売部 四倉出張所開設" },
+  { ad: "2017", era: "平成29年", month: "12月", content: "地域未来牽引企業に選出" },
+  { ad: "2020", era: "令和2年", month: "2月", content: "鉄道車両チーム発足" },
+  { ad: "2021", era: "令和3年", month: "2月", content: "第2工場増設" },
+  { ad: "2021", era: "令和3年", month: "8月", content: "仙台営業所、ラジオ広告が仙台広告賞金賞 受賞" },
+  { ad: "2021", era: "令和3年", month: "9月", content: "ISO9001鉄道車両チームを認証範囲拡大" },
+  { ad: "2022", era: "令和4年", month: "4月", content: "風力発電用ボルト経済産業省性能評価完了" },
+  { ad: "2022", era: "令和4年", month: "9月", content: "ISO14001／45001認証取得" },
+  { ad: "2023", era: "令和5年", month: "3月", content: "第9回ものづくり日本大賞 東北経済産業局長賞 受賞" },
+  { ad: "2024", era: "令和6年", month: "3月", content: "健康経営優良法人 2024 認定" },
+  { ad: "2024", era: "令和6年", month: "7月", content: "女性活躍推進法に基づく「えるぼし」企業認定（認定段階2）" },
+  { ad: "2024", era: "令和6年", month: "9月", content: "仙台営業所、ラジオ広告が仙台広告表彰 大賞受賞" },
+  { ad: "2024", era: "令和6年", month: "12月", content: "東京営業所、東京本社として移転" },
+  { ad: "2025", era: "令和7年", month: "1月", content: "福島県次世代育成支援「働く女性応援」「仕事と生活の調和」推進企業認定" },
+  { ad: "2025", era: "令和7年", month: "3月", content: "健康経営優良法人2025認定" }
+];
+---
+
+<section id="history" class="py-20 bg-white border-t border-gray-100">
+  <div class="container mx-auto px-6 max-w-5xl">
+    
+    <div class="mb-10 text-primary">
+      <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
+        <span class="w-1.5 h-6 bg-accent"></span>沿革
+      </h2>
+    </div>
+
+    {/* 表組み：スマホでの「事項部」の広さを確保 */}
+    <div class="bg-white overflow-hidden border border-gray-200 shadow-sm">
+      <table class="w-full border-collapse table-fixed md:table-auto">
+        <thead>
+          <tr class="bg-gray-50 border-b border-gray-200">
+            {/* 年：スマホ80px / PC140px */}
+            <th class="py-4 px-4 md:px-6 text-left font-mb101 text-[13px] text-primary w-[80px] md:w-[140px]">年</th>
+            {/* 月：スマホ60px / PC100px */}
+            <th class="py-4 px-2 md:px-6 text-left font-mb101 text-[13px] text-primary w-[60px] md:w-[100px]">月</th>
+            {/* 事項：残りの幅をすべて使用 */}
+            <th class="py-4 px-4 md:px-6 text-left font-mb101 text-[13px] text-primary">事項</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gray-100">
+          {historyData.map((item) => (
+            <tr class="hover:bg-gray-50/50 transition-colors">
+              {/* 年：西暦（EB Garamond 400 正体）/ 和暦（MB101） */}
+              <td class="py-4 px-4 md:px-6 align-top">
+                <div class="font-serif text-[18px] md:text-[20px] leading-none text-primary mb-1">
+                  {item.ad}
+                </div>
+                <div class="font-mb101 text-[9px] md:text-[10px] text-ink whitespace-nowrap">
+                  {item.era}
+                </div>
+              </td>
+              {/* 月：極力幅を詰め、かつ改行を禁止 */}
+              <td class="py-4 px-2 md:px-6 align-top">
+                <div class="font-mb101 text-[13px] md:text-[14px] text-ink whitespace-nowrap">
+                  {item.month}
+                </div>
+              </td>
+              {/* 事項：スマホでの可読性を最優先 */}
+              <td class="py-4 px-4 md:px-6 align-top">
+                <p class="font-mb101 text-[12px] md:text-[13px] leading-relaxed text-ink font-medium">
+                  {item.content}
+                </p>
+              </td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>

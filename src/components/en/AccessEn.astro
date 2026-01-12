@@ -1,0 +1,94 @@
+---
+// src/components/en/AccessEn.astro
+
+const locations = [
+  { 
+    label: "HQ", 
+    title: "Head Office & Factory", 
+    zip: "971-8184", 
+    addr: "59, Aza Jari, Kurosuno, Izumi-machi, Iwaki-shi, Fukushima, Japan",
+    tel: "+81-246-56-4751", 
+    fax: "+81-246-56-4575", 
+    color: "#008B9B",
+    mapQuery: "36.937629,140.841073(Tohoku Bolt Manufacturing HQ)", 
+    zoom: 17 
+  },
+  { 
+    label: "TOKYO", 
+    title: "Tokyo Head Office / Sales Dept.", 
+    zip: "110-0015", 
+    addr: "Aurum Bldg 4F, 1-26-2 Higashi-Ueno, Taito-ku, Tokyo, Japan", 
+    tel: "+81-3-6284-7130", 
+    fax: "+81-3-6284-7131", 
+    color: "#1A1A1A",
+    mapQuery: "35.708231,139.781235(Tohoku Bolt Manufacturing Tokyo Office)", 
+    zoom: 18
+  },
+  { 
+    label: "SENDAI", 
+    title: "Sendai Sales Dept.", 
+    zip: "983-0043", 
+    addr: "4-4-35 Hagino-machi, Miyagino-ku, Sendai-shi, Miyagi, Japan", 
+    tel: "+81-22-284-2675", 
+    fax: "+81-22-284-2655", 
+    color: "#455A64",
+    mapQuery: "38.259303,140.913807(Tohoku Bolt Manufacturing Sendai Office)", 
+    zoom: 17
+  },
+  { 
+    label: "KORIYAMA", 
+    title: "Koriyama Sales Office", 
+    zip: "963-0725", 
+    addr: "99-1 Aza Shinke, Kanaya, Tamura-machi, Koriyama-shi, Fukushima, Japan", 
+    tel: "+81-24-943-3311", 
+    fax: "+81-24-943-0222", 
+    color: "#37474F",
+    mapQuery: "37.372284,140.388677(Tohoku Bolt Manufacturing Koriyama Office)", 
+    zoom: 17
+  }
+];
+---
+
+<section id="locations" class="py-16 bg-gray-50 text-[#1A1A1A]">
+  <div class="container mx-auto px-6 max-w-5xl">
+    <div class="mb-10 text-[#008B9B]">
+      <h2 class="font-serif text-3xl font-bold flex items-center gap-4">
+        <span class="w-1.5 h-6 bg-[#E64A19]"></span>Locations
+      </h2>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {locations.map((loc) => (
+        <div class="bg-white p-6 shadow-sm border border-gray-100 flex flex-col h-full">
+          <div class="flex items-center gap-2 mb-4">
+            <span 
+              class="text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm"
+              style={`background-color: ${loc.color}; color: #FFFFFF !important;`}
+            >
+              {loc.label}
+            </span>
+            <h3 class="font-serif font-bold text-lg text-[#1A1A1A]">{loc.title}</h3>
+          </div>
+
+          <div class="text-[#1A1A1A] text-sm leading-relaxed mb-6">
+            <p class="font-bold">ZIP: {loc.zip}</p>
+            <p class="mb-2">{loc.addr}</p>
+            <div class="text-[11px] font-bold flex flex-wrap gap-x-4">
+              <span class="text-[#1A1A1A]">TEL: {loc.tel}</span>
+              <span class="text-[#1A1A1A]">FAX: {loc.fax}</span>
+            </div>
+          </div>
+
+          <div class="mt-auto aspect-video w-full bg-gray-100 border border-gray-200 overflow-hidden rounded-sm relative">
+           <iframe 
+            src={`https://maps.google.com/maps?q=${encodeURIComponent(loc.mapQuery)}&z=${loc.zoom || 14}&output=embed&hl=en&gl=us`}
+             class="absolute inset-0 w-full h-full border-0" 
+             allowfullscreen="" 
+             loading="lazy"
+           ></iframe>
+          </div>
+        </div>
+      ))}
+    </div>
+  </div>
+</section>
