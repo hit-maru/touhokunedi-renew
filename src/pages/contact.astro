@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="お問合せ">
   
-  {/* ヒーローエリア：規準統一 ＋ 下余白ツメ (pt-20 pb-8) */}
+  {/* ヒーローエリア */}
   <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
     <div class="container mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">お問合せ</h1>
@@ -16,7 +16,7 @@ import Layout from '../layouts/Layout.astro';
   <section class="pt-12 pb-24 bg-white">
     <div class="container mx-auto px-6 max-w-4xl">
       
-      {/* お電話（15pxの壁：本文は font-sans） */}
+      {/* お電話セクション */}
       <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
         <h2 class="text-2xl font-bold text-[#008B9B] mb-4 flex items-center gap-3 font-mb101">
           📞 <span class="pt-1">お電話でのお問合せ</span>
@@ -42,7 +42,26 @@ import Layout from '../layouts/Layout.astro';
         該当するボタンを選択してください。
       </p>
 
-      {/* 選択ボタン */}
+      {/* AIチャットボット誘導リンク（3連ボタン：デフォルト緑ベタ・文字白抜き） */}
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-4">
+        <a href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" target="_blank" class="group block py-6 bg-[#008B9B] border-2 border-[#008B9B] rounded-sm text-center hover:bg-white transition-all duration-300 shadow-sm">
+          <p class="text-white font-mb101 text-[16px] font-bold leading-tight group-hover:text-black transition-colors duration-300">
+            AIチャットボットに<br>聞いてみる
+          </p>
+        </a>
+        <a href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" target="_blank" class="group block py-6 bg-[#008B9B] border-2 border-[#008B9B] rounded-sm text-center hover:bg-white transition-all duration-300 shadow-sm">
+          <p class="text-white font-mb101 text-[16px] font-bold leading-tight group-hover:text-black transition-colors duration-300">
+            AIチャットボットに<br>聞いてみる
+          </p>
+        </a>
+        <a href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" target="_blank" class="group block py-6 bg-[#008B9B] border-2 border-[#008B9B] rounded-sm text-center hover:bg-white transition-all duration-300 shadow-sm">
+          <p class="text-white font-mb101 text-[16px] font-bold leading-tight group-hover:text-black transition-colors duration-300">
+            AIチャットボットに<br>聞いてみる
+          </p>
+        </a>
+      </div>
+
+      {/* カテゴリ選択ボタン */}
       <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-20">
         <a href="/contact-manufacture" class="block p-8 border-2 border-[#008B9B] rounded-sm text-center hover:bg-[#008B9B] hover:text-white transition-all group shadow-sm hover:shadow-lg">
           <div class="text-3xl mb-4">🏭</div>
@@ -75,6 +94,17 @@ import Layout from '../layouts/Layout.astro';
           上記以外のお問合せは、こちらのフォームをご利用ください。<br>
           通常、3営業日以内に担当者よりご連絡いたします。
         </p>
+
+        {/* AIチャットボット誘導ボタン（角丸の帯：デフォルト緑ベタ・文字白抜き） */}
+        <a 
+          href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" 
+          target="_blank" 
+          class="group block w-full py-4 mb-12 bg-[#008B9B] border-2 border-[#008B9B] rounded-full text-center hover:bg-white transition-all duration-300 shadow-sm"
+        >
+          <span class="text-white font-mb101 text-[16px] font-bold group-hover:text-black transition-colors duration-300">
+            AIチャットボットに聞いてみる
+          </span>
+        </a>
 
         <form action="https://formspree.io/f/mqeezbva" method="POST" class="space-y-8">
           <div>
