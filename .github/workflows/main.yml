@@ -6,6 +6,9 @@ on:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -20,9 +23,6 @@ jobs:
 
       - name: Build
         run: npm run build
-        env:
-          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
-          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
       - name: Deploy to Xserver
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
