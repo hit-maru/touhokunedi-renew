@@ -35,6 +35,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
