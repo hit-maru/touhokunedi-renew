@@ -6,6 +6,7 @@ on:
   push:                
     branches:
       - main          
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -37,11 +38,24 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
-          # 幽霊ファイル対策：ビルド成果物（dist）にないサーバー上のファイルを削除
+          # 幽霊ファイル対策
           dangerous-clean-slate: true
-          # 修正後のexclude設定
+          # 除外設定（縦棒形式が正解です！）
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/image/**
+            **/images/**
             **/images_backup/**
+            **/*.jpg
+            **/*.jpeg
+            **/*.png
+            **/*.gif
+            **/*.webp
+            **/*.svg
+            **/*.woff
+            **/*.woff2
+            **/*.ttf
+            **/*.eot
+            **/*.otf
