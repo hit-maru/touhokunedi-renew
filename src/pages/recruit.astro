@@ -5,8 +5,8 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="採用情報">
   
-  {/* ヒーローエリア：規準統一 */}
-  <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
+  {/* ヒーローエリア：id="top" を追加 */}
+  <div id="top" class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
     <div class="container mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">採用情報</h1>
       <p class="text-gray-500 font-serif tracking-wider uppercase">RECRUITMENT</p>
@@ -15,16 +15,41 @@ import Layout from '../layouts/Layout.astro';
 
   {/* スティッキーナビゲーション */}
   <div class="sticky top-20 bg-white/95 backdrop-blur-md z-40 border-b border-gray-100 shadow-sm">
-  <div class="container mx-auto px-6 py-3">
-    <nav class="flex flex-row justify-center gap-6 md:gap-12 text-[12px] md:text-[13px] font-bold text-gray-500 font-mb101">
-      <a href="#guidelines-new" class="hover:text-[#008B9B] transition-colors">新卒採用</a>
-      <a href="#guidelines-career" class="hover:text-[#008B9B] transition-colors">キャリア採用</a>
-      <a href="#voice" class="hover:text-[#008B9B] transition-colors">社員の声</a>
-      <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
-    </nav>
-  </div>
-</div>
+    <div class="container mx-auto px-6 py-3">
+      
+      {/* 📱 スマホ用：セレクトボックス型 */}
+      <div class="md:hidden relative">
+        <select 
+          onchange="window.location.hash = this.value"
+          class="w-full bg-white border border-[#008B9B]/30 text-[#008B9B] text-sm font-bold rounded-sm px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-[#008B9B] font-mb101"
+        >
+          <option value="#">メニュー：セクションを選択</option>
+          <option value="#top">信頼</option>  {/* ← 追加 */}
+          <option value="#guidelines-new">新卒採用</option>
+          <option value="#guidelines-career">キャリア採用</option>
+          <option value="#voice">社員の声</option>
+          <option value="#inquiry">お問合せ</option>
+        </select>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+          <svg class="w-4 h-4 text-[#008B9B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
 
+      {/* 💻 PC用：横並びメニュー */}
+      <nav class="hidden md:flex flex-row justify-center gap-10 lg:gap-12 text-[13px] font-bold text-gray-500 font-mb101">
+        <a href="#top" class="hover:text-[#008B9B] transition-colors">信頼</a> {/* ← 追加 */}
+        <a href="#guidelines-new" class="hover:text-[#008B9B] transition-colors">新卒採用</a>
+        <a href="#guidelines-career" class="hover:text-[#008B9B] transition-colors">キャリア採用</a>
+        <a href="#voice" class="hover:text-[#008B9B] transition-colors">社員の声</a>
+        <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
+      </nav>
+
+    </div>
+  </div>
+{/* コンポーネント呼び出しエリア：製造事業に倣い、一括でスクロール位置を調整 */}
+  <div class="[&>section]:scroll-mt-[140px]">
   {/* ※メインメッセージセクション：ねぢラボのスタイルを適用し、画像は30%縮小で文字下センターへ */}
   <section class="pt-12 pb-24 bg-white">
     <div class="container mx-auto px-6 relative z-10">
@@ -374,14 +399,17 @@ import Layout from '../layouts/Layout.astro';
         </div>
 
         <div class="text-center pt-8">
-          <button type="submit" class="bg-[#008B9B] text-white font-bold px-24 py-4 min-w-[320px] font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1">
-            内容を確認して送信する
-          </button>
-        </div>
+  <button 
+    type="submit" 
+    class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1"
+  >
+    内容を確認して送信する
+  </button>
+</div>
       </form>
     </div>
   </section>
-
+ </div>
 </Layout>
 
 <style>
