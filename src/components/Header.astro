@@ -31,7 +31,7 @@
        <span class="text-xs font-normal text-gray-400">/ EN</span>
       </a>
       
-      <a href="/contact" class="px-4 py-1.5 border border-gray-900 text-sm font-bold hover:bg-gray-900 hover:text-white transition-all uppercase font-serif tracking-widest">
+      <a href="/contact#ai-selection" class="px-4 py-1.5 border border-gray-900 text-sm font-bold hover:bg-gray-900 hover:text-white transition-all uppercase font-serif tracking-widest">
        AIお問合せ
       </a>
     </div>
@@ -60,7 +60,7 @@
       </ul>
 
       <div class="mt-auto pt-[10px] pb-12">
-        <a href="/contact" class="mobile-link block w-full bg-gray-900 text-white text-center py-4 font-bold rounded-sm uppercase font-serif tracking-widest">
+        <a href="/contact#ai-selection" class="mobile-link block w-full bg-gray-900 text-white text-center py-4 font-bold rounded-sm uppercase font-serif tracking-widest">
           AIお問合せ
         </a>
       </div>
@@ -71,7 +71,6 @@
 </header>
 
 <script>
-  // メニュー操作に必要な要素を取得
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuBackdrop = document.getElementById('menu-backdrop');
@@ -81,32 +80,23 @@
   const mobileLinks = document.querySelectorAll('.mobile-link');
 
   function toggleMenu() {
-    // メニュー本体のスライド切り替え
     mobileMenu?.classList.toggle('translate-x-full');
     mobileMenu?.classList.toggle('translate-x-0');
-
-    // 背景のオーバーレイの表示切り替え
     menuBackdrop?.classList.toggle('opacity-0');
     menuBackdrop?.classList.toggle('pointer-events-none');
     
-    // ハンバーガーアイコンのアニメーション（Xへの変化）
     line1?.classList.toggle('rotate-45');
     line1?.classList.toggle('translate-y-2');
     line2?.classList.toggle('opacity-0');
     line3?.classList.toggle('-rotate-45');
     line3?.classList.toggle('-translate-y-2');
-
-    // 背景固定の切り替え（メニュー開閉時に背面がスクロールしないように）
     document.body.classList.toggle('overflow-hidden');
   }
 
   if (menuBtn && mobileMenu && menuBackdrop) {
-    // ボタンクリック時のイベント
     menuBtn.addEventListener('click', toggleMenu);
-    // 背景部分クリック時にも閉じる
     menuBackdrop.addEventListener('click', toggleMenu);
 
-    // メニュー内のリンクをクリックしたら自動で閉じる
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
         if (!mobileMenu.classList.contains('translate-x-full')) {
