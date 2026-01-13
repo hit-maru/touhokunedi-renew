@@ -39,8 +39,9 @@ jobs:
           server-dir: /7plus1.jp/public_html/
           # 幽霊ファイル対策：ビルド成果物（dist）にないサーバー上のファイルを削除
           dangerous-clean-slate: true
-          # 除外設定：ここから画像系（images等）の記述を削除し、デプロイ対象に含めます
+          # 修正後のexclude設定
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
+            **/images_backup/**
