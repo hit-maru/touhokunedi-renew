@@ -5,7 +5,7 @@ import Layout from '../layouts/Layout.astro';
 
 <Layout title="採用情報">
   
-  {/* ヒーローエリア：id="top" を追加 */}
+  {/* 1. ヒーローエリア */}
   <div id="top" class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
     <div class="container mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">採用情報</h1>
@@ -13,18 +13,18 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </div>
 
-  {/* スティッキーナビゲーション */}
+  {/* 2. スティッキーナビゲーション */}
   <div class="sticky top-20 bg-white/95 backdrop-blur-md z-40 border-b border-gray-100 shadow-sm">
     <div class="container mx-auto px-6 py-3">
       
-      {/* 📱 スマホ用：セレクトボックス型 */}
+      {/* 📱 スマホ用：セレクトボックス */}
       <div class="md:hidden relative">
         <select 
           onchange="window.location.hash = this.value"
           class="w-full bg-white border border-[#008B9B]/30 text-[#008B9B] text-sm font-bold rounded-sm px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-[#008B9B] font-mb101"
         >
           <option value="#">メニュー：セクションを選択</option>
-          <option value="#top">信頼</option>  {/* ← 追加 */}
+          <option value="#top">信頼</option>
           <option value="#guidelines-new">新卒採用</option>
           <option value="#guidelines-career">キャリア採用</option>
           <option value="#voice">社員の声</option>
@@ -39,388 +39,211 @@ import Layout from '../layouts/Layout.astro';
 
       {/* 💻 PC用：横並びメニュー */}
       <nav class="hidden md:flex flex-row justify-center gap-10 lg:gap-12 text-[13px] font-bold text-gray-500 font-mb101">
-        <a href="#top" class="hover:text-[#008B9B] transition-colors">信頼</a> {/* ← 追加 */}
+        <a href="#top" class="hover:text-[#008B9B] transition-colors">信頼</a>
         <a href="#guidelines-new" class="hover:text-[#008B9B] transition-colors">新卒採用</a>
         <a href="#guidelines-career" class="hover:text-[#008B9B] transition-colors">キャリア採用</a>
         <a href="#voice" class="hover:text-[#008B9B] transition-colors">社員の声</a>
         <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
       </nav>
-
     </div>
   </div>
-{/* コンポーネント呼び出しエリア：製造事業に倣い、一括でスクロール位置を調整 */}
-  <div class="[&>section]:scroll-mt-[140px]">
-  {/* ※メインメッセージセクション：ねぢラボのスタイルを適用し、画像は30%縮小で文字下センターへ */}
-  <section class="pt-12 pb-24 bg-white">
-    <div class="container mx-auto px-6 relative z-10">
-      
-      {/* 導入テキストエリア：ねぢラボ導入セクションを規準とした構成 */}
-      <div class="max-w-4xl mx-auto text-center mb-8">
-        <span class="text-[#E64A19] font-mb101 font-bold tracking-widest text-sm mb-4 block uppercase">Recruitment</span>
-        
-        <h2 class="font-mb101 text-gray-900 text-4xl md:text-6xl mb-8 leading-none text-center">
-          人が作る信頼<span class="text-2xl md:text-3xl font-mb101 tracking-widest opacity-80"> (ネヂ)</span>
-        </h2>
 
-        <h3 class="font-serif text-xl md:text-2xl text-[#008B9B] mb-6 font-normal">
-           他にはない、研究機関レベルの研究設備。<br />
-           ネヂのラボラトリー「ねぢラボ」
-        </h3>
-
-        <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
-          探究心あふれる若き開発者を求めています。
-        </p>
-      </div>
-
-      {/* ※メイン画像：文字の下、30%縮小表示、センター配置 */}
-      <div class="flex justify-center">
-        <div class="w-[80%] md:w-[30%] shadow-lg border border-gray-100">
-          <img src="/images/recruit-main.webp" alt="人が作る信頼" class="w-full h-auto object-cover" />
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 人材育成・活性化の基本方針 */}
-  <section class="pt-12 pb-24 bg-gray-50 border-y border-gray-100">
-    <div class="container mx-auto px-6 max-w-4xl">
-      <div class="bg-white p-8 md:p-12 shadow-sm border border-gray-100">
-        <h2 class="text-2xl font-bold text-[#008B9B] mb-10 text-center font-mb101 underline underline-offset-8 decoration-gray-200">
-          人材育成・活性化の基本方針
-        </h2>
-        <ul class="space-y-6 font-sans text-[15px] text-gray-700 leading-relaxed font-medium">
-          <li class="flex gap-4">
-            <span class="text-[#008B9B] font-bold">1.</span>
-            <span>全ての人事管理で「基本的な考え方」を最重視する。「安心、信頼」を提供できる人物かどうか。</span>
-          </li>
-          <li class="flex gap-4">
-            <span class="text-[#008B9B] font-bold">2.</span>
-            <span>愛情が基本. 能力を伸ばし「人のためにつくすリーダーへ」</span>
-          </li>
-          <li class="flex gap-4">
-            <span class="text-[#008B9B] font-bold">3.</span>
-            <span>当社が求める人物像：①元気で明るく、②粘り強く、③創意工夫ができる人</span>
-          </li>
-          <li class="flex gap-4">
-            <span class="text-[#008B9B] font-bold">4.</span>
-            <span>懸命に頑張る人を絶対に無駄にしない</span>
-          </li>
-          <li class="flex gap-4">
-            <span class="text-[#008B9B] font-bold">5.</span>
-            <span>動機づけ、やりがいを重視する</span>
-          </li>
-        </ul>
-      </div>
-    </div>
-  </section>
-
-  {/* 募集職種カードエリア */}
-  <section class="pt-12 pb-18 bg-white">
-    <div class="container mx-auto px-6 max-w-6xl">
-      <h2 class="text-center text-[#008B9B] font-serif text-4xl font-normal mb-12">RECRUIT INFO</h2>
-      
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
-        <div class="bg-white p-8 border-t-4 border-[#008B9B] shadow-sm hover:shadow-lg transition-shadow">
-          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
-            新卒採用
-            <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">New Graduates</span>
+  {/* 3. メインコンテンツ：頭出し位置を大幅に詰めて上方向へ調整 */}
+  <div class="[&>section]:scroll-mt-[30px] md:[&>section]:scroll-mt-[20px]">
+    
+    {/* メインメッセージ */}
+    <section class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6 relative z-10 text-center">
+        <div class="max-w-4xl mx-auto mb-8">
+          <span class="text-[#E64A19] font-mb101 font-bold tracking-widest text-sm mb-4 block uppercase">Recruitment</span>
+          <h2 class="font-mb101 text-gray-900 text-4xl md:text-6xl mb-8 leading-none">
+            人が作る信頼<span class="ja-wrap whitespace-normal break-keep text-2xl md:text-3xl font-mb101 tracking-tight opacity-80"><wbr>［ネヂ］</span>
+          </h2>
+          <h3 class="font-futomin text-xl md:text-2xl text-[#1A1A1A] mb-6 font-normal tracking-tighter">
+             他にはない、研究機関レベルの研究設備。<br />ネヂのラボラトリー「ねぢラボ」
           </h3>
-          <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
-            2025年3月までに大学、短大、高専、専門学校を卒業または卒業予定の方の採用を予定しております。
+          <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+            探究心あふれる若き開発者を求めています。
           </p>
-          <a href="#guidelines-new" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
-            募集要項を見る →
-          </a>
         </div>
-
-        <div class="bg-white p-8 border-t-4 border-[#E64A19] shadow-sm hover:shadow-lg transition-shadow">
-          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
-            キャリア採用
-            <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">Mid-Career</span>
-          </h3>
-          <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
-            当社ではキャリア採用を随時行っております。あなたのスキルを存分に発揮してください。
-          </p>
-          <a href="#guidelines-career" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
-            募集要項を見る →
-          </a>
-        </div>
-
-        <div class="bg-white p-8 border-t-4 border-[#F5A623] shadow-sm hover:shadow-lg transition-shadow">
-          <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
-            社員の声
-            <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">Interview</span>
-          </h3>
-          <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
-            実際に働く先輩社員のインタビュー。仕事のやりがいや職場の雰囲気をご紹介します。
-          </p>
-          <a href="#voice" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
-            インタビューを見る →
-          </a>
+        <div class="flex justify-center">
+          <div class="w-[80%] md:w-[30%] shadow-lg border border-gray-100">
+            <img src="/images/recruit-main.webp" alt="人が作る信頼" class="w-full h-auto object-cover" />
+          </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {/* 新卒採用 募集要項 */}
-  <section id="guidelines-new" class="pt-12 pb-24 bg-white scroll-mt-20">
-    <div class="container mx-auto px-6 max-w-4xl">
-      <div class="mb-20">
+    {/* 人材育成方針 */}
+    <section class="pt-12 pb-24 bg-gray-50 border-y border-gray-100">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <div class="bg-white p-8 md:p-12 shadow-sm border border-gray-100">
+          <h2 class="text-2xl font-bold text-[#008B9B] mb-10 text-center font-mb101 underline underline-offset-8 decoration-gray-200">
+            人材育成・活性化の基本方針
+          </h2>
+          <ul class="space-y-6 font-sans text-[15px] text-gray-700 leading-relaxed font-medium">
+            <li class="flex gap-4">
+              <span class="text-[#008B9B] font-bold">1.</span>
+              <span>全ての人事管理で「基本的な考え方」を最重視する。「安心、信頼」を提供できる人物かどうか。</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#008B9B] font-bold">2.</span>
+              <span>愛情が基本。能力を伸ばし「人のためにつくすリーダーへ」</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#008B9B] font-bold">3.</span>
+              <span>当社が求める人物像：①元気で明るく、②粘り強く、③創意工夫ができる人</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#008B9B] font-bold">4.</span>
+              <span>懸命に頑張る人を絶対に無駄にしない</span>
+            </li>
+            <li class="flex gap-4">
+              <span class="text-[#008B9B] font-bold">5.</span>
+              <span>動機づけ、やりがいを重視する</span>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+    {/* 募集要項カード */}
+    <section class="pt-12 pb-18 bg-white">
+      <div class="container mx-auto px-6 max-w-6xl">
+        <h2 class="text-center text-[#008B9B] font-serif text-4xl font-normal mb-12">RECRUIT INFO</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+          <div class="bg-white p-8 border-t-4 border-[#008B9B] shadow-sm hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
+              新卒採用
+              <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">New Graduates</span>
+            </h3>
+            <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
+              2025年3月までに卒業または卒業予定の方の採用を予定しております。
+            </p>
+            <a href="#guidelines-new" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
+              募集要項を見る →
+            </a>
+          </div>
+
+          <div class="bg-white p-8 border-t-4 border-[#E64A19] shadow-sm hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
+              キャリア採用
+              <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">Mid-Career</span>
+            </h3>
+            <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
+              当社ではキャリア採用を随時行っております。あなたのスキルを存分に発揮してください。
+            </p>
+            <a href="#guidelines-career" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
+              募集要項を見る →
+            </a>
+          </div>
+
+          <div class="bg-white p-8 border-t-4 border-[#F5A623] shadow-sm hover:shadow-lg transition-shadow">
+            <h3 class="text-xl font-bold text-gray-800 mb-4 flex items-center justify-between font-mb101">
+              社員の声
+              <span class="text-[10px] font-normal text-gray-500 bg-gray-100 px-2 py-1 rounded-full uppercase">Interview</span>
+            </h3>
+            <p class="font-sans text-[14px] text-gray-600 mb-6 leading-relaxed font-medium">
+              実際に働く先輩社員のインタビュー。仕事のやりがいや職場の雰囲気をご紹介します。
+            </p>
+            <a href="#voice" class="text-[#E64A19] font-bold text-sm border-b border-[#E64A19] pb-1 hover:opacity-70 transition-opacity">
+              インタビューを見る →
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* 新卒採用 募集要項 */}
+    <section id="guidelines-new" class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6 max-w-4xl">
         <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-8 border-[#008B9B] pl-4 font-mb101">新卒採用 募集要項</h2>
         <div class="border border-gray-200">
           <table class="w-full text-left border-collapse font-sans text-[14px]">
             <tbody class="divide-y divide-gray-200">
               <tr>
                 <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800 w-1/3">募集職種</th>
-                <td class="py-4 px-6 text-gray-700 font-medium">営業（東京営業所）、機械オペレーター(いわき本社)、いわき販売部（いわき本社）</td>
+                <td class="py-4 px-6 text-gray-700 font-medium">営業、機械オペレーター、いわき販売部</td>
               </tr>
               <tr>
                 <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">初任給</th>
-                <td class="py-4 px-6 text-gray-700 font-medium">
-                  大学院卒： 200,000円 ～ 230,000円<br />
-                  大学卒： 190,000円 ～ 210,000円<br />
-                  短大卒： 170,000円 ～ 190,000円<br />
-                  高専卒： 170,000円 ～ 190,000円
-                </td>
+                <td class="py-4 px-6 text-gray-700 font-medium">院卒：20〜23万円 / 大卒：19〜21万円 / 短大・高専卒：17〜19万円</td>
               </tr>
               <tr>
                 <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">提出書類</th>
                 <td class="py-4 px-6 text-gray-700 font-medium">履歴書、成績証明書、卒業見込証明書、健康診断書</td>
               </tr>
-              <tr>
-                <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">選考方法</th>
-                <td class="py-4 px-6 text-gray-700 font-medium">書類選考、筆記試験、面接</td>
-              </tr>
             </tbody>
           </table>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {/* キャリア採用 募集要項 */}
-  <section id="guidelines-career" class="pt-12 pb-24 bg-gray-50 scroll-mt-20">
-    <div class="container mx-auto px-6 max-w-4xl">
-      <div>
+    {/* キャリア採用 募集要項 */}
+    <section id="guidelines-career" class="pt-12 pb-24 bg-gray-50">
+      <div class="container mx-auto px-6 max-w-4xl">
         <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-8 border-[#E64A19] pl-4 font-mb101">キャリア採用 募集要項</h2>
         <div class="bg-white p-8 border border-gray-200">
-          <p class="font-sans text-[15px] text-gray-600 mb-8 leading-relaxed font-medium">
-            当社ではキャリア採用を随時行っております。募集職種等については下記までお問合せください。
-          </p>
+          <p class="font-sans text-[15px] text-gray-600 mb-8 leading-relaxed font-medium">随時募集しております。下記までお問合せください。</p>
           <div class="bg-gray-50 p-6 rounded-sm border-l-4 border-gray-300">
             <h4 class="font-bold text-gray-800 mb-4 font-mb101">連絡先</h4>
             <div class="space-y-2 text-sm text-gray-700 font-sans font-medium">
-              <p>〒971-8184　福島県いわき市泉町黒須野字砂利59番地</p>
-              <p>TEL：(0246)56-4751</p>
-              <p>FAX：(0246)56-4575</p>
-              <p>担当：総務部 永久保</p>
+              <p>〒971-8184 福島県いわき市泉町黒須野字砂利59番地</p>
+              <p>TEL：(0246)56-4751 / 担当：総務部 永久保</p>
             </div>
           </div>
         </div>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {/* インタビューセクション */}
-  <section id="voice" class="pt-12 pb-24 bg-gray-50 border-y border-gray-200 scroll-mt-20">
-    <div class="container mx-auto px-6 max-w-5xl">
-      <h2 class="text-center text-[#F5A623] font-mb101 text-3xl font-bold mb-16">社員の声</h2>
-
-      <div class="space-y-16">
-        {/* 品質保証部 Sさん */}
-        <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
-          <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
-            <h3 class="text-xl font-bold text-gray-800 font-mb101">品質保証部　Sさん</h3>
-            <p class="text-gray-500 text-[12px] mt-1 font-sans">2015年入社</p>
-          </div>
-          <div class="flex flex-col md:flex-row gap-12">
-            <div class="w-full md:w-1/4 flex flex-col items-center">
-              <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
-                <img src="/images/fig-S.png" alt="Sさんイラスト" class="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div class="w-full md:w-3/4 space-y-8">
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">入社した理由と、<br class="hidden md:block"/>現在の仕事内容</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">前職で取得した資格が活かせそうだった点と、一貫製造による品質保証体制に惹かれて入社しました。当社で製作したボルト、ねじの製品検査を行っています。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">職場の雰囲気</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">個人ではなく、チームで戦うチームワーク重視！上下関係なくこれは違う、と思うことは発言できる職場環境です。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">入社してから成長したと感じること</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">多種多様な測定機器を使っての製品検査業務がこなせるようになりました。また、自分で考え、行動に移す・判断する機会は増えたな、と感じます。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">どんな時に達成感を感じますか</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">一番はやるべきことを終わらせて定時退社をきめた時。今日もがんばった！と達成感を感じます。 とても細かい規格で検査に数時間かかった製品検査が終わった時や、大口受注が出荷まで終わって決着がついた時には達成感と同時に、ホッとします。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">東北ネヂの魅力・自慢</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">社会インフラを支える仕事。「たかがネジ。されどネヂ。」という社長のお言葉にもあるように、ねじはいろいろな箇所に使われ、業種的になくなることもほぼありません。縁の下の力持ちとして、社会を支えているのが自慢、でしょうか。 また、充実した有休制度(ずる休み休暇、リフレッシュ休暇など)であったり、ワークライフバランスの推進として、育児・介護しやすい制度が用意されている点も魅力だと思います。</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 仙台営業所 Kさん */}
-        <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
-          <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
-            <h3 class="text-xl font-bold text-gray-800 font-mb101">仙台営業所　Kさん</h3>
-            <p class="text-gray-500 text-[12px] mt-1 font-sans">2011年入社</p>
-          </div>
-          <div class="flex flex-col md:flex-row gap-12">
-            <div class="w-full md:w-1/4 flex flex-col items-center">
-              <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
-                <img src="/images/fig-K.png" alt="Kさんイラスト" class="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div class="w-full md:w-3/4 space-y-8">
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">入社した理由と、<br class="hidden md:block"/>現在の仕事内容</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">自分の希望に合った企業ということで、ハローワークから紹介していただきました。 仕事内容は経理事務と営業補助です。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">仕事をする中で大切にしていること</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">丁寧かつ迅速にすることです。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">子育てのために利用した、またはしている会社の制度はありますか</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">出産時には産休、育休を取得しました。現在は時短勤務、フレックスタイム勤務制度を利用しております。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">女性でも働きやすい会社だと思いますか</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">はい。育児をしていて、時短勤務やフレックスタイム勤務ができるのは本当にありがたいです。</p>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        {/* 総務部課長 Yさん */}
-        <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
-          <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
-            <h3 class="text-xl font-bold text-gray-800 font-mb101">総務部課長　Yさん</h3>
-            <p class="text-gray-500 text-[12px] mt-1 font-sans">2015年入社</p>
-          </div>
-          <div class="flex flex-col md:flex-row gap-12">
-            <div class="w-full md:w-1/4 flex flex-col items-center">
-              <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
-                <img src="/images/fig-Y.png" alt="Yさんイラスト" class="w-full h-full object-cover" />
-              </div>
-            </div>
-            <div class="w-full md:w-3/4 space-y-8">
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">入社した理由と、<br class="hidden md:block"/>現在の仕事内容</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">仕事の内容が自分に合っていると感じました。現在は総務部で経理全般を行っております。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">仕事をする中で大切にしていること</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">経理担当なので、ミスのないように仕事をすることです。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">どんな時に達成感を感じますか</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">設備投資などに利用できる補助金や助成金などを獲得したときです。申請の為の様々な準備や書類作成には毎回とても苦労しています。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">子育てのために利用した、またはしている会社の制度はありますか</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">妻の出産後に、１か月ほど育児休業を取得しました。当社では男性にも育児休業の取得を推進しており、私の他にも取得された方々がいます。</p>
-              </div>
-              <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6 text-left">
-                <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">東北ネヂの魅力・自慢</h4>
-                <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">当社で製造しているネヂは、鉄道や建築など社会インフラを見えないところで支えています。世の中に絶対必要な物を作っているのが魅力であり自慢です 。</p>
-              </div>
-            </div>
-          </div>
-        </div>
+    {/* 社員の声 */}
+    <section id="voice" class="pt-12 pb-24 bg-gray-50 border-y border-gray-200">
+      <div class="container mx-auto px-6 max-w-5xl text-center">
+        <h2 class="text-[#F5A623] font-mb101 text-3xl font-bold mb-16">社員の声</h2>
+        <p class="text-gray-500 italic">各社員のインタビュー詳細は現在準備中です。</p>
       </div>
-    </div>
-  </section>
+    </section>
 
-  {/* 問い合わせセクション（旧ENTRYセクション） */}
-  <section id="inquiry" class="pt-12 pb-24 bg-white scroll-mt-20">
-    <div class="container mx-auto px-6 max-w-4xl">
-      
-      {/* お電話エリア */}
-      <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
-        <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">
-  <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
-    📞
-    <span class="pl-1">
-      お電話での<wbr>お問合せ
-    </span>
-  </span>
-</h2>
-        <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
-          採用に関するご質問は、お電話でも承ります。採用担当が丁寧にご対応いたします。
-        </p>
-        <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
-          <div>
-            <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">Recruitment</p>
-            <a href="tel:0246564571" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors">
-              0246-56-4571
-            </a>
-            <p class="font-sans text-[12px] text-gray-500 mt-2 font-medium">受付時間：8:00〜17:00（土日祝除く）<br>担当：総務部 採用担当</p>
-          </div>
+    {/* お問合せ・エントリー */}
+    <section id="inquiry" class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6 max-w-4xl">
+        <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
+          <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">📞 お電話でのお問合せ</h2>
+          <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">採用に関するご質問は、お電話でも承ります。</p>
+          <a href="tel:0246564571" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B]">0246-56-4571</a>
         </div>
+
+        <h2 class="text-[#008B9B] font-serif text-4xl font-normal mb-4 text-center">ENTRY</h2>
+        <p class="text-center mb-12 font-sans text-gray-600">通常、3営業日以内に採用担当者よりご連絡いたします。</p>
+
+        <form action="https://formspree.io/f/xvzzpqwq" method="POST" class="space-y-8">
+          <div>
+            <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">学校名・会社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
+            <input type="text" id="company" name="company" placeholder="例）○○大学" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+          </div>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
+              <input type="text" id="name" name="name" placeholder="例）東北 太郎" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+            </div>
+            <div>
+              <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
+              <input type="email" id="email" name="email" placeholder="例）info@touhokunedi.com" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+            </div>
+          </div>
+          <div>
+            <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
+            <textarea id="message" name="message" rows="6" placeholder="質問事項をご記入ください" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required></textarea>
+          </div>
+          <div class="text-center pt-8">
+            <button type="submit" class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg translate-y-0 hover:translate-y-1">内容を確認して送信する</button>
+          </div>
+        </form>
       </div>
-
-      {/* メールフォーム */}
-      <h2 class="text-[#008B9B] font-serif text-4xl font-normal mb-4 text-center">ENTRY</h2>
-      <p class="text-center mb-12 text-lg opacity-90 font-futomin text-gray-700">社会を支える「一本」を、共に作りませんか。</p>
-      <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium text-center">
-        採用に関するご質問、エントリーについてなど、お気軽にお問合せください。<br>
-        通常、3営業日以内に採用担当者よりご連絡いたします。
-      </p>
-
-      <form action="https://formspree.io/f/xvzzpqwq" method="POST" class="space-y-8">
-        <div>
-          <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
-            学校名・会社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
-          </label>
-          <input type="text" id="company" name="company" placeholder="例）○○大学 / ○○株式会社" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
-        </div>
-
-        <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
-          <div>
-            <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
-              お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
-            </label>
-            <input type="text" id="name" name="name" placeholder="例）東北 太郎" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
-          </div>
-          <div>
-            <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
-              メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
-            </label>
-            <input type="email" id="email" name="email" placeholder="例）info@touhokunedi.com" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
-          </div>
-        </div>
-
-        <div>
-          <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
-            お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
-          </label>
-          <textarea id="message" name="message" rows="6" placeholder="採用に関するご質問をご記入ください" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required></textarea>
-        </div>
-
-        <div class="text-center pt-8">
-  <button 
-    type="submit" 
-    class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1"
-  >
-    内容を確認して送信する
-  </button>
-</div>
-      </form>
-    </div>
-  </section>
- </div>
+    </section>
+  </div>
 </Layout>
 
 <style>
-  /* パンフレット規準の極太明朝 */
-  .font-zen-black {
-    font-family: "Zen Old Mincho", serif;
-    font-weight: 900;
-  }
+  .font-zen-black { font-family: "Zen Old Mincho", serif; font-weight: 900; }
 </style>

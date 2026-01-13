@@ -132,4 +132,102 @@ import Labo from '../components/manufacture/Labo.astro';
     </section>
   </div>
 
+  <div id="lightbox-overlay" class="fixed inset-0 bg-black/95 z-[100] hidden flex items-center justify-center overflow-hidden">
+    <button id="lightbox-close" class="absolute top-6 right-6 w-12 h-12 bg-white text-gray-900 rounded-full flex items-center justify-center text-3xl font-bold z-[110] shadow-lg hover:bg-gray-200 transition-colors" aria-label="閉じる">
+      &times;
+    </button>
+    
+    <div id="lightbox-container" class="w-full h-full flex items-center justify-center">
+      <img id="lightbox-img" src="" alt="拡大画像" class="select-none transition-all duration-300" />
+    </div>
+  </div>
+
+  <style is:global>
+    /* 90度回転モード */
+    .mode-rotate { max-width: none !important; }
+    @media (max-width: 768px) {
+      .mode-rotate { transform: rotate(90deg); width: 95vh; }
+    }
+    /* ドラッグ移動モード */
+    .mode-move { cursor: grab; transform: scale(1.5); will-change: transform; }
+    .mode-move:active { cursor: grabbing; }
+  </style>
+
+  <script>
+    const overlay = document.getElementById('lightbox-overlay');
+    const container = document.getElementById('lightbox-container');
+    const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
+    const closeBtn = document.getElementById('lightbox-close');
+
+    let isDragging = false;
+    let startX = 0, startY = 0;
+    let translateX = 0, translateY = 0;
+    let currentMode = '';
+
+    const allImages = document.querySelectorAll('.js-rotate, .js-move');
+
+    allImages.forEach(img => {
+      img.addEventListener('click', () => {
+        const target = img as HTMLImageElement;
+        if (!lightboxImg || !overlay) return;
+
+        lightboxImg.src = target.src;
+        overlay.classList.remove('hidden');
+        document.body.style.overflow = 'hidden';
+
+        translateX = 0; translateY = 0;
+        lightboxImg.classList.remove('mode-rotate', 'mode-move');
+
+        if (target.classList.contains('js-rotate')) {
+          currentMode = 'rotate';
+          lightboxImg.classList.add('mode-rotate');
+          lightboxImg.style.transform = ''; 
+        } else {
+          currentMode = 'move';
+          lightboxImg.classList.add('mode-move');
+          updateMoveTransform();
+        }
+      });
+    });
+
+    closeBtn?.addEventListener('click', () => {
+      overlay?.classList.add('hidden');
+      document.body.style.overflow = '';
+    });
+
+    const startDrag = (e: any) => {
+      if (currentMode !== 'move') return;
+      isDragging = true;
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      startX = clientX - translateX;
+      startY = clientY - translateY;
+    };
+
+    const moveDrag = (e: any) => {
+      if (!isDragging || currentMode !== 'move') return;
+      if (e.cancelable) e.preventDefault();
+      const clientX = e.touches ? e.touches[0].clientX : e.clientX;
+      const clientY = e.touches ? e.touches[0].clientY : e.clientY;
+      translateX = clientX - startX;
+      translateY = clientY - startY;
+      updateMoveTransform();
+    };
+
+    const stopDrag = () => { isDragging = false; };
+
+    function updateMoveTransform() {
+      if (lightboxImg) {
+        lightboxImg.style.transform = `translate(${translateX}px, ${translateY}px) scale(1.5)`;
+      }
+    }
+
+    container?.addEventListener('mousedown', startDrag);
+    window.addEventListener('mousemove', moveDrag);
+    window.addEventListener('mouseup', stopDrag);
+    container?.addEventListener('touchstart', startDrag, { passive: false });
+    window.addEventListener('touchmove', moveDrag, { passive: false });
+    window.addEventListener('touchend', stopDrag);
+  </script>
+
 </Layout>

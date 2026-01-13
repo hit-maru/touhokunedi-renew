@@ -3,7 +3,7 @@ import Layout from '../../layouts/Layout.astro';
 import { getNews, getNewsDetail } from '../../lib/microcms';
 import { format } from 'date-fns';
 
-// 1. 静的書き出しのパスを設定（必須！）
+// 1. 静的書き出しのパスを設定
 export async function getStaticPaths() {
   const response = await getNews({ fields: ["id"] });
   return response.contents.map((content) => ({
@@ -14,7 +14,6 @@ export async function getStaticPaths() {
 const { id } = Astro.params;
 
 // 2. 記事詳細データを取得
-// 変数名を 'news' に統一して、下のHTMLと合わせます
 const news = await getNewsDetail(id as string);
 
 // IDがない、または記事が見つからない場合は一覧へ戻す
@@ -37,6 +36,7 @@ if (!id || !news) {
 
   <article class="py-16 bg-white">
     <div class="container mx-auto px-6 max-w-3xl">
+      
       <div class="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
         <time datetime={news.publishedAt} class="text-gray-400 font-serif text-sm">
           {format(new Date(news.publishedAt), 'yyyy年MM月dd日')}
@@ -48,7 +48,7 @@ if (!id || !news) {
         )}
       </div>
 
-      <h1 class="text-3xl md:text-4xl font-bold text-gray-900 mb-12 leading-relaxed font-mincho">
+      <h1 class="text-2xl md:text-3xl font-bold text-gray-900 mb-10 leading-relaxed font-mincho tracking-tight">
         {news.title}
       </h1>
 
@@ -60,7 +60,7 @@ if (!id || !news) {
 
       {/* microCMSのリッチエディタ内容を表示 */}
       <div 
-        class="post-content prose prose-lg max-w-none font-sans leading-relaxed text-gray-700"
+        class="post-content prose prose-lg max-w-none font-sans text-gray-700"
         set:html={news.content}
       />
     </div>
@@ -68,7 +68,7 @@ if (!id || !news) {
 </Layout>
 
 <style is:global>
-  /* 記事内の装飾（必要に応じて） */
+  /* 1. 記事内の基本装飾 */
   .post-content h2 {
     font-size: 1.5rem;
     font-weight: bold;
@@ -78,7 +78,77 @@ if (!id || !news) {
     border-left: 4px solid #008B9B;
     padding-left: 1rem;
   }
+
+  /* 本文（段落）の行間：スマホ 1.8 / PC 1.8 */
   .post-content p {
     margin-bottom: 1.5rem;
+    line-height: 1.8;
+  }
+
+  @media (min-width: 768px) {
+    .post-content p {
+      line-height: 1.8;
+    }
+  }
+
+  /* 2. 表組み（テーブル）の体裁カスタマイズ */
+  .prose table {
+    display: table !important;
+    width: 100% !important;
+    border-collapse: collapse !important;
+    font-size: 75% !important;
+    margin-bottom: 2rem !important;
+    table-layout: auto !important;
+  }
+
+  /* ★1行目のタイトル部（th）の設定を強化★ */
+  .prose table th,
+  .prose table b,
+  .prose table strong {
+    font-size: 75% !important;
+    font-weight: bold !important;
+    background-color: #f9f9f9;
+    /* 天地左右中央揃えを追加 */
+    text-align: center !important; /* 左右中央 */
+    vertical-align: middle !important; /* 天地中央 */
+  }
+
+  .prose table td, .prose table th {
+    border: 1px solid #e2e8f0 !important;
+    padding: 10px 8px !important; /* 少しだけ上下パディングを広げました */
+    line-height: 1.4 !important;
+  }
+
+  /* 3. 画像や動画の横漏れを物理的に防ぐ */
+  .prose img {
+    max-width: 100% !important;
+    height: auto !important;
+    display: block !important;
+    margin: 2rem auto !important;
+  }
+
+  /* 4. スマホでの横揺れ・余白を完全に封印 */
+  .prose {
+    max-width: 100% !important;
+    overflow-wrap: break-word !important;
+    word-break: break-word !important;
+  }
+
+  body {
+    overflow-x: hidden !important;
+    position: relative !important;
+    width: 100% !important;
+  }
+
+  /* スマホでのスクロール保険 */
+  @media (max-width: 640px) {
+    .post-content {
+      overflow-x: hidden !important;
+    }
+    .prose table {
+      display: block !important;
+      overflow-x: auto !important;
+      -webkit-overflow-scrolling: touch !important;
+    }
   }
 </style>
