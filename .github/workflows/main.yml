@@ -37,21 +37,10 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
+          # 幽霊ファイル対策：ビルド成果物（dist）にないサーバー上のファイルを削除
           dangerous-clean-slate: true
+          # 除外設定：ここから画像系（images等）の記述を削除し、デプロイ対象に含めます
           exclude: |
             **/.git*
             **/.git*/**
             **/node_modules/**
-            **/image/**
-            **/images/**
-            **/*.jpg
-            **/*.jpeg
-            **/*.png
-            **/*.gif
-            **/*.webp
-            **/*.svg
-            **/*.woff
-            **/*.woff2
-            **/*.ttf
-            **/*.eot
-            **/*.otf
