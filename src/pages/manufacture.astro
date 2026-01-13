@@ -20,18 +20,41 @@ import Labo from '../components/manufacture/Labo.astro';
   {/* スティッキーナビゲーション */}
   <div class="sticky top-20 bg-white/95 backdrop-blur-md z-40 border-b border-gray-100 shadow-sm">
     <div class="container mx-auto px-6 py-3">
-      <nav class="flex flex-row justify-center gap-6 md:gap-10 text-[12px] md:text-[13px] font-bold text-gray-500 font-mb101">
+      
+      {/* 📱 スマホ用：セレクトボックス型 (md:hidden) */}
+      <div class="md:hidden relative">
+        <select 
+          onchange="window.location.hash = this.value"
+          class="w-full bg-white border border-[#008B9B]/30 text-[#008B9B] text-sm font-bold rounded-sm px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-[#008B9B] font-mb101"
+        >
+          <option value="#">メニュー：セクションを選択</option>
+          <option value="#process">一貫製造体制</option>
+          <option value="#capability">製品紹介</option>
+          <option value="#equipment">主要設備</option>
+          <option value="#labo">ねぢラボ</option>
+          <option value="#inquiry">お問合せ</option>
+        </select>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+          <svg class="w-4 h-4 text-[#008B9B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      {/* 💻 PC用：横並びメニュー (hidden md:flex) */}
+      <nav class="hidden md:flex flex-row justify-center gap-10 text-[13px] font-bold text-gray-500 font-mb101">
         <a href="#process" class="hover:text-[#008B9B] transition-colors">一貫製造体制</a>
         <a href="#capability" class="hover:text-[#008B9B] transition-colors">製品紹介</a>
         <a href="#equipment" class="hover:text-[#008B9B] transition-colors">主要設備</a>
         <a href="#labo" class="hover:text-[#008B9B] transition-colors">ねぢラボ</a>
         <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
       </nav>
+
     </div>
   </div>
 
   {/* コンポーネント呼び出しエリア：構成を維持 */}
-  <div class="[&>section]:scroll-mt-[100px]">
+  <div class="[&>section]:scroll-mt-[140px]">
     <Process />
     <Capability />
     <Equipment />
