@@ -1,4 +1,48 @@
-# 修正後の除外設定（画像を守り、バックアップを消す設定）
+name: microCMS Deploy
+
+on:
+  repository_dispatch:
+    types: [Tohoku_Bolt]
+  push:
+    branches:
+      - main
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    
+    env:
+      MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+      MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+    
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Xserver
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /7plus1.jp/public_html/
+          
+          # 矛：リポジトリ（dist）にないものを消す設定。これで images_backup が消えます。
+          dangerous-clean-slate: true 
+
+          # 盾：画像を除外リストから「外した」ので、今後は images フォルダは守られます。
           exclude: |
             **/.git*
             **/.git*/**
