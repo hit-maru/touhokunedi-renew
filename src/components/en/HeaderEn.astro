@@ -1,0 +1,59 @@
+---
+// src/components/en/HeaderEn.astro
+---
+
+<header class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur z-50 border-b border-gray-100">
+  <div class="container mx-auto px-6 h-20 flex justify-between items-center">
+    <a href="/en/" class="flex flex-col group">
+      <span class="font-serif text-2xl text-gray-900 tracking-tight leading-none group-hover:text-[#008B9B] transition-colors">
+        nedzi
+      </span>
+      <span class="text-[10px] text-gray-500 tracking-widest uppercase">
+        Tohoku Bolt Mfg.
+      </span>
+    </a>
+
+    <nav class="hidden lg:flex gap-8 text-[11px] font-bold text-gray-600 items-center tracking-widest">
+      <a href="/en/company" class="hover:text-[#008B9B] transition-colors">COMPANY</a>
+      <a href="/en/product" class="hover:text-[#008B9B] transition-colors">PRODUCTS</a>
+      <a href="/en/manufacture" class="hover:text-[#008B9B] transition-colors">MFG & QUALITY</a>
+      <a href="/en/company#profile" class="hover:text-[#008B9B] transition-colors">PROFILE</a>
+      <a href="/en/#locations" class="hover:text-[#008B9B] transition-colors">LOCATIONS</a>
+
+      <div class="flex items-center gap-2 ml-4 border-l border-gray-200 pl-6">
+        <a href="/" class="text-gray-400 hover:text-gray-900 transition-colors uppercase text-[10px]">JP</a>
+        <span class="text-gray-300">/</span>
+        <span class="text-gray-900 uppercase text-[10px]">EN</span>
+      </div>
+    </nav>
+
+    <button id="mobile-menu-btn" class="lg:hidden p-2" aria-label="Open Menu">
+      <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
+      <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
+      <div class="w-6 h-0.5 bg-gray-800"></div>
+    </button>
+  </div>
+</header>
+
+<!-- ✅ ここが重要：header の外 -->
+<div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 lg:hidden pt-24 px-6 overflow-y-auto">
+  <nav class="flex flex-col gap-6 text-lg font-bold text-gray-800 text-center uppercase tracking-widest">
+    <a href="/en/company" class="mobile-link py-2 border-b border-gray-100">COMPANY</a>
+    <a href="/en/product" class="mobile-link py-2 border-b border-gray-100">PRODUCTS</a>
+    <a href="/en/manufacture" class="mobile-link py-2 border-b border-gray-100">MFG & QUALITY</a>
+    <a href="/en/company#profile" class="mobile-link py-2 border-b border-gray-100">PROFILE</a>
+    <a href="/en/#locations" class="mobile-link py-2 border-b border-gray-100">LOCATIONS</a>
+    <a href="/" class="text-[#E64A19] pt-4 text-sm font-normal">Switch to Japanese Site</a>
+  </nav>
+</div>
+
+<script>
+  const menuBtn = document.getElementById('mobile-menu-btn');
+  const mobileMenu = document.getElementById('mobile-menu');
+  const mobileLinks = document.querySelectorAll('.mobile-link');
+
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+    mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+  }
+</script>

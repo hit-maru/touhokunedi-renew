@@ -1,0 +1,308 @@
+---
+// src/pages/en/company.astro
+import LayoutEn from '../../layouts/LayoutEn.astro';
+---
+
+<LayoutEn title="Company Profile | Tohoku Bolt (Nedzi) MFG. Co., Ltd.">
+  {/* Hero Section: 背景画像を追加 */}
+  <section class="relative pt-32 pb-24 bg-gray-900 text-white overflow-hidden">
+    {/* 背景画像： public/images/en/ に配置した画像を指定 */}
+    <img 
+      src="/images/en/WEB-SITE-0014_web2.webp" 
+      alt="Our Values" 
+      class="absolute inset-0 w-full h-full object-cover opacity-90" 
+    />
+
+    {/* グラデーションオーバーレイ（文字を読みやすくするため） */}
+    <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent"></div>
+
+    <div class="relative z-10 container mx-auto px-6">
+      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-8 text-balance">Company</h1>
+      <p class="text-xl font-light max-w-3xl opacity-90 italic leading-relaxed">
+        Securing the world’s infrastructure with the pride of "NEDI" — supporting leading roles from behind the scenes since 1943.
+      </p>
+    </div>
+  </section>
+
+  {/* 1. Philosophy: TOHOKU BOLT WAY */}
+  <section class="py-24 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-6 max-w-4xl">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 text-center uppercase tracking-widest">TOHOKU BOLT WAY</h2>
+      <div class="space-y-12">
+        <div class="text-center">
+          <h3 class="text-2xl font-bold mb-4">Our Mission</h3>
+          <p class="text-gray-700 leading-relaxed text-lg">
+            "It's just a bolt, but it's a bolt." Through our fastening technology, we deliver "relief" and "trust" to society. We aim to contribute to a better future by enhancing our technical value globally.
+          </p>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-8 text-center pt-8">
+          <div>
+            <div class="text-[#E64A19] font-bold text-xl mb-2">Contribution</div>
+            <p class="text-sm text-gray-600">To the safety of infrastructure and the local community.</p>
+          </div>
+          <div>
+            <div class="text-[#E64A19] font-bold text-xl mb-2">Innovation</div>
+            <p class="text-sm text-gray-600">Constant technical advancement in hot-forging technology.</p>
+          </div>
+          <div>
+            <div class="text-[#E64A19] font-bold text-xl mb-2">Well-being</div>
+            <p class="text-sm text-gray-600">For the happiness and growth of our employees.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 2. Company Profile (id="profile" を追加してナビゲーションと連動) */}
+  <section id="profile" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 uppercase tracking-widest text-center">Company Profile</h2>
+      <div class="bg-white shadow-sm border border-gray-200 overflow-x-auto">
+        <table class="w-full text-left border-collapse min-w-[600px]">
+          <tbody class="divide-y divide-gray-200 text-gray-700">
+            <tr><th class="py-4 px-6 bg-gray-50 font-bold w-1/3 text-gray-800">Company Name</th><td class="py-4 px-6">Tohoku Bolt (Nedzi) MFG. Co., Ltd.</td></tr>
+            <tr><th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Founded</th><td class="py-4 px-6">October 18, 1943</td></tr>
+            <tr><th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Incorporated</th><td class="py-4 px-6">September 16, 1950</td></tr>
+            <tr><th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Representative</th><td class="py-4 px-6">Ryuichiro Sekiguchi, CEO</td></tr>
+            <tr><th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Capital</th><td class="py-4 px-6">18 million yen</td></tr>
+            <tr>
+              <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Main Banks</th>
+              <td class="py-4 px-6">Toho Bank (Izumi Branch), Joyo Bank (Iwaki Branch), Shoko Chukin Bank (Iwaki Branch)</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  {/* 3. Corporate History (資料に基づいた詳細版) */}
+  <section class="py-24 bg-white overflow-hidden">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-20 uppercase tracking-widest text-center">Corporate History</h2>
+      
+      <div class="relative">
+        {/* 中央の垂直線 */}
+        <div class="absolute left-4 md:left-1/2 transform md:-translate-x-1/2 h-full w-0.5 bg-gray-100"></div>
+
+        <div class="space-y-16">
+          
+          {/* 1943: 左配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex flex-1 md:justify-end md:pr-12 md:text-right pl-10 md:pl-0">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">Oct. 1943</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">The Beginning</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Established as "Coal Mine Equipment Manufacturing Cooperative Bolt Factory" in Iwaki, Fukushima, to support local energy infrastructure.
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex-1 hidden md:block"></div>
+          </div>
+
+          {/* 1950 - 1957: 右配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex-1 hidden md:block"></div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex flex-1 md:pl-12 pl-10">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">1950 - 1957</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Incorporation & JIS Certification</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Reorganized as "Tohoku Bolt MFG. Co., Ltd." in 1950. Obtained JIS certification for Hex Bolts (1954) and Joint Plate Bolts (1957).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 1971 - 1975: 左配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex flex-1 md:justify-end md:pr-12 md:text-right pl-10 md:pl-0">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">1971 - 1975</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Expansion of Network</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Opened Tokyo and Sendai Sales Offices (1971). Relocated Headquarters to the current location (1973) and opened Koriyama Sales Office (1975).
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex-1 hidden md:block"></div>
+          </div>
+
+          {/* 2002 - 2003: 右配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex-1 hidden md:block"></div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex flex-1 md:pl-12 pl-10">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">2002 - 2003</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">ISO Certification</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Obtained ISO 9002 (2002) and transitioned to ISO 9001 (2003), establishing a global standard for quality management.
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2011: 左配置 (重要なレジリエンスの物語) */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex flex-1 md:justify-end md:pr-12 md:text-right pl-10 md:pl-0">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">Mar. 2011</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Resilience After Earthquake</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Demonstrated remarkable resilience by resuming operations within only three days after the Great East Japan Earthquake.
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#E64A19] border-4 border-white z-10"></div>
+            <div class="flex-1 hidden md:block"></div>
+          </div>
+
+          {/* 2015 - 2021: 右配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex-1 hidden md:block"></div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex flex-1 md:pl-12 pl-10">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">2015 - 2021</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Innovation & Recognition</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Selected as one of the "300 Outstanding SMEs" (2015). Designated as a "Regional Future Leading Company" (2017) and expanded with a second factory (2021).
+                </p>
+              </div>
+            </div>
+          </div>
+
+          {/* 2022 - 2024: 左配置 */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex flex-1 md:justify-end md:pr-12 md:text-right pl-10 md:pl-0">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">2022 - 2024</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Excellence in Management</h4>
+                <p class="text-sm text-gray-600 leading-relaxed">
+                  Obtained ISO 14001 and 45001 (2022). Certified as a "Health and Productivity Management Organization" and "Eruboshi (Stage 2)" (2024).
+                </p>
+              </div>
+            </div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex-1 hidden md:block"></div>
+          </div>
+
+          {/* 2024 Dec: 右配置 (最新) */}
+          <div class="relative flex flex-col md:flex-row items-center">
+            <div class="flex-1 hidden md:block"></div>
+            <div class="absolute left-2 md:left-1/2 transform -translate-x-1/2 w-4 h-4 rounded-full bg-[#008B9B] border-4 border-white z-10"></div>
+            <div class="flex flex-1 md:pl-12 pl-10">
+              <div>
+                <span class="text-sm font-bold text-[#E64A19] block mb-1">Dec. 2024</span>
+                <h4 class="text-lg font-bold text-gray-900 mb-2">Tokyo Headquarters Relocation</h4>
+                <p class="text-sm text-gray-600 leading-relaxed font-bold">
+                  Relocated the Tokyo Sales Office to its current location as the Tokyo Headquarters, strengthening our global business presence.
+                </p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 4. SDGs & Certifications (10マーク＋認定ロゴの統合版) */}
+  <section id="sdgs" class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6 max-w-5xl">
+      
+      {/* A. SDGs Icons Grid: 10個のマークを網羅 */}
+      <div class="text-center mb-12">
+        <h2 class="font-serif text-3xl font-bold text-[#008B9B] uppercase tracking-[0.2em] mb-4">SDGs Initiatives</h2>
+        <p class="text-sm text-gray-600 italic mb-10">We are committed to these 10 goals for a sustainable future.</p>
+        
+        <div class="grid grid-cols-5 md:grid-cols-10 gap-2 md:gap-3 mb-20 border-b border-gray-200 pb-16">
+          {[3, 4, 5, 7, 8, 9, 10, 11, 12, 13].map((goal) => (
+            <img 
+              src={`/images/sdgs/E_SDG_PRINT-${String(goal).padStart(2, '0')}.jpg`} 
+              alt={`SDG Goal ${goal}`} 
+              class="w-full h-auto opacity-85 hover:opacity-100 transition-opacity shadow-sm"
+            />
+          ))}
+        </div>
+      </div>
+
+      {/* B. Official Certifications: 日本語版の「その他の認定・受賞」を英語化 */}
+      <h3 class="font-serif text-2xl font-bold text-gray-900 mb-12 text-center md:text-left">Official Certifications & Awards</h3>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
+        
+        {/* Regional Future Leading Company */}
+        <div class="flex items-center gap-6 group">
+          <div class="w-24 shrink-0 p-2 bg-white shadow-sm">
+            <img src="/images/en/logo_S_rgb-300x259.webp" alt="Regional Future Leading Company" class="w-full h-auto grayscale group-hover:grayscale-0 transition-all" />
+          </div>
+          <div class="text-sm">
+            <p class="text-[#008B9B] font-bold text-[10px] uppercase mb-1">Selected: Dec. 2017</p>
+            <p class="font-bold text-gray-900">Regional Future Leading Company (by METI)</p>
+          </div>
+        </div>
+
+        {/* Health Management */}
+        <div class="flex items-center gap-6 group">
+          <div class="w-24 shrink-0 p-2 bg-white shadow-sm">
+            <img src="/images/en/KIfH2025.webp" alt="Health & Productivity Management" class="w-full h-auto" />
+          </div>
+          <div class="text-sm">
+            <p class="text-[#008B9B] font-bold text-[10px] uppercase mb-1">Certified: 2024 / 2025</p>
+            <p class="font-bold text-gray-900">Health & Productivity Management Organization</p>
+          </div>
+        </div>
+
+        {/* Eruboshi */}
+        <div class="flex items-center gap-6 group">
+          <div class="w-24 shrink-0 p-2 bg-white shadow-sm">
+            <img src="/images/en/step-02.webp" alt="Eruboshi Stage 2" class="w-20 mx-auto h-auto" />
+          </div>
+          <div class="text-sm">
+            <p class="text-[#008B9B] font-bold text-[10px] uppercase mb-1">Certified: Jul. 2024</p>
+            <p class="font-bold text-gray-900">"Eruboshi" (Stage 2) Certification</p>
+          </div>
+        </div>
+
+        {/* Work-Life Balance */}
+        <div class="flex items-center gap-6 group">
+          <div class="w-24 shrink-0 p-2 bg-white shadow-sm">
+            <img src="/images/en/WLB.webp" alt="Work-Life Balance" class="w-20 mx-auto h-auto" />
+          </div>
+          <div class="text-sm">
+            <p class="text-[#008B9B] font-bold text-[10px] uppercase mb-1">Certified: Jan. 2025</p>
+            <p class="font-bold text-gray-900">Excellence in Work-Life Balance Support</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  {/* 5. Technical Trust Assets */}
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 text-center uppercase tracking-widest">Technical Assets</h2>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+        <div class="bg-gray-50 p-8 border-t-4 border-[#008B9B] shadow-sm">
+          <h4 class="font-bold mb-4 text-gray-900">Patents & Innovation</h4>
+          <ul class="text-xs text-gray-600 space-y-3 leading-relaxed">
+            <li>• Patent No. 002405: Rail first aid unit of connecting track</li>
+            <li>• Patent No. 162256: Removable underground pipe</li>
+          </ul>
+        </div>
+        <div class="bg-gray-50 p-8 border-t-4 border-[#008B9B] shadow-sm">
+          <h4 class="font-bold mb-4 text-gray-900">Academic Contributions</h4>
+          <p class="text-xs text-gray-600 leading-relaxed">
+            Technical presentations at JSME and joint development with major infrastructure partners.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+</LayoutEn>

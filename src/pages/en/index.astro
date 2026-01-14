@@ -1,29 +1,22 @@
 ---
 // src/pages/en/index.astro
 import LayoutEn from '../../layouts/LayoutEn.astro';
-import AccessEn from '../../components/en/AccessEn.astro'; // 英語版マップコンポーネントをインポート
+import AccessEn from '../../components/en/AccessEn.astro';
 ---
 
 <LayoutEn title="High-Quality Hot-Forged Bolt Manufacturer">
   
   {/* 1. Hero Section */}
   <section id="home" class="relative h-screen min-h-[600px] flex items-center justify-center bg-gray-900 overflow-hidden text-white">
-    
-    {/* メインビジュアル: 右上固定 (object-right-top) */}
     <img 
-      src="/images/en-hero-bg.webp" 
+      src="/images/en/en-hero-bg.webp" 
       alt="Hot Forging Process" 
-      class="absolute inset-0 w-full h-full object-cover object-right-top" 
+      class="absolute inset-0 w-full h-full object-cover object-right-top opacity-60" 
     />
-
-    {/* オーバーレイ: 黒40% */}
     <div class="absolute inset-0 bg-black/40"></div>
-    
     <div class="relative z-10 container mx-auto px-6 text-center md:text-left">
       <p class="font-sans text-[#E64A19] font-bold tracking-[0.2em] mb-4 uppercase">Iwaki, Japan</p>
-      <h1 class="font-serif text-6xl md:text-8xl font-bold mb-6 tracking-tight leading-none">
-        nedzi
-      </h1>
+      <h1 class="font-serif text-6xl md:text-8xl font-bold mb-6 tracking-tight leading-none text-white">nedzi</h1>
       <p class="text-xl md:text-2xl font-serif italic mb-8 text-gray-200">
         High-Quality Hot-Forged Bolt MFG. Co., Ltd.
       </p>
@@ -35,50 +28,45 @@ import AccessEn from '../../components/en/AccessEn.astro'; // 英語版マップ
     </div>
   </section>
 
-  {/* 2. Top Message & Philosophy */}
+  {/* 2. President's Message Section */}
   <section id="message" class="py-24 bg-white">
-    <div class="container mx-auto px-6">
-      {/* items-start に変更して、行頭を揃えています */}
-      <div class="flex flex-col md:flex-row gap-12 md:gap-[50px] items-start">
+    <div class="container mx-auto px-6 max-w-6xl">
+      <div class="flex flex-col md:flex-row gap-16 items-start">
         
-        {/* 左側カラム：署名セット */}
-        <div class="w-full md:w-1/2 flex justify-center md:justify-end">
-          <div class="w-1/2">
-            {/* 写真部分 */}
-            <div class="aspect-square bg-gray-100 relative overflow-hidden shadow-sm">
-               <img 
-                 src="/images/ceo_1.jpg" 
-                 alt="CEO Message" 
-                 class="object-cover object-top w-full h-full" 
-               />
-            </div>
-
-            {/* 署名 & 氏名エリア */}
-            <div class="mt-6 text-left font-sans">
-              <img 
-                src="/images/ceo-sign_web.webp" 
-                alt="Ryuichiro Sekiguchi Signature" 
-                class="h-12 md:h-20 w-auto mb-4 opacity-90"
-              />
-              <p class="font-bold text-base md:text-xl text-gray-900 leading-tight">
-                Ryuichiro Sekiguchi,
-              </p>
-              <p class="text-[10px] md:text-xs text-gray-500 mt-1 uppercase tracking-wider leading-relaxed">
-                President & CEO of Tohoku bolt MFG. Co., Ltd.
-              </p>
-            </div>
+        {/* 左側：プロフィールエリア (正方形プロポーション修正版) */}
+        <div class="w-full md:w-1/3 text-center md:text-left">
+          <div class="mb-8 aspect-square overflow-hidden shadow-sm bg-gray-50">
+            {/* aspect-square で正方形を維持し、object-top で頭から下へ成り行きで表示 */}
+            <img 
+              src="/images/en/ceo_1.jpg" 
+              alt="Ryuichiro Sekiguchi, CEO" 
+              class="w-full h-full object-cover object-top"
+            />
+          </div>
+          <div class="mb-6">
+            <img 
+              src="/images/en/ceo-sign_web.webp" 
+              alt="CEO Signature" 
+              class="h-24 mx-auto md:mx-0 opacity-90"
+            />
+          </div>
+          <div>
+            <h3 class="text-xl font-bold text-gray-900">Ryuichiro Sekiguchi,</h3>
+            <p class="text-[10px] font-bold text-gray-400 uppercase tracking-widest mt-1">
+              PRESIDENT & CEO OF TOHOKU BOLT MFG. CO., LTD.
+            </p>
           </div>
         </div>
-        
-        {/* 右側カラム：メッセージ本文 */}
-        <div class="w-full md:w-1/2">
+
+        {/* 右側：メッセージ内容 */}
+        <div class="w-full md:w-2/3">
           <h2 class="font-serif text-4xl md:text-5xl font-bold text-[#008B9B] mb-8 leading-tight">
-            “It's just a bolt,<br>but it's a bolt.”
+            “It's just a bolt <span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>,<br>
+            but it's a bolt <span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>.”
           </h2>
-          <div class="space-y-6 text-gray-700 leading-relaxed font-sans text-lg">
+          <div class="space-y-6 text-gray-700 leading-relaxed text-lg font-light">
             <p>
-              We aim to continue providing the value of "relief" and "trust" to our customers and society through threads.
-              Our mission is to contribute to society by further enhancing our value both domestically and internationally.
+              We aim to continue providing the value of "relief" and "trust" to our customers and society through threads. Our mission is to contribute to society by further enhancing our value both domestically and internationally.
             </p>
             <p>
               Founded in 1943 as a bolt factory for the coal mining industry, we have evolved to support social infrastructure such as high-speed railways, tunnels, bridges, and energy plants.
@@ -87,221 +75,116 @@ import AccessEn from '../../components/en/AccessEn.astro'; // 英語版マップ
               Moving forward, we will continue to enhance our technical expertise and proposal capabilities while pursuing employee well-being and sustainable corporate growth.
             </p>
           </div>
-          
-          <div class="mt-12 p-8 bg-gray-50 border-l-4 border-[#E64A19]">
-            <h3 class="font-bold text-gray-900 mb-2 uppercase tracking-widest text-sm">Company Creed</h3>
-            <p class="font-serif text-2xl text-[#008B9B]">Sincerity, Effort, Cooperation</p>
+
+          {/* Company Creed ボックス */}
+          <div class="mt-12 p-8 bg-gray-50 border-l-4 border-[#E64A19] shadow-sm">
+            <h4 class="font-bold text-gray-900 mb-2 uppercase tracking-widest text-xs">Company Creed</h4>
+            <p class="font-serif text-3xl text-[#008B9B]">Sincerity, Effort, Cooperation</p>
           </div>
         </div>
+        
       </div>
     </div>
   </section>
 
-  {/* 3. Products */}
+  {/* 3. Products Teaser */}
   <section id="products" class="py-24 bg-gray-50">
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="font-serif text-4xl font-bold text-[#008B9B] mb-4">Products with Soul</h2>
-        <p class="text-gray-600 max-w-2xl mx-auto">
-          From M16 to M110. We produce a wide range of critical fastening components for various sectors.
-        </p>
+        <p class="text-gray-600 max-w-2xl mx-auto italic">From M16 to M110. Highly regarded both in Japan and overseas, we produce critical fastening components for global infrastructure.</p>
       </div>
-
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-        {/* Railway */}
-        <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-[#008B9B]">
-          <h3 class="font-bold text-xl text-gray-900 mb-4 pb-2 border-b border-gray-100">Railway & Rail Sector</h3>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-            <li>Dog Spikes</li>
-            <li>Fish Plate Bolts</li>
-            <li>Rail Screws</li>
-            <li>TN Hook Bolts</li>
-            <li>Switch Point Chock Bolts</li>
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-8 mb-12">
+        <div class="bg-white p-8 shadow-sm border-t-4 border-[#E64A19]">
+          <h3 class="font-bold text-xl text-gray-900 mb-4 tracking-wider">Energy & Plant Sector</h3>
+          <p class="text-sm text-gray-600 mb-6 leading-relaxed">Specialized bolts for Wind Power Generation and critical energy infrastructure.</p>
+          <ul class="text-[11px] text-gray-500 space-y-2 uppercase tracking-widest">
+            <li class="flex items-center gap-2 font-bold"><span class="w-1 h-1 bg-[#E64A19]"></span> Wind Power Generation Bolts</li>
+            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-gray-200"></span> Tower Joint Bolts / Anchor Bolts</li>
           </ul>
         </div>
-
-        {/* Energy */}
-        <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-[#008B9B]">
-          <h3 class="font-bold text-xl text-gray-900 mb-4 pb-2 border-b border-gray-100">Energy & Plant Sector</h3>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-            <li>Wind Power Generation Bolts</li>
-            <li>Tower Joint Bolts</li>
-            <li>Anchor Bolts for Plants</li>
-            <li>T-bolts for Gas Pipes</li>
+        <div class="bg-white p-8 shadow-sm border-t-4 border-[#008B9B]">
+          <h3 class="font-bold text-xl text-gray-900 mb-4 tracking-wider">Railway & Infrastructure</h3>
+          <p class="text-sm text-gray-600 mb-6 leading-relaxed">Founding expertise in rail fastening components for high-speed railways and transport networks.</p>
+          <ul class="text-[11px] text-gray-500 space-y-2 uppercase tracking-widest">
+            <li class="flex items-center gap-2 font-bold"><span class="w-1 h-1 bg-[#008B9B]"></span> Dog Spikes / Rail Screws</li>
+            <li class="flex items-center gap-2"><span class="w-1 h-1 bg-gray-200"></span> TN Hook Bolts / Fish Plate Bolts</li>
           </ul>
         </div>
-
-        {/* Construction */}
-        <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-[#008B9B]">
-          <h3 class="font-bold text-xl text-gray-900 mb-4 pb-2 border-b border-gray-100">Construction & Civil</h3>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-            <li>Tunnel Joint Components</li>
-            <li>SUS Hexagon Medium Bolts</li>
-            <li>Tower Crane Bolts</li>
-            <li>Stud Bolts</li>
-          </ul>
-        </div>
-
-        {/* Machinery */}
-        <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-[#008B9B]">
-          <h3 class="font-bold text-xl text-gray-900 mb-4 pb-2 border-b border-gray-100">Machinery Components</h3>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-            <li>Wheel Motor Fixing Bolts</li>
-            <li>Countersunk CAP</li>
-            <li>Crusher Bolts</li>
-            <li>Keyed Countersunk Bolts</li>
-          </ul>
-        </div>
-
-        {/* General */}
-        <div class="bg-white p-8 shadow-sm hover:shadow-md transition-shadow border-t-4 border-[#008B9B]">
-          <h3 class="font-bold text-xl text-gray-900 mb-4 pb-2 border-b border-gray-100">General Sales Products</h3>
-          <ul class="text-sm text-gray-600 space-y-2 list-disc list-inside">
-            <li>Post-installed Anchors</li>
-            <li>Anti-loosening Nuts</li>
-            <li>High-Tension Bolts</li>
-            <li>Screws for Iron</li>
-          </ul>
-        </div>
-
-        {/* Capability */}
-        <div class="bg-[#008B9B] p-8 text-white shadow-sm flex flex-col justify-center items-center text-center">
-          <h3 class="font-bold text-xl mb-2">Full Assortment</h3>
-          <p class="text-sm opacity-90 mb-6">We stock over 10,000 types of products.</p>
-          <div class="text-4xl font-serif font-bold mb-2">M16 - M110</div>
-          <p class="text-xs opacity-80 uppercase tracking-widest">Manufacturing Capability</p>
-        </div>
+      </div>
+      <div class="text-center">
+        <a href="/en/product" class="inline-block bg-[#008B9B] text-white px-10 py-4 font-bold rounded-sm shadow-lg hover:bg-opacity-90 transition-all uppercase tracking-widest text-sm">
+          Explore Full Product Lineup
+        </a>
       </div>
     </div>
   </section>
 
   {/* 4. Manufacturing & Lab */}
-  <section id="manufacturing" class="py-24 bg-white">
-    <div class="container mx-auto px-6">
-      <div class="flex flex-col md:flex-row gap-12">
-        {/* Left: Manufacturing */}
-        <div class="w-full md:w-1/2">
-          <h2 class="font-serif text-3xl font-bold text-[#008B9B] mb-6">Integrated Manufacturing System</h2>
-          <p class="text-gray-600 mb-8 leading-relaxed">
-            Safety and reliability are our top priorities.
-            We have established a fully integrated manufacturing system, managing all processes in-house—from material cutting to forging, heat treatment, and thread rolling.
-            This ensures full traceability.
-          </p>
-          <div class="space-y-4">
-             <div class="flex items-center p-4 bg-gray-50 border-l-4 border-[#E64A19]">
-               <span class="font-bold w-32 shrink-0">Forging</span>
-               <span class="text-sm text-gray-600">Max diameter Φ110mm / Length 1200mm</span>
-             </div>
-             <div class="flex items-center p-4 bg-gray-50 border-l-4 border-[#E64A19]">
-               <span class="font-bold w-32 shrink-0">Heat Treat</span>
-               <span class="text-sm text-gray-600">High-frequency Induction Heating / Box-Type Furnace</span>
-             </div>
-             <div class="flex items-center p-4 bg-gray-50 border-l-4 border-[#E64A19]">
-               <span class="font-bold w-32 shrink-0">Materials</span>
-               <span class="text-sm text-gray-600">SNB, SUS, SUH, SCM, SNCM, SC, etc.</span>
-             </div>
-          </div>
-        </div>
-
-        {/* Right: Nedzi Lab */}
-        <div class="w-full md:w-1/2">
-          <h2 class="font-serif text-3xl font-bold text-[#008B9B] mb-6">Nedzi Lab & Quality</h2>
-          <p class="text-gray-600 mb-8 leading-relaxed">
-            "Nedzi Lab" is our dedicated research and investigation team.
-            We maintain a rigorous quality control system to prevent potential defects in fastening components that support critical infrastructure.
-          </p>
-          <div class="bg-gray-900 text-white p-8 rounded-sm shadow-lg">
-            <h3 class="font-bold text-[#008B9B] mb-4 uppercase tracking-widest text-sm">Our Certified Standards</h3>
-            <ul class="space-y-3 opacity-90 text-sm">
-              <li class="flex items-center gap-2"><span class="text-[#E64A19]">◆</span> ISO 9001 (Quality Management)</li>
-              <li class="flex items-center gap-2"><span class="text-[#E64A19]">◆</span> ISO 14001 (Environmental Management)</li>
-              <li class="flex items-center gap-2"><span class="text-[#E64A19]">◆</span> ISO 45001 (Occupational Health & Safety)</li>
-              <li class="flex items-center gap-2"><span class="text-[#E64A19]">◆</span> JIS Certifications (E 1107, E 1109, B 1180)</li>
-            </ul>
-          </div>
+  <section id="manufacturing" class="py-24 bg-white border-b border-gray-100">
+    <div class="container mx-auto px-6 flex flex-col md:flex-row gap-16 items-center">
+      <div class="w-full md:w-1/2">
+        <h2 class="font-serif text-3xl font-bold text-[#008B9B] mb-6">MFG Excellence & Nedi Lab</h2>
+        <p class="text-gray-700 leading-relaxed mb-8">
+          Our integrated manufacturing system ensures full traceability. The "Nedi Lab" excels in <strong class="text-gray-900 underline decoration-[#008B9B] decoration-2">Fractography</strong> to provide root-cause analysis and design optimization.
+        </p>
+        <a href="/en/manufacture" class="inline-block border-2 border-[#008B9B] text-[#008B9B] px-8 py-3 font-bold hover:bg-[#008B9B] hover:text-white transition-all uppercase tracking-widest text-xs">
+          View Equipment & Technology
+        </a>
+      </div>
+      <div class="w-full md:w-1/2">
+        <div class="relative group overflow-hidden shadow-2xl">
+          <img 
+            src="/images/en/home_banner_nedilabo_english.gif" 
+            alt="Nedi Labo - Our research & development" 
+            class="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
+          />
+          <div class="absolute inset-0 border-2 border-[#008B9B]/20 pointer-events-none"></div>
         </div>
       </div>
     </div>
   </section>
 
-  {/* 5. SDGs */}
+  {/* 5. SDGs Digest */}
   <section id="sdgs" class="py-24 bg-[#F0F4F8]">
-    <div class="container mx-auto px-6">
-      <h2 class="font-serif text-3xl font-bold text-[#008B9B] mb-12 text-center">SUSTAINABLE DEVELOPMENT GOALS</h2>
-      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-4 max-w-6xl mx-auto">
-        <div class="bg-white p-6 shadow-sm border-t-4 border-[#4C9F38]">
-          <div class="text-[#4C9F38] font-bold text-xl mb-2">Goal 3</div>
-          <h3 class="font-bold text-xs mb-3 min-h-[2.5em]">GOOD HEALTH AND WELL-BEING</h3>
-          <p class="text-xs text-gray-600">Subsidies for influenza vaccinations / Installation of AEDs</p>
-        </div>
-        <div class="bg-white p-6 shadow-sm border-t-4 border-[#C5192D]">
-          <div class="text-[#C5192D] font-bold text-xl mb-2">Goal 4</div>
-          <h3 class="font-bold text-xs mb-3 min-h-[2.5em]">QUALITY EDUCATION</h3>
-          <p class="text-xs text-gray-600">Promotion of education / QC activities / Joint learning programs</p>
-        </div>
-        <div class="bg-white p-6 shadow-sm border-t-4 border-[#FF3A21]">
-          <div class="text-[#FF3A21] font-bold text-xl mb-2">Goal 5</div>
-          <h3 class="font-bold text-xs mb-3 min-h-[2.5em]">GENDER EQUALITY</h3>
-          <p class="text-xs text-gray-600">Creating a workplace environment that supports everyone</p>
-        </div>
-        <div class="bg-white p-6 shadow-sm border-t-4 border-[#FCC30B]">
-          <div class="text-[#FCC30B] font-bold text-xl mb-2">Goal 7</div>
-          <h3 class="font-bold text-xs mb-3 min-h-[2.5em]">CLEAN ENERGY</h3>
-          <p class="text-xs text-gray-600">Entry into the wind power sector / LED lighting transition</p>
-        </div>
-        <div class="bg-white p-6 shadow-sm border-t-4 border-[#A21942]">
-          <div class="text-[#A21942] font-bold text-xl mb-2">Goal 8</div>
-          <h3 class="font-bold text-xs mb-3 min-h-[2.5em]">DECENT WORK</h3>
-          <p class="text-xs text-gray-600">Job creation in new sectors (wind energy, decommissioning)</p>
-        </div>
+    <div class="container mx-auto px-6 text-center">
+      <h2 class="font-serif text-3xl md:text-4xl font-normal mb-12 tracking-normal leading-none text-balance">
+        <span class="text-primary uppercase tracking-widest">Sustainable Development</span> 
+        <span class="text-[#E64A19] block md:inline mt-2 md:mt-0">GOALS</span>
+      </h2>
+      <div class="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
+        {
+          [3, 4, 7, 9, 13].map((goal) => (
+            <img 
+              src={`/images/sdgs/E_SDG_PRINT-${String(goal).padStart(2, '0')}.jpg`} 
+              alt={`Goal ${goal}`} 
+              class="w-16 h-16 mx-auto opacity-80 hover:opacity-100 transition-opacity" 
+            />
+          ))
+        }
       </div>
+      <a href="/en/company#sdgs" class="text-xs font-bold text-[#008B9B] hover:text-[#E64A19] uppercase tracking-[0.3em] transition-colors">
+        View All 10 Initiatives →
+      </a>
     </div>
   </section>
 
-  {/* 6. Company Overview */}
-  <section id="profile" class="py-24 bg-white">
-    <div class="container mx-auto px-6 max-w-5xl">
-      <div class="mb-20">
-        <h2 class="font-serif text-4xl font-bold text-[#008B9B] mb-8 text-center">Company Overview</h2>
-        <div class="border border-gray-200 bg-white">
-          <table class="w-full text-left border-collapse">
-            <tbody class="divide-y divide-gray-200">
-              <tr>
-                <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800 w-1/3">Company Name</th>
-                <td class="py-4 px-6 text-gray-700">Tohoku Bolt (Nedzi) MFG. Co., Ltd.</td>
-              </tr>
-              <tr>
-                <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Founded</th>
-                <td class="py-4 px-6 text-gray-700">October 18, 1943</td>
-              </tr>
-              <tr>
-                <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Representative</th>
-                <td class="py-4 px-6 text-gray-700">Ryuichiro Sekiguchi, CEO</td>
-              </tr>
-              <tr>
-                <th class="py-4 px-6 bg-gray-50 font-bold text-gray-800">Capital</th>
-                <td class="py-4 px-6 text-gray-700">18 Million JPY</td>
-              </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </div>
-  </section>
-
-  {/* 7. Locations (AccessEn コンポーネントに差し替え) */}
   <AccessEn />
 
-  {/* Contact CTA */}
+  {/* 6. Contact Section */}
   <section id="contact" class="py-24 bg-[#008B9B] text-white text-center">
     <div class="container mx-auto px-6">
-      <h2 class="font-serif text-3xl font-bold mb-6">Contact Us</h2>
-      <p class="mb-8 opacity-90 max-w-2xl mx-auto">
-        For inquiries regarding our products or manufacturing capabilities,<br>please contact our Headquarters.
-      </p>
-      <a href="mailto:info@touhokunedi.com" class="inline-block bg-white text-[#008B9B] px-12 py-4 font-bold rounded-sm hover:bg-gray-100 transition-colors shadow-lg">
-        info@touhokunedi.com
-      </a>
+      <h2 class="font-serif text-4xl font-bold mb-6 italic tracking-tight">"Can you do that?"</h2>
+      <p class="mb-10 text-lg opacity-80 font-light">Contact us for any engineering challenges.</p>
+      <div class="flex flex-col md:flex-row justify-center items-center gap-6">
+        <a href="mailto:info@touhokunedi.com" class="bg-white text-[#008B9B] px-12 py-4 font-bold rounded-sm shadow-lg hover:bg-gray-100 transition-colors uppercase tracking-widest text-sm">
+          Email: info@touhokunedi.com
+        </a>
+        <div class="text-left md:border-l md:border-white/30 md:pl-6">
+          <p class="text-[10px] opacity-70 uppercase tracking-widest">Headquarters Phone</p>
+          <p class="text-xl font-bold font-sans">+81-(0)246-56-4751</p>
+        </div>
+      </div>
     </div>
   </section>
 

@@ -1,12 +1,17 @@
 ---
-// src/layouts/LayoutEn.astro
+/* src/layouts/LayoutEn.astro */
 
-// フォント読み込み（日本語フォントで代用する場合の設定）
-// もし英語フォントパッケージを入れた場合は @fontsource/cormorant-garamond 等に戻してください
+// import HeaderEn from '../components/en/HeaderEn.astro'; // 使ってないので一旦コメントアウト（使うなら下の<header>自体をHeaderEnに置き換える）
+import FooterEn from '../components/en/FooterEn.astro';
+
+// フォントデータ本体を読み込む（これが重要！）
 import '@fontsource/noto-sans-jp/400.css';
 import '@fontsource/noto-sans-jp/700.css';
 import '@fontsource/cormorant-garamond/700.css';
+import '@fontsource/eb-garamond/400.css';
+import '@fontsource/eb-garamond/700.css';
 
+import '../styles/global.css';
 const { title } = Astro.props;
 ---
 
@@ -16,102 +21,103 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <title>{title} | Tohoku Bolt Mfg. Co., Ltd.</title>
     <style>
-      /* 固定ヘッダーの高さ分だけスクロール位置をずらす設定 */
       html {
         scroll-padding-top: 5rem; /* 80px */
       }
     </style>
   </head>
-  <body class="bg-white text-gray-800 font-sans antialiased">
-    
-    {/* Header */}
+
+  <body class="bg-white text-gray-800 font-sans antialiased flex flex-col min-h-screen">
+
+    {/* 共通ヘッダー：ラベルを統一 */}
     <header class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur z-50 border-b border-gray-100">
       <div class="container mx-auto px-6 h-20 flex justify-between items-center">
-        <a href="/en" class="flex flex-col group">
-          <span class="font-serif text-2xl text-gray-900 tracking-tight leading-none group-hover:text-[#008B9B] transition-colors">nedzi</span>
+        <a href="/en/" class="flex flex-col group">
+          <span class="font-serif text-2xl text-gray-900 tracking-tight leading-none group-hover:text-[#008B9B] transition-colors">
+            nedzi
+          </span>
           <span class="text-[10px] text-gray-500 tracking-widest uppercase">Tohoku Bolt Mfg.</span>
         </a>
-        
-        {/* Desktop Nav: リンク先IDを index.astro のセクションIDに合わせました */}
-        <nav class="hidden lg:flex gap-6 text-sm font-bold text-gray-600 items-center">
-          <a href="#message" class="hover:text-[#008B9B] transition-colors">ABOUT</a>
-          <a href="#products" class="hover:text-[#008B9B] transition-colors">PRODUCTS</a>
-          <a href="#manufacturing" class="hover:text-[#008B9B] transition-colors">MFG & QUALITY</a>
-          <a href="#profile" class="hover:text-[#008B9B] transition-colors">PROFILE</a>
-          <a href="#locations" class="hover:text-[#008B9B] transition-colors">LOCATIONS</a>
-          
-          {/* JP/EN Switcher */}
-          <a href="/" class="text-[#E64A19] ml-4 border-l border-gray-300 pl-6 flex items-center gap-1 hover:opacity-70 transition-opacity">
-            <span class="text-xs font-normal text-gray-400">JP</span>
-            <span class="text-gray-900">/ EN</span>
-          </a>
+
+        {/* Desktop Nav */}
+        <nav class="hidden lg:flex gap-8 text-[11px] font-bold text-gray-600 items-center tracking-widest">
+          <a href="/en/company" class="hover:text-[#008B9B] transition-colors">COMPANY</a>
+          <a href="/en/product" class="hover:text-[#008B9B] transition-colors">PRODUCTS</a>
+          <a href="/en/manufacture" class="hover:text-[#008B9B] transition-colors">MFG & QUALITY</a>
+          <a href="/en/company#profile" class="hover:text-[#008B9B] transition-colors">PROFILE</a>
+          <a href="/en/#locations" class="hover:text-[#008B9B] transition-colors">LOCATIONS</a>
+
+          {/* Language Switch */}
+          <div class="flex items-center gap-2 ml-4 border-l border-gray-200 pl-6">
+            <a href="/" class="text-gray-400 hover:text-gray-900 transition-colors uppercase text-[10px]">JP</a>
+            <span class="text-gray-300">/</span>
+            <span class="text-gray-900 uppercase text-[10px]">EN</span>
+          </div>
         </nav>
 
         {/* Mobile Menu Button */}
-        <button id="mobile-menu-btn" class="lg:hidden p-2 space-y-1.5" aria-label="Open Menu">
-          <div class="w-6 h-0.5 bg-gray-800"></div>
-          <div class="w-6 h-0.5 bg-gray-800"></div>
+        <button id="mobile-menu-btn" class="lg:hidden p-2" aria-label="Open Menu">
+          <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
+          <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
           <div class="w-6 h-0.5 bg-gray-800"></div>
         </button>
       </div>
-
-      {/* Mobile Nav Overlay (Simple Implementation) */}
-      <div id="mobile-menu" class="fixed inset-0 bg-white z-40 transform translate-x-full transition-transform duration-300 lg:hidden pt-24 px-6">
-        <nav class="flex flex-col gap-6 text-lg font-bold text-gray-800 text-center">
-          <a href="#message" class="mobile-link py-2 border-b border-gray-100">ABOUT</a>
-          <a href="#products" class="mobile-link py-2 border-b border-gray-100">PRODUCTS</a>
-          <a href="#manufacturing" class="mobile-link py-2 border-b border-gray-100">MFG & QUALITY</a>
-          <a href="#profile" class="mobile-link py-2 border-b border-gray-100">PROFILE</a>
-          <a href="#locations" class="mobile-link py-2 border-b border-gray-100">LOCATIONS</a>
-          <a href="/" class="text-[#E64A19] py-2">Switch to Japanese Site</a>
-        </nav>
-      </div>
     </header>
 
-    <main class="pt-20">
+    {/* ✅ Mobile Nav Overlay：header の外に出す（これが決定打） */}
+    <div
+      id="mobile-menu"
+      class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 lg:hidden pt-24 px-6 overflow-y-auto"
+    >
+      <nav class="flex flex-col gap-6 text-lg font-bold text-gray-800 text-center uppercase tracking-widest">
+        <a href="/en/company" class="mobile-link py-2 border-b border-gray-100">COMPANY</a>
+        <a href="/en/product" class="mobile-link py-2 border-b border-gray-100">PRODUCTS</a>
+        <a href="/en/manufacture" class="mobile-link py-2 border-b border-gray-100">MFG & QUALITY</a>
+        <a href="/en/company#profile" class="mobile-link py-2 border-b border-gray-100">PROFILE</a>
+        <a href="/en/#locations" class="mobile-link py-2 border-b border-gray-100">LOCATIONS</a>
+        <a href="/" class="text-[#E64A19] pt-4 text-sm font-normal">Switch to Japanese Site</a>
+      </nav>
+    </div>
+
+    <main class="flex-grow">
       <slot />
     </main>
 
-    <footer class="bg-gray-900 text-white py-12 border-t-4 border-[#008B9B] text-center">
-      <div class="container mx-auto px-6">
-        <p class="font-serif text-xl mb-2">Tohoku Bolt Mfg. Co., Ltd.</p>
-        <p class="text-xs text-gray-500">© {new Date().getFullYear()} Tohoku Bolt Mfg. Co., Ltd. All Rights Reserved.</p>
-      </div>
-    </footer>
+    <FooterEn />
 
     {/* Back to Top Button */}
-    <button id="back-to-top-en" aria-label="Back to Top" class="fixed bottom-8 right-8 z-50 bg-[#008B9B] text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-[#006064] hover:-translate-y-1">
-      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" /></svg>
+    <button
+      id="back-to-top-en"
+      class="fixed bottom-8 right-8 z-50 bg-[#008B9B] text-white w-12 h-12 rounded-full shadow-lg flex items-center justify-center opacity-0 invisible transition-all duration-300 hover:bg-[#006064]"
+      aria-label="Back to top"
+    >
+      <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
+        <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
+      </svg>
     </button>
 
     <script>
-      // Scroll to Top Logic
       const btn = document.getElementById('back-to-top-en');
-      if(btn){
+      if (btn) {
         window.addEventListener('scroll', () => {
-          if(window.scrollY > 300) { btn.classList.remove('opacity-0','invisible'); btn.classList.add('opacity-100','visible'); }
-          else { btn.classList.remove('opacity-100','visible'); btn.classList.add('opacity-0','invisible'); }
+          if (window.scrollY > 300) {
+            btn.classList.remove('opacity-0', 'invisible');
+            btn.classList.add('opacity-100', 'visible');
+          } else {
+            btn.classList.remove('opacity-100', 'visible');
+            btn.classList.add('opacity-0', 'invisible');
+          }
         });
         btn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
       }
 
-      // Mobile Menu Logic
       const menuBtn = document.getElementById('mobile-menu-btn');
       const mobileMenu = document.getElementById('mobile-menu');
       const mobileLinks = document.querySelectorAll('.mobile-link');
 
       if (menuBtn && mobileMenu) {
-        menuBtn.addEventListener('click', () => {
-          mobileMenu.classList.toggle('translate-x-full');
-          // アイコンのアニメーション切り替え等はここで行う（簡易実装のため省略）
-        });
-        
-        // メニューリンクをクリックしたら閉じる
-        mobileLinks.forEach(link => {
-          link.addEventListener('click', () => {
-            mobileMenu.classList.add('translate-x-full');
-          });
-        });
+        menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
+        mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
       }
     </script>
   </body>
@@ -120,4 +126,5 @@ const { title } = Astro.props;
 <style is:global>
   .font-serif { font-family: 'Cormorant Garamond', serif; }
   .font-sans { font-family: 'Noto Sans JP', sans-serif; }
+  .font-gara { font-family: 'EB Garamond', serif; }
 </style>

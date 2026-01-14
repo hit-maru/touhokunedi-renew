@@ -1,0 +1,148 @@
+---
+// src/pages/en/manufacture.astro
+import LayoutEn from '../../layouts/LayoutEn.astro';
+---
+
+<LayoutEn title="Manufacturing & Quality | Tohoku Bolt (Nedzi) MFG. Co., Ltd.">
+  {/* 1. Hero Section: 統一された重厚なデザイン */}
+  <section class="relative pt-32 pb-24 bg-gray-900 text-white overflow-hidden">
+    <img src="/images/en/factory-inner.webp" alt="Manufacturing Hero" class="absolute inset-0 w-full h-full object-cover opacity-40" />
+    <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent"></div>
+    <div class="relative z-10 container mx-auto px-6">
+      <h1 class="font-gara text-5xl md:text-7xl font-normal mb-8 text-balance">MFG & Quality</h1>
+      <p class="text-xl font-light max-w-3xl opacity-90 italic leading-relaxed">
+        "NEDI" — Pursuing safety and reliability with a fully integrated manufacturing system, from raw material cutting to advanced laboratory analysis.
+      </p>
+    </div>
+  </section>
+
+  {/* 2. Integrated Manufacturing System: 工程フローを視覚化 */}
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-6">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-16 text-center uppercase tracking-widest">The Nedzi Process</h2>
+      
+      {/* 工程フローを 6段階に拡張 */}
+      <div class="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-6 gap-4 mb-20">
+        {['Cutting', 'Forging', 'Shot Blasting', 'Lathe Processing', 'Inspection', 'Shipping'].map((step, i) => (
+          <div class="relative p-4 bg-gray-50 border-t-4 border-[#008B9B] text-center">
+            <span class="text-[10px] font-bold text-gray-400 block mb-1">STEP 0{i+1}</span>
+            <span class="text-xs font-bold text-gray-800 uppercase tracking-tighter">{step}</span>
+            {i < 5 && <div class="hidden lg:block absolute -right-3 top-1/2 -translate-y-1/2 z-10 text-[#008B9B]">→</div>}
+          </div>
+        ))}
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-16 items-start">
+        {/* 製造能力データ */}
+        <div class="space-y-8">
+          <h3 class="text-2xl font-bold text-gray-900 border-l-4 border-[#E64A19] pl-4">Manufacturing Capabilities</h3>
+          <div class="grid grid-cols-1 sm:grid-cols-2 gap-6">
+            <div class="bg-gray-50 p-6 rounded-sm">
+              <h4 class="text-[#E64A19] font-bold text-sm uppercase mb-2">Forging</h4>
+              <p class="text-lg font-bold">Max Φ110mm</p>
+              <p class="text-sm text-gray-500 italic">Length up to 1200mm</p>
+            </div>
+            <div class="bg-gray-50 p-6 rounded-sm">
+              <h4 class="text-[#E64A19] font-bold text-sm uppercase mb-2">Lathe Processing</h4>
+              <p class="text-lg font-bold">Max Φ300mm</p>
+              <p class="text-sm text-gray-500 italic">Length up to 1200mm</p>
+            </div>
+          </div>
+          
+          <div class="bg-white border border-gray-100 p-8 shadow-sm">
+            <h4 class="font-bold mb-4 text-sm">Primary Materials</h4>
+            <ul class="grid grid-cols-2 gap-y-2 text-sm text-gray-600 font-medium">
+              <li>• High-temp Alloy (SNB)</li>
+              <li>• Stainless Steel (SUS)</li>
+              <li>• Heat-resistant (SUH)</li>
+              <li>• Cr-Mo Steel (SCM/SNCM)</li>
+              <li>• Machine Carbon Steel (SC)</li>
+              <li>• Grades: 4.6, 8.8, 10.9, etc.</li>
+            </ul>
+          </div>
+        </div>
+
+        {/* 設備紹介の画像エリア */}
+        <div class="grid grid-cols-2 gap-4">
+          <img src="/images/en/servo-press_web.webp" alt="Servo Press" class="w-full aspect-square object-cover shadow-md" />
+          <img src="/images/en/induction-furnace.webp" alt="Induction Furnace" class="w-full aspect-square object-cover shadow-md" />
+          <img src="/images/en/0864_web.webp" alt="CNC Lathe" class="w-full aspect-square object-cover shadow-md" />
+          <img src="/images/en/0486_web.webp" alt="Heat Treatment" class="w-full aspect-square object-cover shadow-md" />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 3. Uncompromising Quality Assurance: スペックを明記 */}
+  <section class="py-24 bg-gray-50">
+    <div class="container mx-auto px-6">
+      <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-16 text-center uppercase tracking-widest">Quality Assurance</h2>
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-8 mb-16">
+        <div class="bg-white p-8 shadow-sm">
+          <h4 class="font-bold text-[#008B9B] mb-4 text-sm uppercase">3000kN Universal Tester</h4>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">Applies various loads to test objects, enabling reproduction tests and validation of product specifications.</p>
+          <p class="text-sm font-bold border-t border-gray-100 pt-4">Capacity: 3000kN</p>
+        </div>
+        <div class="bg-white p-8 shadow-sm">
+          <h4 class="font-bold text-[#008B9B] mb-4 text-sm uppercase">Charpy Impact Tester</h4>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">Primarily evaluating the toughness of steel materials. Can conduct tests at low temperatures.</p>
+          <p class="text-sm font-bold border-t border-gray-100 pt-4">Capacity: 300J</p>
+        </div>
+        <div class="bg-white p-8 shadow-sm">
+          <h4 class="font-bold text-[#008B9B] mb-4 text-sm uppercase">Corrosion Testing</h4>
+          <p class="text-sm text-gray-600 mb-4 leading-relaxed">Evaluates surface treatment corrosion resistance under salt spray and CASS test conditions.</p>
+          <p class="text-sm font-bold border-t border-gray-100 pt-4">Standards: ISO, IEC, JIS, ASTM</p>
+        </div>
+      </div>
+
+      <div class="bg-white p-10 border border-gray-100 max-w-4xl mx-auto">
+        <h4 class="font-bold text-center mb-8 uppercase tracking-widest text-[#E64A19]">Our Certified Standards</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-4 text-sm text-gray-700">
+          <div class="flex justify-between border-b pb-1"><span>ISO 9001 : 2015</span><span class="font-bold">✓</span></div>
+          <div class="flex justify-between border-b pb-1"><span>ISO 14001 : 2015</span><span class="font-bold">✓</span></div>
+          <div class="flex justify-between border-b pb-1"><span>ISO 45001 : 2018</span><span class="font-bold">✓</span></div>
+          <div class="flex justify-between border-b pb-1"><span>JIS E 1107 / 1108 / 1109</span><span class="font-bold">✓</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  {/* 4. Nedzi Lab: Advanced R&D */}
+  <section class="py-24 bg-white">
+    <div class="container mx-auto px-6 max-w-5xl">
+      <div class="flex flex-col md:flex-row gap-16 items-center">
+        <div class="w-full md:w-1/2">
+          <h2 class="font-gara text-4xl font-normal text-[#008B9B] mb-8">Nedzi Lab</h2>
+          <p class="text-gray-700 leading-relaxed mb-8">
+            Established to uncover insights into bolts, nuts, and fastening components while creating added value. We conduct specialized investigations, even research and development.
+          </p>
+          <ul class="space-y-4">
+            <li class="flex items-start gap-3">
+              <span class="text-[#E64A19] font-bold">▶</span>
+              <div>
+                <h5 class="font-bold text-gray-900 text-sm">SEM Analysis</h5>
+                <p class="text-sm text-gray-500">Magnification up to 20,000x for fracture mechanism analysis.</p>
+              </div>
+            </li>
+            <li class="flex items-start gap-3">
+              <span class="text-[#E64A19] font-bold">▶</span>
+              <div>
+                <h5 class="font-bold text-gray-900 text-sm">3D FEM Analysis</h5>
+                <p class="text-sm text-gray-500">Advanced simulation of stress distribution in specialized shapes.</p>
+              </div>
+            </li>
+          </ul>
+        </div>
+        <div class="w-full md:w-1/2 relative">
+          <div class="bg-gray-100 aspect-square overflow-hidden shadow-2xl">
+            <img src="/images/en/sem_web.webp" alt="Scanning Electron Microscope" class="w-full h-full object-cover" />
+          </div>
+          <div class="absolute -bottom-6 -right-6 bg-[#008B9B] text-white p-6 shadow-xl">
+            <p class="text-sm uppercase tracking-widest font-bold">Scientific Verification</p>
+            <p class="text-2xl font-serif">A form of our<br/>responsibility</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</LayoutEn>

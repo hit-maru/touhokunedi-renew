@@ -1,4 +1,7 @@
-@import "tailwindcss";
+/* src/styles/global.css */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
 
 @layer base {
   /* 基本設定 (ゴシック体 16px 基準) */

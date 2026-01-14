@@ -15,6 +15,7 @@
     "@astrojs/node": "^9.5.1",
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource/cormorant-garamond": "^5.2.11",
+    "@fontsource/eb-garamond": "^5.2.7",
     "@fontsource/noto-sans": "^5.2.10",
     "@fontsource/noto-sans-jp": "^5.2.8",
     "@fontsource/shippori-mincho-b1": "^5.2.8",
