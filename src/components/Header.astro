@@ -1,76 +1,92 @@
 ---
 // src/components/Header.astro
 ---
-<header class="fixed top-0 left-0 w-full bg-white z-[60] border-b border-gray-100">
+<header class="fixed top-0 left-0 w-full bg-white z-[60] border-b border-gray-100 shadow-sm">
   <div class="container mx-auto px-6 h-20 flex justify-between items-center">
     
+    {/* ロゴエリア */}
     <div class="flex flex-col justify-center">
       <a href="/" class="flex items-center gap-3 group">
         <img src="/images/T-nedzi-mark.png" alt="東北ネヂ製造 マーク" class="h-8 md:h-10 w-auto" />
-        <div class="flex items-center whitespace-nowrap">
-          <span class="text-gray-900 font-bold leading-none" style="font-family: 'Shin Go Bold', sans-serif; font-size: 1.5rem;">東北ネヂ製造</span>
-          <span class="text-gray-900 font-bold leading-none" style="font-family: 'Shin Go Bold', sans-serif; font-size: 1.05rem; margin-left: 2px; transform: scale(0.7); transform-origin: left center;">株式会社</span>
+        <div class="flex items-baseline whitespace-nowrap">
+          <span class="text-gray-900 font-shingo-b text-2xl leading-none">東北ネヂ製造</span>
+          <span class="text-gray-900 font-shingo-b text-base leading-none ml-0.5 scale-[0.7] origin-left opacity-90">株式会社</span>
         </div>
       </a>
-      <div class="hidden md:block text-[9px] leading-[1.4] text-gray-500 font-medium mt-1 whitespace-nowrap">
-        日本工業規格表示認証工場 ISO9001/14001/45001認証取得<br /> 熱間鍛造ボルト・ねじメーカー
+      {/* 認証テキスト：字間を広げて可読性を確保 */}
+      <div class="hidden md:block text-[9px] leading-tight text-gray-400 font-medium mt-1.5 whitespace-nowrap tracking-wider">
+        日本工業規格表示認証工場 ISO9001/14001/45001認証取得<br />
+        <span class="text-gray-500">熱間鍛造ボルト・ねじメーカー</span>
       </div>
     </div>
 
+    {/* PCナビゲーション */}
     <div class="hidden md:flex items-center gap-8">
-      <nav class="flex gap-8 items-center text-gray-600 font-sans">
-        <a href="/company" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">企業情報</a>
-        <a href="/manufacture" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">製造事業</a>
-        <a href="/sales" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">販売事業</a>
-        <a href="/recruit" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">採用情報</a>
-        <a href="/news" class="text-sm font-bold hover:text-[#008B9B] tracking-wider transition-colors">お知らせ</a>
+      <nav class="flex gap-7 items-center text-gray-600">
+        {["企業情報", "製造事業", "販売事業", "採用情報", "お知らせ"].map((item, index) => {
+          const hrefs = ["/company", "/manufacture", "/sales", "/recruit", "/news"];
+          return (
+            <a href={hrefs[index]} class="text-sm font-bold hover:text-[#008B9B] tracking-widest transition-colors font-sans">
+              {item}
+            </a>
+          );
+        })}
       </nav>
       
-      <a href="/en" class="text-[#E64A19] border-l border-gray-300 pl-6 flex items-center gap-1 hover:opacity-70 transition-opacity text-sm font-sans">
+      {/* 多言語切り替え */}
+      <a href="/en" class="text-[#E64A19] border-l border-gray-200 pl-6 flex items-baseline gap-1 hover:opacity-70 transition-opacity text-sm font-sans">
        <span class="text-gray-900 font-bold">JP</span>
-       <span class="text-xs font-normal text-gray-400">/ EN</span>
+       <span class="text-[10px] font-medium text-gray-400">/ EN</span>
       </a>
       
-      <a href="/contact#ai-selection" class="px-4 py-1.5 border border-gray-900 text-sm font-bold hover:bg-gray-900 hover:text-white transition-all uppercase font-serif tracking-widest">
+      {/* AIお問合せボタン：MB101で力強く */}
+      <a href="/contact#ai-selection" class="px-5 py-2 border-2 border-gray-900 text-[11px] font-mb101 hover:bg-gray-900 hover:text-white transition-all uppercase tracking-[0.2em]">
        AIお問合せ
       </a>
     </div>
 
-    <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-8 h-8 relative z-[70] focus:outline-none" aria-label="Menu">
-      <span id="line1" class="w-6 h-0.5 bg-gray-900 transition-all duration-300 origin-center"></span>
+    {/* ハンバーガーメニューボタン */}
+    <button id="menu-btn" class="md:hidden flex flex-col justify-center items-center w-10 h-10 relative z-[70] focus:outline-none" aria-label="Menu">
+      <span id="line1" class="w-6 h-0.5 bg-gray-900 transition-all duration-300"></span>
       <span id="line2" class="w-6 h-0.5 bg-gray-900 my-1.5 transition-all duration-300"></span>
-      <span id="line3" class="w-6 h-0.5 bg-gray-900 transition-all duration-300 origin-center"></span>
+      <span id="line3" class="w-6 h-0.5 bg-gray-900 transition-all duration-300"></span>
     </button>
   </div>
 
+  {/* モバイルメニュー */}
   <div id="mobile-menu" class="fixed inset-0 bg-white z-[65] transform translate-x-full transition-transform duration-500 ease-in-out md:hidden">
     <div class="flex flex-col h-full pt-32 px-10">
-      <ul class="flex flex-col gap-6">
-        <li><a href="/company" class="mobile-link text-lg font-bold">企業情報</a></li>
-        <li><a href="/manufacture" class="mobile-link text-lg font-bold">製造事業</a></li>
-        <li><a href="/sales" class="mobile-link text-lg font-bold">販売事業</a></li>
-        <li><a href="/recruit" class="mobile-link text-lg font-bold">採用情報</a></li>
-        <li><a href="/news" class="mobile-link text-lg font-bold">お知らせ</a></li>
-        <li class="pt-4 border-t border-gray-200">
-          <a href="/en" class="mobile-link text-[#E64A19] text-base font-bold flex items-center gap-2">
-            <span>🌐</span>
-            <span>English Site</span>
+      <ul class="flex flex-col gap-8">
+        {[
+          { label: "企業情報", href: "/company" },
+          { label: "製造事業", href: "/manufacture" },
+          { label: "販売事業", href: "/sales" },
+          { label: "採用情報", href: "/recruit" },
+          { label: "お知らせ", href: "/news" }
+        ].map(item => (
+          <li><a href={item.href} class="mobile-link text-2xl font-mb101 text-gray-900">{item.label}</a></li>
+        ))}
+        <li class="pt-6 border-t border-gray-100">
+          <a href="/en" class="mobile-link text-[#E64A19] text-lg font-bold flex items-center gap-3">
+            <span class="text-xl">🌐</span>
+            <span class="font-sans">English Site</span>
           </a>
         </li>
       </ul>
 
-      <div class="mt-auto pt-[10px] pb-12">
-        <a href="/contact#ai-selection" class="mobile-link block w-full bg-gray-900 text-white text-center py-4 font-bold rounded-sm uppercase font-serif tracking-widest">
+      <div class="mt-auto pb-12">
+        <a href="/contact#ai-selection" class="mobile-link block w-full bg-gray-900 text-white text-center py-5 font-mb101 text-lg rounded-sm tracking-widest">
           AIお問合せ
         </a>
       </div>
     </div>
   </div>
 
-  <div id="menu-backdrop" class="fixed inset-0 bg-black/20 opacity-0 pointer-events-none transition-opacity duration-500 z-[64]"></div>
+  <div id="menu-backdrop" class="fixed inset-0 bg-black/40 opacity-0 pointer-events-none transition-opacity duration-500 z-[64]"></div>
 </header>
 
 <script>
+  // スクリプト部分は既存のロジックが完璧なので、そのまま維持します
   const menuBtn = document.getElementById('menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const menuBackdrop = document.getElementById('menu-backdrop');
@@ -96,12 +112,9 @@
   if (menuBtn && mobileMenu && menuBackdrop) {
     menuBtn.addEventListener('click', toggleMenu);
     menuBackdrop.addEventListener('click', toggleMenu);
-
     mobileLinks.forEach(link => {
       link.addEventListener('click', () => {
-        if (!mobileMenu.classList.contains('translate-x-full')) {
-          toggleMenu();
-        }
+        if (!mobileMenu.classList.contains('translate-x-full')) toggleMenu();
       });
     });
   }
