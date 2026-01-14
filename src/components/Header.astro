@@ -55,8 +55,8 @@
 
   {/* モバイルメニュー */}
   <div id="mobile-menu" class="fixed inset-0 bg-white z-[65] transform translate-x-full transition-transform duration-500 ease-in-out md:hidden">
-    <div class="flex flex-col h-full pt-32 px-10">
-      <ul class="flex flex-col gap-8">
+    <div class="flex flex-col h-full pt-20 px-10">
+      <ul class="flex flex-col gap-4">
         {[
           { label: "企業情報", href: "/company" },
           { label: "製造事業", href: "/manufacture" },
@@ -64,7 +64,7 @@
           { label: "採用情報", href: "/recruit" },
           { label: "お知らせ", href: "/news" }
         ].map(item => (
-          <li><a href={item.href} class="mobile-link text-2xl font-mb101 text-gray-900">{item.label}</a></li>
+          <li><a href={item.href} class="mobile-link text-lg leading-snug font-mb101 text-gray-900">{item.label}</a></li>
         ))}
         <li class="pt-6 border-t border-gray-100">
           <a href="/en" class="mobile-link text-[#E64A19] text-lg font-bold flex items-center gap-3">
@@ -74,7 +74,7 @@
         </li>
       </ul>
 
-      <div class="mt-auto pb-12">
+      <div class="mt-4 pb-12">
         <a href="/contact#ai-selection" class="mobile-link block w-full bg-gray-900 text-white text-center py-5 font-mb101 text-lg rounded-sm tracking-widest">
           AIお問合せ
         </a>

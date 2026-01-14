@@ -1,14 +1,13 @@
 ---
-// src/components/en/HeaderEn.astro
+// HeaderEn.astro
 ---
-
 <header class="fixed top-0 left-0 w-full bg-white/95 backdrop-blur z-50 border-b border-gray-100">
   <div class="container mx-auto px-6 h-20 flex justify-between items-center">
-    <a href="/en/" class="flex flex-col group">
-      <span class="font-serif text-2xl text-gray-900 tracking-tight leading-none group-hover:text-[#008B9B] transition-colors">
+    <a href="/en/" class="flex flex-col group relative z-[70]">
+      <span class="font-serif text-[32px] font-normal text-gray-900 tracking-tight leading-none group-hover:text-[#008B9B] transition-colors">
         nedzi
       </span>
-      <span class="text-[10px] text-gray-500 tracking-widest uppercase">
+      <span class="text-[10px] font-bold text-gray-500 tracking-[0.15em] uppercase mt-1">
         Tohoku Bolt Mfg.
       </span>
     </a>
@@ -21,22 +20,21 @@
       <a href="/en/#locations" class="hover:text-[#008B9B] transition-colors">LOCATIONS</a>
 
       <div class="flex items-center gap-2 ml-4 border-l border-gray-200 pl-6">
-        <a href="/" class="text-gray-400 hover:text-gray-900 transition-colors uppercase text-[10px]">JP</a>
-        <span class="text-gray-300">/</span>
-        <span class="text-gray-900 uppercase text-[10px]">EN</span>
+        <a href="/" class="text-gray-400 hover:text-gray-900">JP</a>
+        <span class="text-gray-200">/</span>
+        <span class="text-gray-900 underline underline-offset-4">EN</span>
       </div>
     </nav>
 
-    <button id="mobile-menu-btn" class="lg:hidden p-2" aria-label="Open Menu">
-      <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
-      <div class="w-6 h-0.5 bg-gray-800 mb-1.5"></div>
-      <div class="w-6 h-0.5 bg-gray-800"></div>
+    <button id="mobile-menu-btn" class="lg:hidden flex flex-col gap-1.5 p-2 relative z-[70]" aria-label="Toggle Menu">
+      <div id="line1" class="w-6 h-0.5 bg-gray-900 transition-all"></div>
+      <div id="line2" class="w-6 h-0.5 bg-gray-900 transition-all"></div>
+      <div id="line3" class="w-6 h-0.5 bg-gray-900 transition-all"></div>
     </button>
   </div>
 </header>
 
-<!-- ✅ ここが重要：header の外 -->
-<div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 lg:hidden pt-24 px-6 overflow-y-auto">
+<div id="mobile-menu" class="fixed inset-0 bg-white z-[60] transform translate-x-full transition-transform duration-300 lg:hidden pt-28 px-6 overflow-y-auto">
   <nav class="flex flex-col gap-6 text-lg font-bold text-gray-800 text-center uppercase tracking-widest">
     <a href="/en/company" class="mobile-link py-2 border-b border-gray-100">COMPANY</a>
     <a href="/en/product" class="mobile-link py-2 border-b border-gray-100">PRODUCTS</a>
@@ -51,9 +49,26 @@
   const menuBtn = document.getElementById('mobile-menu-btn');
   const mobileMenu = document.getElementById('mobile-menu');
   const mobileLinks = document.querySelectorAll('.mobile-link');
+  const [l1, l2, l3] = [document.getElementById('line1'), document.getElementById('line2'), document.getElementById('line3')];
 
-  if (menuBtn && mobileMenu) {
-    menuBtn.addEventListener('click', () => mobileMenu.classList.toggle('translate-x-full'));
-    mobileLinks.forEach(link => link.addEventListener('click', () => mobileMenu.classList.add('translate-x-full')));
+  function toggleMenu() {
+    if (!mobileMenu) return;
+    const isOpen = mobileMenu.classList.toggle('translate-x-full');
+    
+    // スクロールロックの切り替え
+    document.body.style.overflow = !isOpen ? 'hidden' : '';
+
+    // アイコンのアニメーション (✕印)
+    l1?.classList.toggle('rotate-45');
+    l1?.classList.toggle('translate-y-2');
+    l2?.classList.toggle('opacity-0');
+    l3?.classList.toggle('-rotate-45');
+    l3?.classList.toggle('-translate-y-2');
   }
+
+  menuBtn?.addEventListener('click', toggleMenu);
+  mobileLinks.forEach(link => link.addEventListener('click', () => {
+    mobileMenu?.classList.add('translate-x-full');
+    document.body.style.overflow = '';
+  }));
 </script>
