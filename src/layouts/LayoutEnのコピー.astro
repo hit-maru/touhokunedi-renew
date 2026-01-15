@@ -1,15 +1,11 @@
 ---
-// src/layouts/LayoutEn.astro
+/* src/layouts/LayoutEn.astro */
 import HeaderEn from '../components/en/HeaderEn.astro';
 import FooterEn from '../components/en/FooterEn.astro';
 
 import '@fontsource/noto-sans-jp/400.css';
 import '@fontsource/noto-sans-jp/700.css';
-
-/* ✅ Cormorant Garamond：400も読み込む（通常ウェイトで使いたい場合） */
-import '@fontsource/cormorant-garamond/400.css';
 import '@fontsource/cormorant-garamond/700.css';
-
 import '@fontsource/eb-garamond/400.css';
 import '@fontsource/eb-garamond/700.css';
 
@@ -23,7 +19,6 @@ const { title } = Astro.props;
     <meta name="viewport" content="width=device-width" />
     <title>{title} | Tohoku Bolt Mfg. Co., Ltd.</title>
     <style>
-      /* ヘッダー高さがJPと違う前提でOK（現状のまま） */
       html { scroll-padding-top: 5rem; }
     </style>
   </head>

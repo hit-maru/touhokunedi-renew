@@ -23,6 +23,19 @@ export default {
                 accent: '#E64A19',  // 鍛造レッド
                 'paper-white': '#F9FAFB', 
                 'ink': '#1A1A1A',   // 墨文字
+            // tailwind.config.mjs（fontFamilyだけ差し替え／追記）
+            fontFamily: {
+                 // 既存：EB Garamond（font-serif）
+                 serif: ['"EB Garamond"', 'serif'],
+
+                 // 追加：Cormorant Garamond（font-cormo）
+                 cormo: ['"Cormorant Garamond"', 'serif'],
+
+                 // 既存
+                 mb101: ['"Gothic MB101"', 'sans-serif'],
+                 sans: ['"Noto Sans JP"', 'sans-serif'],
+            },
+
             }
         },
     },

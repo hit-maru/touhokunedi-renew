@@ -1,52 +1,42 @@
-/* src/styles/global.css */
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
 
 @layer base {
-  /* 基本設定 (ゴシック体 16px 基準) */
   html {
     font-size: 16px;
-    scroll-padding-top: 140px; /* ヘッダー考慮 */
-    color: #374151; /* gray-700 */
+    scroll-padding-top: 140px; /* 140pxで統一：余白の美 */
+    scroll-behavior: smooth;
   }
 
   body {
-    @apply font-sans antialiased;
-    line-height: 1.618; /* 黄金比の行間 (基本) */
+    @apply font-sans antialiased text-[#1A1A1A] bg-white; /* カラーを墨色に固定 */
+    line-height: 1.618; /* 黄金比の行間 */
   }
 
-  /* 明朝体エリアの特別ルール (17px 基準) */
+  /* 明朝体：17px 基準の設計 */
   .font-mincho {
     font-family: 'Shippori Mincho B1', serif;
-    font-size: 1.0625rem; /* 17px */
-    line-height: 1.75;    /* 黄金比より少し広めにとって可読性確保 */
-    letter-spacing: 0.05em; /* 明朝は少し字間を空けると上品 */
+    font-size: 1.0625rem;
+    line-height: 1.75;
+    letter-spacing: 0.05em;
+    font-feature-settings: "palt";
   }
 
-  /* 縦書き設定 */
+  /* 縦書き */
   .writing-vertical-rl {
     writing-mode: vertical-rl;
     text-orientation: upright;
-    line-height: 1.618; /* 縦書き時の行間 */
+    line-height: 1.618;
   }
 }
 
 @layer utilities {
-  /* 黄金比アスペクト比 (1 : 1.618) */
-  .aspect-golden {
-    aspect-ratio: 1.618 / 1;
-  }
-  /* 縦長黄金比 */
-  .aspect-golden-v {
-    aspect-ratio: 1 / 1.618;
-  }
-  /* 白銀比アスペクト比 (1 : 1.414) */
-  .aspect-silver {
-    aspect-ratio: 1.414 / 1;
-  }
-  /* 縦長白銀比 */
-  .aspect-silver-v {
-    aspect-ratio: 1 / 1.414;
-  }
+  /* 黄金比（1.618） */
+  .aspect-golden { aspect-ratio: 1.618 / 1; }
+  .aspect-golden-v { aspect-ratio: 1 / 1.618; }
+  
+  /* 白銀比（1.414） */
+  .aspect-silver { aspect-ratio: 1.414 / 1; }
+  .aspect-silver-v { aspect-ratio: 1 / 1.414; }
 }
