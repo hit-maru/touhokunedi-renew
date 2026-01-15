@@ -41,3 +41,4 @@ jobs:
             **/.git*/**
             **/node_modules/**
             **/fonts/**
+            **/.DS_Store
