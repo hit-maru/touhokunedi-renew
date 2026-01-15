@@ -3,17 +3,8 @@
 import HeaderEn from '../components/en/HeaderEn.astro';
 import FooterEn from '../components/en/FooterEn.astro';
 
-import '@fontsource/noto-sans-jp/400.css';
-import '@fontsource/noto-sans-jp/700.css';
-
-/* ✅ Cormorant Garamond：400も読み込む（通常ウェイトで使いたい場合） */
-import '@fontsource/cormorant-garamond/400.css';
-import '@fontsource/cormorant-garamond/700.css';
-
-import '@fontsource/eb-garamond/400.css';
-import '@fontsource/eb-garamond/700.css';
-
 import '../styles/global.css';
+
 const { title } = Astro.props;
 ---
 
@@ -22,8 +13,17 @@ const { title } = Astro.props;
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width" />
     <title>{title} | Tohoku Bolt Mfg. Co., Ltd.</title>
+
+    <!-- Google Fonts（JP / EN 共通で使用） -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=EB+Garamond:wght@400;500;600;700&family=Cormorant+Garamond:wght@400;500;600;700&family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    >
+
     <style>
-      /* ヘッダー高さがJPと違う前提でOK（現状のまま） */
+      /* ENヘッダー高さ前提のスクロール補正 */
       html { scroll-padding-top: 5rem; }
     </style>
   </head>
@@ -37,7 +37,12 @@ const { title } = Astro.props;
 
     <FooterEn />
 
-    <button id="back-to-top-en" class="fixed bottom-8 right-8 z-40 bg-[#008B9B] text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-[#007a8a]">
+    <!-- Back to top -->
+    <button
+      id="back-to-top-en"
+      aria-label="Back to top"
+      class="fixed bottom-8 right-8 z-40 bg-[#008B9B] text-white p-3 rounded-full shadow-lg opacity-0 invisible transition-all duration-300 hover:bg-[#007a8a]"
+    >
       <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2">
         <path stroke-linecap="round" stroke-linejoin="round" d="M5 10l7-7m0 0l7 7m-7-7v18" />
       </svg>
@@ -54,7 +59,9 @@ const { title } = Astro.props;
           btn?.classList.replace('visible', 'invisible');
         }
       });
-      btn?.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+      btn?.addEventListener('click', () => {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+      });
     </script>
   </body>
 </html>
