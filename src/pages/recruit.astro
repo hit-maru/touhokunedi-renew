@@ -48,10 +48,9 @@ import Layout from '../layouts/Layout.astro';
     </div>
   </div>
 
-  {/* 3. メインコンテンツ：頭出し位置を大幅に詰めて上方向へ調整 */}
   <div class="[&>section]:scroll-mt-[30px] md:[&>section]:scroll-mt-[20px]">
     
-    {/* メインメッセージ */}
+    {/* 3. メインメッセージ */}
     <section class="pt-12 pb-12 bg-white">
       <div class="container mx-auto px-6 relative z-10 text-center">
         <div class="max-w-4xl mx-auto mb-8">
@@ -59,7 +58,7 @@ import Layout from '../layouts/Layout.astro';
           <h2 class="font-mb101 text-gray-900 text-4xl md:text-6xl mb-8 leading-none">
             人が作る信頼<span class="ja-wrap whitespace-normal break-keep text-2xl md:text-3xl font-mb101 tracking-tight opacity-80"><wbr>［ネヂ］</span>
           </h2>
-          <h3 class="font-futomin text-xl md:text-2xl text-[#1A1A1A] mb-6 font-normal tracking-tighter">
+          <h3 class="font-futomin text-lg md:text-2xl text-[#008B9B] mb-6 font-normal tracking-tighter">
              他にはない、研究機関レベルの研究設備。<br />ネヂのラボラトリー「ねぢラボ」
           </h3>
           <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
@@ -74,8 +73,8 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* 人材育成方針 */}
-    <section class="pt-12 pb-24 bg-gray-50 border-y border-gray-100">
+    {/* 4. 人材育成方針 */}
+    <section class="pt-12 pb-12 bg-gray-50 border-y border-gray-100">
       <div class="container mx-auto px-6 max-w-4xl">
         <div class="bg-white p-8 md:p-12 shadow-sm border border-gray-100">
           <h2 class="text-2xl font-bold text-[#008B9B] mb-10 text-center font-mb101 underline underline-offset-8 decoration-gray-200">
@@ -107,7 +106,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* 募集要項カード */}
+    {/* 5. 募集要項カード */}
     <section class="pt-12 pb-18 bg-white">
       <div class="container mx-auto px-6 max-w-6xl">
         <h2 class="text-center text-[#008B9B] font-serif text-4xl font-normal mb-12">RECRUIT INFO</h2>
@@ -154,7 +153,7 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* 新卒採用 募集要項 */}
+    {/* 6. 新卒採用 募集要項 */}
     <section id="guidelines-new" class="pt-12 pb-12 bg-white">
       <div class="container mx-auto px-6 max-w-4xl">
         <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-8 border-[#008B9B] pl-4 font-mb101">新卒採用 募集要項</h2>
@@ -179,8 +178,8 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* キャリア採用 募集要項 */}
-    <section id="guidelines-career" class="pt-12 pb-24 bg-gray-50">
+    {/* 7. キャリア採用 募集要項 */}
+    <section id="guidelines-career" class="pt-12 pb-12 bg-gray-50">
       <div class="container mx-auto px-6 max-w-4xl">
         <h2 class="text-2xl font-bold text-gray-800 mb-8 border-l-8 border-[#E64A19] pl-4 font-mb101">キャリア採用 募集要項</h2>
         <div class="bg-white p-8 border border-gray-200">
@@ -196,21 +195,101 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* 社員の声 */}
-    <section id="voice" class="pt-12 pb-24 bg-gray-50 border-y border-gray-200">
-      <div class="container mx-auto px-6 max-w-5xl text-center">
-        <h2 class="text-[#F5A623] font-mb101 text-3xl font-bold mb-16">社員の声</h2>
-        <p class="text-gray-500 italic">各社員のインタビュー詳細は現在準備中です。</p>
+    {/* 8. 社員の声（合体版） */}
+    <section id="voice" class="pt-12 pb-12 bg-gray-50 border-y border-gray-200">
+      <div class="container mx-auto px-6 max-w-5xl">
+        <h2 class="text-center text-[#F5A623] font-mb101 text-3xl font-bold mb-16">社員の声</h2>
+
+        <div class="space-y-16">
+          {/* 品質保証部 Sさん */}
+          <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
+            <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
+              <h3 class="text-xl font-bold text-gray-800 font-mb101">品質保証部　Sさん</h3>
+              <p class="text-gray-500 text-[12px] mt-1 font-sans">2015年入社</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12">
+              <div class="w-full md:w-1/4 flex flex-col items-center">
+                <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
+                  <img src="/images/fig-S.png" alt="Sさんイラスト" class="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div class="w-full md:w-3/4 space-y-8 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">入社した理由と、<br class="hidden md:block"/>現在の仕事内容</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">前職で取得した資格が活かせそうだった点と、一貫製造による品質保証体制に惹かれて入社しました。当社で製作したボルト、ねじの製品検査を行っています。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">職場の雰囲気</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">個人ではなく、チームで戦うチームワーク重視！上下関係なくこれは違う、と思うことは発言できる職場環境です。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">東北ネヂの魅力・自慢</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">社会インフラを支える仕事。「たかがネジ。されどネヂ。」という社長のお言葉にもあるように、ねじはいろいろな箇所に使われ、業種的になくなることもほぼありません。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 仙台営業所 Kさん */}
+          <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
+            <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
+              <h3 class="text-xl font-bold text-gray-800 font-mb101">仙台営業所　Kさん</h3>
+              <p class="text-gray-500 text-[12px] mt-1 font-sans">2011年入社</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12">
+              <div class="w-full md:w-1/4 flex flex-col items-center">
+                <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
+                  <img src="/images/fig-K.png" alt="Kさんイラスト" class="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div class="w-full md:w-3/4 space-y-8 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">仕事内容と大切にしていること</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">経理事務と営業補助を担当しています。丁寧かつ迅速に対応することを大切にしています。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">女性の働きやすさ</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">育児にあたって時短勤務やフレックスタイム勤務ができるのは本当にありがたく、働きやすい環境だと感じます。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          {/* 総務部課長 Yさん */}
+          <div class="bg-white border border-gray-200 shadow-sm p-8 md:p-12">
+            <div class="border-l-4 border-[#F5A623] pl-4 mb-10">
+              <h3 class="text-xl font-bold text-gray-800 font-mb101">総務部課長　Yさん</h3>
+              <p class="text-gray-500 text-[12px] mt-1 font-sans">2015年入社</p>
+            </div>
+            <div class="flex flex-col md:flex-row gap-12">
+              <div class="w-full md:w-1/4 flex flex-col items-center">
+                <div class="w-32 h-32 md:w-40 md:h-40 bg-[#FFF8E1] rounded-full flex items-center justify-center border-4 border-white shadow-md overflow-hidden mb-4">
+                  <img src="/images/fig-Y.png" alt="Yさんイラスト" class="w-full h-full object-cover" />
+                </div>
+              </div>
+              <div class="w-full md:w-3/4 space-y-8 text-left">
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">男性の育児休業</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">妻の出産後に1か月ほど育児休業を取得しました。会社として男性の育休取得を推進している魅力的な環境です。</p>
+                </div>
+                <div class="grid grid-cols-1 md:grid-cols-[240px_1fr] gap-4 border-t border-dashed border-gray-200 pt-6">
+                  <h4 class="font-bold text-gray-800 text-sm font-mb101 pt-1 leading-relaxed text-primary">東北ネヂの自慢</h4>
+                  <p class="font-sans text-[14px] text-gray-600 leading-relaxed font-medium">鉄道や建築など、社会インフラを見えないところで支える「世の中に絶対必要な物」を作っていることが誇りです。</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
-    {/* お問合せ・エントリー */}
+    {/* 9. お問合せ・エントリー */}
     <section id="inquiry" class="pt-12 pb-12 bg-white">
       <div class="container mx-auto px-6 max-w-4xl">
         <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
           <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">📞 お電話でのお問合せ</h2>
           <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">採用に関するご質問は、お電話でも承ります。</p>
-          <a href="tel:0246564571" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B]">0246-56-4751</a>
+          <a href="tel:0246564751" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B]">0246-56-4751</a>
         </div>
 
         <h2 class="text-[#008B9B] font-serif text-4xl font-normal mb-4 text-center">ENTRY</h2>

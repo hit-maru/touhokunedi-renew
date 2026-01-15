@@ -1,36 +1,34 @@
-# build output
+# ===== Build output =====
 dist/
-
-# generated types
 .astro/
 
-# dependencies
+# ===== Dependencies =====
 node_modules/
 
-# logs
+# ===== Logs =====
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# environment variables
+# ===== Environment =====
 .env
 .env.production
 
-# macOS-specific files
+# ===== macOS =====
 .DS_Store
-
-# jetbrains setting folder
-.idea/
-*.psd
-*.psd
-
-# macOS metadata (prevents Astro "Unsupported file type ... Icon" on CI)
+**/.DS_Store
+._*
+**/._*
 Icon?
 **/Icon?
 
-._*
-**/._*
+# ===== Editor / IDE =====
+.idea/
 
-**/.DS_Store
-.DS_Store
+# ===== Design source files (not for deploy) =====
+*.psd
+
+# ===== Raw image assets (working originals, not for Astro) =====
+/raw_images/
+/**/raw_images/
