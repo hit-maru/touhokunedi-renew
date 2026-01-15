@@ -43,6 +43,7 @@ jobs:
             **/fonts/**
             **/images/**
             **/*.woff2
+            **/*.woff
             **/*.jpg
             **/*.png
             **/*.webp
