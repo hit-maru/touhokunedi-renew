@@ -24,3 +24,12 @@ pnpm-debug.log*
 .idea/
 *.psd
 *.psd
+
+# macOS metadata (prevents Astro "Unsupported file type ... Icon" on CI)
+Icon?
+**/Icon?
+
+._*
+**/._*
+
+**/.DS_Store
