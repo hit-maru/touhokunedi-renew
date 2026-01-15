@@ -1,34 +1,43 @@
-# ===== Build output =====
+# ===== Build output & Dependencies =====
+node_modules/
 dist/
 .astro/
 
-# ===== Dependencies =====
-node_modules/
-
 # ===== Logs =====
+*.log
 npm-debug.log*
 yarn-debug.log*
 yarn-error.log*
 pnpm-debug.log*
 
-# ===== Environment =====
+# ===== Environment (Secrets) =====
 .env
-.env.production
+.env.*
+!.env.example
 
-# ===== macOS =====
+# ===== macOS & System =====
 .DS_Store
 **/.DS_Store
 ._*
 **/._*
 Icon?
 **/Icon?
+Thumbs.db
 
 # ===== Editor / IDE =====
 .idea/
+.vscode/
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
 
-# ===== Design source files (not for deploy) =====
+# ===== Design source files (PSDなど) =====
 *.psd
+*.ai
 
-# ===== Raw image assets (working originals, not for Astro) =====
-/raw_images/
-/**/raw_images/
+# ===== Raw image assets (Working originals) =====
+raw_images/
+**/raw_images/
+_images_unused/
