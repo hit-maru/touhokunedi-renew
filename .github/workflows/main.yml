@@ -3,7 +3,7 @@ name: Deploy Astro Site to Xserver
 on:
   push:
     branches:
-      - main  # ここが main なのか master なのか、丸さんの環境に合わせてください
+      - main
 
 jobs:
   build-and-deploy:
@@ -23,6 +23,9 @@ jobs:
 
       - name: 🚀 Build project
         run: npm run build
+        env:
+          MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
+          MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
 
       - name: 📂 Deploy via FTP
         uses: SamKirkland/FTP-Deploy-Action@v4.3.5
@@ -32,10 +35,7 @@ jobs:
           password: ${{ secrets.FTP_PASSWORD }}
           local-dir: ./dist/
           server-dir: /7plus1.jp/public_html/
-          
-          dangerous-clean-slate: true 
-
-          # 💡 丸さんの「聖域（手出し無用）」リスト
+          dangerous-clean-slate: true
           exclude: |
             **/.git*
             **/.git*/**
