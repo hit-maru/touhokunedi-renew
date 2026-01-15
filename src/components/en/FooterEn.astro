@@ -1,5 +1,7 @@
 ---
 // src/components/en/FooterEn.astro
+// 現在の年を動的に取得（ワン歩先のアドバイス用）
+const currentYear = new Date().getFullYear();
 ---
 <footer class="bg-gray-900 text-white py-20 border-t border-white/10">
   <div class="container mx-auto px-6">
@@ -8,16 +10,23 @@
       {/* Brand Column */}
       <div class="col-span-1 md:col-span-1">
         <a href="/en/" class="flex flex-col mb-6">
-          <span class="font-serif text-3xl font-bold tracking-tighter leading-none">nedzi</span>
+          <span class="font-gara text-3xl font-normal tracking-tight leading-none">nedzi</span>
           <span class="text-[10px] uppercase tracking-[0.2em] text-[#008B9B] font-sans mt-2">Tohoku Bolt MFG.</span>
         </a>
         <p class="text-xs text-gray-400 leading-relaxed mb-6">
-          [cite_start]Providing "Relief" and "Trust" through high-quality hot-forging technology since 1943. [cite: 10]
+          Providing "Relief" and "Trust" through high-quality hot-forging technology since 1943.
         </p>
         <div class="flex gap-4">
-          <a href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/" target="_blank" class="text-gray-400 hover:text-white transition-colors">
+          <a 
+            href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/" 
+            target="_blank" 
+            rel="noopener noreferrer"
+            class="text-gray-400 hover:text-white transition-colors"
+          >
             <span class="sr-only">LinkedIn</span>
-            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24"><path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/></svg>
+            <svg class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M19 0h-14c-2.761 0-5 2.239-5 5v14c0 2.761 2.239 5 5 5h14c2.762 0 5-2.239 5-5v-14c0-2.761-2.238-5-5-5zm-11 19h-3v-11h3v11zm-1.5-12.268c-.966 0-1.75-.79-1.75-1.764s.784-1.764 1.75-1.764 1.75.79 1.75 1.764-.783 1.764-1.75 1.764zm13.5 12.268h-3v-5.604c0-3.368-4-3.113-4 0v5.604h-3v-11h3v1.765c1.396-2.586 7-2.777 7 2.476v6.759z"/>
+            </svg>
           </a>
         </div>
       </div>
@@ -40,10 +49,13 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-8 text-xs text-gray-400">
           <div>
             <p class="font-bold text-white mb-2">Head Office & Factory</p>
-            <p class="leading-relaxed">
-              59, Jari, Kurosunu, Izumi-machi, Iwaki, Fukushima, 971-8184 Japan <br/>
-              TEL: +81-(0)246-56-4751
-            </p>
+              <p class="leading-relaxed">
+                 59, Jari, Kurosunu, Izumi-machi, Iwaki, Fukushima, 971-8184 Japan <br/>
+                 TEL:
+                 <span class="font-gara text-2xl md:text-3xl font-normal text-white block">
+                   +81-(0)246-56-4751
+                 </span>
+               </p>
           </div>
           <div>
             <p class="font-bold text-white mb-2">Tokyo Headquarters</p>
@@ -59,7 +71,7 @@
     {/* Bottom Bar */}
     <div class="mt-20 pt-8 border-t border-white/5 flex flex-col md:flex-row justify-between items-center gap-4">
       <p class="text-[10px] text-gray-500 uppercase tracking-widest">
-        [cite_start]Copyright © Tohoku bolt MFG All rights reserved. [cite: 49]
+        Copyright © {currentYear} Tohoku Bolt MFG. All rights reserved.
       </p>
       <div class="flex gap-6 text-[10px] uppercase tracking-widest text-gray-500">
         <a href="/en/privacy-policy" class="hover:text-white transition-colors">Privacy Policy</a>

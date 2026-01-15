@@ -5,27 +5,39 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
 
 <LayoutEn title="Company Profile | Tohoku Bolt (Nedzi) MFG. Co., Ltd.">
   {/* Hero Section: 背景画像を追加 */}
-  <section class="relative pt-32 pb-24 bg-gray-900 text-white overflow-hidden">
-    {/* 背景画像： public/images/en/ に配置した画像を指定 */}
-    <img 
-      src="/images/en/WEB-SITE-0014_web2.webp" 
-      alt="Our Values" 
-      class="absolute inset-0 w-full h-full object-cover opacity-90" 
-    />
+  {/* Hero Section: 背景画像を追加 */}
+<section class="relative min-h-[100svh] md:min-h-0 md:pt-32 md:pb-24 bg-gray-900 text-white overflow-hidden flex items-center">
 
-    {/* グラデーションオーバーレイ（文字を読みやすくするため） */}
-    <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent"></div>
+  {/* 背景画像 */}
+  <img 
+    src="/images/en/WEB-SITE-0014_web2.webp" 
+    alt="Our Values" 
+    class="absolute inset-0 w-full h-full object-cover opacity-90" 
+  />
 
-    <div class="relative z-10 container mx-auto px-6">
-      <h1 class="font-serif text-5xl md:text-7xl font-bold mb-8 text-balance">Company</h1>
-      <p class="text-xl font-light max-w-3xl opacity-90 italic leading-relaxed">
-        Securing the world’s infrastructure with the pride of "NEDI" — supporting leading roles from behind the scenes since 1943.
-      </p>
-    </div>
-  </section>
+  {/* グラデーションオーバーレイ */}
+  <div class="absolute inset-0 bg-gradient-to-r from-gray-900 via-gray-900/60 to-transparent"></div>
+
+  {/* メインコピー */}
+  <div class="relative z-10 container mx-auto px-6">
+    <h1 class="font-cormo text-5xl md:text-7xl font-bold mb-8 text-balance">
+      Company
+    </h1>
+    <p class="text-base font-light max-w-3xl opacity-90 leading-relaxed">
+      Securing the world’s infrastructure with the pride of "NEDI" — supporting leading roles from behind the scenes since 1943.
+    </p>
+  </div>
+
+  {/* ↓ スクロール誘導（スマホのみ） */}
+  <div class="absolute bottom-6 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center text-white/70 md:hidden">
+    <span class="text-xs tracking-widest mb-2">SCROLL</span>
+    <span class="animate-bounce text-2xl">↓</span>
+  </div>
+
+</section>
 
   {/* 1. Philosophy: TOHOKU BOLT WAY */}
-  <section class="py-24 bg-white border-b border-gray-100">
+  <section class="py-12 bg-white border-b border-gray-100">
     <div class="container mx-auto px-6 max-w-4xl">
       <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 text-center uppercase tracking-widest">TOHOKU BOLT WAY</h2>
       <div class="space-y-12">
@@ -54,7 +66,7 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
   </section>
 
   {/* 2. Company Profile (id="profile" を追加してナビゲーションと連動) */}
-  <section id="profile" class="py-24 bg-gray-50">
+  <section id="profile" class="py-12 bg-gray-50">
     <div class="container mx-auto px-6 max-w-5xl">
       <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 uppercase tracking-widest text-center">Company Profile</h2>
       <div class="bg-white shadow-sm border border-gray-200 overflow-x-auto">
@@ -76,7 +88,7 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
   </section>
 
   {/* 3. Corporate History (資料に基づいた詳細版) */}
-  <section class="py-24 bg-white overflow-hidden">
+  <section class="py-12 bg-white overflow-hidden">
     <div class="container mx-auto px-6 max-w-5xl">
       <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-20 uppercase tracking-widest text-center">Corporate History</h2>
       
@@ -212,15 +224,15 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
   </section>
 
   {/* 4. SDGs & Certifications (10マーク＋認定ロゴの統合版) */}
-  <section id="sdgs" class="py-24 bg-gray-50">
+  <section id="sdgs" class="py-12 bg-gray-50">
     <div class="container mx-auto px-6 max-w-5xl">
       
       {/* A. SDGs Icons Grid: 10個のマークを網羅 */}
       <div class="text-center mb-12">
-        <h2 class="font-serif text-3xl font-bold text-[#008B9B] uppercase tracking-[0.2em] mb-4">SDGs Initiatives</h2>
+        <h2 class="font-gara text-3xl font-normal text-[#008B9B] uppercase tracking-[0.2em] mb-4">SDGs Initiatives</h2>
         <p class="text-sm text-gray-600 italic mb-10">We are committed to these 10 goals for a sustainable future.</p>
         
-        <div class="grid grid-cols-5 md:grid-cols-10 gap-2 md:gap-3 mb-20 border-b border-gray-200 pb-16">
+        <div class="grid grid-cols-5 md:grid-cols-10 gap-2 md:gap-3 mb-12 border-b border-gray-200 pb-12">
           {[3, 4, 5, 7, 8, 9, 10, 11, 12, 13].map((goal) => (
             <img 
               src={`/images/sdgs/E_SDG_PRINT-${String(goal).padStart(2, '0')}.jpg`} 
@@ -232,7 +244,7 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
       </div>
 
       {/* B. Official Certifications: 日本語版の「その他の認定・受賞」を英語化 */}
-      <h3 class="font-serif text-2xl font-bold text-gray-900 mb-12 text-center md:text-left">Official Certifications & Awards</h3>
+      <h3 class="font-gara text-2xl font-normal text-gray-900 mb-12 text-center md:text-left">Official Certifications & Awards</h3>
       
       <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-12">
         
@@ -285,19 +297,19 @@ import LayoutEn from '../../layouts/LayoutEn.astro';
   </section>
 
   {/* 5. Technical Trust Assets */}
-  <section class="py-24 bg-white">
+  <section class="py-12 bg-white">
     <div class="container mx-auto px-6 max-w-5xl">
       <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-12 text-center uppercase tracking-widest">Technical Assets</h2>
       <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
         <div class="bg-gray-50 p-8 border-t-4 border-[#008B9B] shadow-sm">
-          <h4 class="font-bold mb-4 text-gray-900">Patents & Innovation</h4>
+          <h4 class="text-lg font-bold mb-4 text-gray-900">Patents & Innovation</h4>
           <ul class="text-xs text-gray-600 space-y-3 leading-relaxed">
             <li>• Patent No. 002405: Rail first aid unit of connecting track</li>
             <li>• Patent No. 162256: Removable underground pipe</li>
           </ul>
         </div>
         <div class="bg-gray-50 p-8 border-t-4 border-[#008B9B] shadow-sm">
-          <h4 class="font-bold mb-4 text-gray-900">Academic Contributions</h4>
+          <h4 class="text-lg font-bold mb-4 text-gray-900">Academic Contributions</h4>
           <p class="text-xs text-gray-600 leading-relaxed">
             Technical presentations at JSME and joint development with major infrastructure partners.
           </p>

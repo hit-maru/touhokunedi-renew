@@ -16,20 +16,21 @@ import AccessEn from '../../components/en/AccessEn.astro';
     <div class="absolute inset-0 bg-black/40"></div>
     <div class="relative z-10 container mx-auto px-6 text-center md:text-left">
       <p class="font-sans text-[#E64A19] font-bold tracking-[0.2em] mb-4 uppercase">Iwaki, Japan</p>
-      <h1 class="font-serif text-6xl md:text-8xl font-normal mb-6 tracking-tight leading-none text-white">nedzi</h1>
-      <p class="text-xl md:text-2xl font-serif italic mb-8 text-gray-200">
+      <h1 class="font-gara text-6xl md:text-8xl font-normal mb-6 tracking-tight leading-none text-white">nedzi</h1>
+      <p class="text-xl md:text-2xl font-gara italic mb-8 text-gray-200">
         High-Quality Hot-Forged Bolt MFG. Co., Ltd.
       </p>
       <div class="w-24 h-1 bg-[#E64A19] mb-8 mx-auto md:mx-0"></div>
       <p class="text-lg md:text-xl font-light tracking-wide max-w-2xl">
         We deliver <span class="font-bold text-white">"Relief"</span> and <span class="font-bold text-white">"Trust"</span>.
       </p>
-      <p class="mt-4 text-sm opacity-70">SINCE 1943</p>
+      <p class="font-gara mt-8 text-base opacity-70">ESTABLISHED IN <br>
+         <span class="text-4xl md:text-5xl opacity-100">1943</span>
     </div>
   </section>
 
   {/* 2. President's Message Section */}
-  <section id="message" class="py-24 bg-white">
+  <section id="message" class="py-12 bg-white">
     <div class="container mx-auto px-6 max-w-6xl">
       <div class="flex flex-col md:flex-row gap-16 items-start">
         
@@ -60,10 +61,10 @@ import AccessEn from '../../components/en/AccessEn.astro';
 
         {/* 右側：メッセージ内容 */}
         <div class="w-full md:w-2/3">
-          <h2 class="font-serif text-4xl md:text-5xl font-bold text-[#008B9B] mb-8 leading-tight">
-            “It's just a bolt <span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>,<br>
-            but it's a bolt <span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>.”
-          </h2>
+          <h2 class="font-cormo text-4xl md:text-5xl font-bold text-[#008B9B] mb-8 leading-tight text-center md:text-left">
+“It's just a bolt<span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>,<br>
+but it's a bolt<span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi)</span>.”
+</h2>
           <div class="space-y-6 text-gray-700 leading-relaxed text-lg font-light">
             <p>
               We aim to continue providing the value of "relief" and "trust" to our customers and society through threads. Our mission is to contribute to society by further enhancing our value both domestically and internationally.
@@ -79,7 +80,7 @@ import AccessEn from '../../components/en/AccessEn.astro';
           {/* Company Creed ボックス */}
           <div class="mt-12 p-8 bg-gray-50 border-l-4 border-[#E64A19] shadow-sm">
             <h4 class="font-bold text-gray-900 mb-2 uppercase tracking-widest text-xs">Company Creed</h4>
-            <p class="font-serif text-3xl text-[#008B9B]">Sincerity, Effort, Cooperation</p>
+            <p class="font-cormo text-3xl font-bold text-[#008B9B]">Sincerity, Effort, Cooperation</p>
           </div>
         </div>
         
@@ -88,7 +89,7 @@ import AccessEn from '../../components/en/AccessEn.astro';
   </section>
 
   {/* 3. Products Teaser */}
-  <section id="products" class="py-24 bg-gray-50">
+  <section id="products" class="py-12 bg-gray-50">
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">
         <h2 class="font-gara text-4xl font-normal text-[#008B9B] mb-4">Products with Soul</h2>
@@ -121,7 +122,7 @@ import AccessEn from '../../components/en/AccessEn.astro';
   </section>
 
   {/* 4. Manufacturing & Lab */}
-  <section id="manufacturing" class="py-24 bg-white border-b border-gray-100">
+  <section id="manufacturing" class="py-12 bg-white border-b border-gray-100">
     <div class="container mx-auto px-6 flex flex-col md:flex-row gap-16 items-center">
       <div class="w-full md:w-1/2">
         <h2 class="font-gara text-3xl font-normal text-[#008B9B] mb-6">MFG Excellence & Nedi Lab</h2>
@@ -133,22 +134,26 @@ import AccessEn from '../../components/en/AccessEn.astro';
         </a>
       </div>
       <div class="w-full md:w-1/2">
-        <div class="relative group overflow-hidden shadow-2xl">
-          <img 
-            src="/images/en/home_banner_nedilabo_english.gif" 
-            alt="Nedi Labo - Our research & development" 
-            class="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
-          />
-          <div class="absolute inset-0 border-2 border-[#008B9B]/20 pointer-events-none"></div>
-        </div>
+  <figure class="relative group overflow-hidden shadow-2xl">
+    <img 
+      src="/images/Nedzi_Lab.png" 
+      alt="Nedi Labo - Our research & development" 
+      class="w-full h-auto transition-transform duration-500 group-hover:scale-105" 
+      />
+     <div class="absolute inset-0 border-2 border-[#008B9B]/20 pointer-events-none"></div>
+       <figcaption class="mt-2 text-[10px] text-gray-400 tracking-wide text-center">
+        Left:3D FEM Analysis Striation Pattern Observations (Micro Observations at 8000x Magnification), <br>Right:Fatigue Failure Analysis 
+        (Macro Observations) 
+       </figcaption>
+       </figure>
       </div>
     </div>
   </section>
 
   {/* 5. SDGs Digest */}
-  <section id="sdgs" class="py-24 bg-[#F0F4F8]">
+  <section id="sdgs" class="py-12 bg-[#F0F4F8]">
     <div class="container mx-auto px-6 text-center">
-      <h2 class="font-serif text-3xl md:text-4xl font-normal mb-12 tracking-normal leading-none text-balance">
+      <h2 class="font-gara text-3xl md:text-4xl font-normal mb-12 tracking-normal leading-none text-balance">
         <span class="text-primary uppercase tracking-widest">Sustainable Development</span> 
         <span class="text-[#E64A19] block md:inline mt-2 md:mt-0">GOALS</span>
       </h2>
@@ -171,19 +176,67 @@ import AccessEn from '../../components/en/AccessEn.astro';
 
   <AccessEn />
 
+   {/* LinkedIn Section */}
+<section class="pt-12 pb-24 bg-gray-50">
+  <div class="container mx-auto px-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
+
+      {/* 左側：LinkedInエリア */}
+      <div class="flex flex-col">
+  <a 
+    href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/posts/?feedView=all"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-[#008B9B] text-white px-6 py-3 rounded-t-sm shadow-sm flex justify-between items-center hover:opacity-90 transition-opacity decoration-none"
+  >
+    <span class="font-['Barlow_Condensed'] text-xl tracking-normal font-bold text-white">
+      Our LinkedIn Site
+    </span>
+    <span class="text-xs opacity-80 font-sans text-white">
+      Official LinkedIn →
+    </span>
+  </a>
+
+  <div class="bg-white border-x border-b border-gray-200 shadow-sm rounded-b-sm overflow-hidden p-1">
+    <iframe
+      src="https://www.linkedin.com/embed/feed/update/urn:li:share:7388474296311902208"
+      height="753"
+      width="100%"
+      frameborder="0"
+      allowfullscreen
+      title="LinkedIn Post"
+      class="w-full"
+    ></iframe>
+  </div>
+</div>
+
+
+      {/* 右側：将来のYouTubeエリア */}
+      <div class="hidden md:block">
+        {/* Reserved for future content (YouTube, News, etc.) */}
+      </div>
+
+    </div>
+  </div>
+</section>
+
   {/* 6. Contact Section */}
-  <section id="contact" class="py-24 bg-[#008B9B] text-white text-center">
+  <section id="contact" class="py-12 bg-[#008B9B] text-white text-center">
     <div class="container mx-auto px-6">
-      <h2 class="font-gara text-4xl font-normal mb-6 italic tracking-tight">"Can you do that?"</h2>
+      <h2 class="font-gara text-4xl font-normal mb-6 tracking-tight">"Can you do that?"</h2>
       <p class="mb-10 text-lg opacity-80 font-light">Contact us for any engineering challenges.</p>
       <div class="flex flex-col md:flex-row justify-center items-center gap-6">
-        <a href="mailto:info@touhokunedi.com" class="bg-white text-[#008B9B] px-12 py-4 font-bold rounded-sm shadow-lg hover:bg-gray-100 transition-colors uppercase tracking-widest text-sm">
+        <a href="mailto:info@touhokunedi.com" class="bg-white text-[#008B9B] px-12 py-4 font-bold rounded-sm shadow-lg hover:bg-gray-100 transition-colors tracking-widest text-sm">
           Email: info@touhokunedi.com
         </a>
         <div class="text-left md:border-l md:border-white/30 md:pl-6">
-          <p class="text-[10px] opacity-70 uppercase tracking-widest">Headquarters Phone</p>
-          <p class="text-xl font-bold font-sans">+81-(0)246-56-4751</p>
-        </div>
+          <p class="text-[10px] opacity-70 uppercase tracking-widest">
+            Headquarters Phone
+          </p>
+          <p class="font-gara text-2xl md:text-3xl font-normal text-white">
+            +81-(0)246-56-4751
+          </p>
+       </div>
       </div>
     </div>
   </section>

@@ -10,8 +10,9 @@
   }
 
   body {
-    @apply font-sans antialiased text-[#1A1A1A] bg-white; /* カラーを墨色に固定 */
-    line-height: 1.618; /* 黄金比の行間 */
+    /* font-sans を削除 */
+    @apply antialiased text-[#1A1A1A] bg-white;
+    line-height: 1.618;
   }
 
   /* 明朝体：17px 基準の設計 */
