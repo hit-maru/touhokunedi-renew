@@ -1,23 +1,50 @@
-- name: Deploy to Xserver
-  uses: SamKirkland/FTP-Deploy-Action@v4.3.5
-  with:
-    server: ${{ secrets.FTP_SERVER }}
-    username: ${{ secrets.FTP_USERNAME }}
-    password: ${{ secrets.FTP_PASSWORD }}
-    local-dir: ./dist/
-    server-dir: /7plus1.jp/public_html/
-    dangerous-clean-slate: true
+name: Deploy Astro Site to Xserver
 
-    # 💡 ここが「聖域（手出し無用）」リストです
-    exclude: |
-      **/.git*
-      **/.git*/**
-      **/node_modules/**
-      **/fonts/**
-      **/images/**
-      **/*.woff2
-      **/*.jpg
-      **/*.png
-      **/*.webp
-      **/*.svg
-      **/*.ico
+on:
+  push:
+    branches:
+      - main  # ここが main なのか master なのか、丸さんの環境に合わせてください
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: 🚚 Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🛠 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: 📦 Install dependencies
+        run: npm install
+
+      - name: 🚀 Build project
+        run: npm run build
+
+      - name: 📂 Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /7plus1.jp/public_html/
+          
+          dangerous-clean-slate: true 
+
+          # 💡 丸さんの「聖域（手出し無用）」リスト
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/fonts/**
+            **/images/**
+            **/*.woff2
+            **/*.jpg
+            **/*.png
+            **/*.webp
+            **/*.svg
+            **/*.ico
