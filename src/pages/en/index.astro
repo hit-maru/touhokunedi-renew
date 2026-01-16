@@ -2,6 +2,10 @@
 // src/pages/en/index.astro
 import LayoutEn from '../../layouts/LayoutEn.astro';
 import AccessEn from '../../components/en/AccessEn.astro';
+
+// [追加] LinkedIn設定：最新のURLと高さをここに集約
+const LINKEDIN_EMBED_URL = "https://www.linkedin.com/embed/feed/update/urn:li:share:7417757853383307264";
+const LINKEDIN_IFRAME_HEIGHT = 600; 
 ---
 
 <LayoutEn title="High-Quality Hot-Forged Bolt Manufacturer">
@@ -183,32 +187,33 @@ but it's a bolt<span class="text-[0.7em] align-baseline font-normal ml-1">(nedzi
 
       {/* 左側：LinkedInエリア */}
       <div class="flex flex-col">
-  <a 
-    href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/posts/?feedView=all"
-    target="_blank"
-    rel="noopener noreferrer"
-    class="bg-[#008B9B] text-white px-6 py-3 rounded-t-sm shadow-sm flex justify-between items-center hover:opacity-90 transition-opacity decoration-none"
-  >
-    <span class="font-['Barlow_Condensed'] text-xl tracking-normal font-bold text-white">
-      Our LinkedIn Site
-    </span>
-    <span class="text-xs opacity-80 font-sans text-white">
-      Official LinkedIn →
-    </span>
-  </a>
+        <a 
+          href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/posts/?feedView=all"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="bg-[#008B9B] text-white px-6 py-3 rounded-t-sm shadow-sm flex justify-between items-center hover:opacity-90 transition-opacity decoration-none"
+        >
+          <span class="font-['Barlow_Condensed'] text-xl tracking-normal font-bold text-white">
+            Our LinkedIn Site
+          </span>
+          <span class="text-xs opacity-80 font-sans text-white">
+            Official LinkedIn →
+          </span>
+        </a>
 
-  <div class="bg-white border-x border-b border-gray-200 shadow-sm rounded-b-sm overflow-hidden p-1">
-    <iframe
-      src="https://www.linkedin.com/embed/feed/update/urn:li:share:7388474296311902208"
-      height="753"
-      width="100%"
-      frameborder="0"
-      allowfullscreen
-      title="LinkedIn Post"
-      class="w-full"
-    ></iframe>
-  </div>
-</div>
+        {/* 変更ポイント：h-[600px] と overflow-y-auto を追加 */}
+        <div class="bg-white border-x border-b border-gray-200 shadow-sm rounded-b-sm p-1 h-[600px] overflow-y-auto custom-scrollbar">
+          <iframe
+            src={LINKEDIN_EMBED_URL}
+            height={LINKEDIN_IFRAME_HEIGHT}
+            width="100%"
+            frameborder="0"
+            allowfullscreen
+            title="LinkedIn Post"
+            class="w-full"
+          ></iframe>
+        </div>
+      </div>
 
 
       {/* 右側：将来のYouTubeエリア */}

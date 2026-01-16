@@ -10,9 +10,10 @@ import { format } from 'date-fns';
  * - 更新頻度：年に数回
  */
 const LINKEDIN_EMBED_URL =
-  "https://www.linkedin.com/embed/feed/update/urn:li:ugcPost:7401838159237591040";
+  "https://www.linkedin.com/embed/feed/update/urn:li:share:7417757853383307264";
 
-const LINKEDIN_IFRAME_HEIGHT = 1146;
+// 枠内スクロールを有効にするため、高さを1146から600へ変更
+const LINKEDIN_IFRAME_HEIGHT = 600;
 
 // 最新5件のお知らせを取得
 const response = await getNews({ 
@@ -176,32 +177,32 @@ const latestNews = response.contents;
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
         
   {/* 左側：LinkedInエリア */}
-          <div class="flex flex-col">
-          <a
-            href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/posts/?feedView=all"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="bg-[#008B9B] text-white px-6 py-3 rounded-t-sm shadow-sm flex justify-between items-center"
-          >
-            <span class="font-['Barlow_Condensed'] text-xl font-bold text-white">
-              Our LinkedIn Site
-            </span>
-            <span class="text-xs opacity-80 text-white">View latest updates →</span>
-          </a>
+<div class="flex flex-col">
+  <a
+    href="https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/posts/?feedView=all"
+    target="_blank"
+    rel="noopener noreferrer"
+    class="bg-[#008B9B] text-white px-6 py-3 rounded-t-sm shadow-sm flex justify-between items-center"
+  >
+    <span class="font-['Barlow_Condensed'] text-xl font-bold text-white">
+      Our LinkedIn Site
+    </span>
+    <span class="text-xs opacity-80 text-white">View latest updates →</span>
+  </a>
 
-          <div class="bg-white border-x border-b border-gray-200 shadow-sm rounded-b-sm overflow-hidden p-1">
-            <iframe
-              src={LINKEDIN_EMBED_URL}
-              height={LINKEDIN_IFRAME_HEIGHT}
-              width="100%"
-              frameborder="0"
-              allowfullscreen
-              title="LinkedIn Post"
-              class="w-full"
-            ></iframe>
-          </div>
-        </div>
-
+  {/* スクロール可能なコンテナ */}
+  <div class="bg-white border-x border-b border-gray-200 shadow-sm rounded-b-sm overflow-hidden p-1 h-[600px] overflow-y-auto custom-scrollbar">
+    <iframe
+      src={LINKEDIN_EMBED_URL}
+      height={LINKEDIN_IFRAME_HEIGHT}
+      width="100%"
+      frameborder="0"
+      allowfullscreen
+      title="LinkedIn Post"
+      class="w-full"
+    ></iframe>
+  </div>
+</div>
         {/* 右側：将来のYouTubeエリア */}
         <div class="hidden md:block">
           {/* 将来的にYouTube等のコンテンツを配置 */}
