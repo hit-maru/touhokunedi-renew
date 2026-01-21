@@ -4,15 +4,11 @@ import { getNews } from '../lib/microcms';
 import { format } from 'date-fns';
 
 /**
- * LinkedIn Embed
- * - 通常:代表投稿
- * - イベント前:直近イベント投稿に差し替え
- * - 更新頻度:年に数回
+ * LinkedIn Embed 設定
  */
 const LINKEDIN_EMBED_URL =
   "https://www.linkedin.com/embed/feed/update/urn:li:share:7417757853383307264";
 
-// 枠内スクロールを有効にするため、高さを1146から600へ変更
 const LINKEDIN_IFRAME_HEIGHT = 600;
 
 // 最新5件のお知らせを取得
@@ -26,7 +22,7 @@ const latestNews = response.contents;
 
 <Layout title="Top">
   
-  {/* --- ヒーローセクション:ここから --- */}
+  {/* --- ヒーローセクション --- */}
   <section id="hero-section" class="relative w-full h-screen min-h-screen overflow-hidden bg-gray-900">
     
     {/* 1. 背景ビデオ */}
@@ -36,15 +32,15 @@ const latestNews = response.contents;
       </video>
       <div class="absolute inset-0 bg-gradient-to-tr from-[#E64A19] to-gray-900 opacity-10 mix-blend-multiply z-20"></div>
       
-      {/* 創業年 */}
+      {/* 創業年表示 */}
       <div class="absolute bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 text-white text-center md:text-right z-30">
         <p class="text-sm tracking-widest mb-2 uppercase text-white">Established in</p>
         <p class="font-serif text-5xl md:text-6xl text-white">1943</p>
       </div>
     </div>
 
-    {/* 2. 前面パネル */}
-    <div id="intro-panel" class="absolute inset-y-0 left-0 w-full md:w-1/2 bg-white flex flex-col justify-center items-center md:items-start p-8 md:p-16 z-40 transition-transform duration-[2500ms] ease-in-out origin-left md:border-r-4 border-[#008B9B]">
+    {/* 2. 前面パネル：3秒後にスライド */}
+    <div id="intro-panel" class="absolute inset-y-0 left-0 w-full md:w-1/2 bg-white flex flex-col justify-center items-center md:items-start p-8 md:p-16 z-50 transition-transform duration-[2500ms] ease-in-out origin-left md:border-r-4 border-[#008B9B]">
       <div class="absolute top-0 left-0 w-full md:w-2 h-2 md:h-full bg-[#008B9B]"></div>
       
       <div class="relative max-w-[400px] flex flex-col items-center md:items-start">
@@ -52,7 +48,7 @@ const latestNews = response.contents;
         <h1 class="font-serif text-7xl md:text-9xl text-gray-900 mb-6 tracking-tight leading-tight">nedzi</h1>
         <p class="font-serif text-gray-500 text-xl tracking-wide italic mb-10 md:mb-12 text-center md:text-left">High-Quality Hot-Forged Bolt MFG.</p>
 
-        {/* スマホ専用キャッチコピー */}
+        {/* スマホ用キャッチコピー */}
         <div class="md:hidden flex justify-center mb-12">
           <div style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl; text-orientation: upright; -webkit-text-orientation: upright;"
                class="text-2xl font-mincho font-bold text-gray-800 tracking-[0.3em] leading-relaxed border-r border-gray-200 pr-4">
@@ -65,7 +61,7 @@ const latestNews = response.contents;
         </a>
       </div>
 
-      {/* デスクトップ専用黄金比配置 */}
+      {/* デスクトップ用キャッチコピー */}
       <div class="absolute right-8 top-1/2 -translate-y-[calc(50%+44px)] hidden md:block z-10">
         <div style="writing-mode: vertical-rl; -webkit-writing-mode: vertical-rl; text-orientation: upright; -webkit-text-orientation: upright;"
              class="text-4xl font-mincho font-bold text-gray-800 tracking-[0.3em] border-r border-gray-200 pr-6">
@@ -74,17 +70,36 @@ const latestNews = response.contents;
       </div>
     </div>
 
-    {/* 3. スクロールガイド（3秒後に表示） */}
-    <div class="scroll-guide absolute bottom-10 left-1/2 -translate-x-1/2 z-30 flex flex-col items-center pointer-events-none">
-      <span class="text-[10px] uppercase tracking-[0.4em] text-white/70 mb-2 font-serif">Scroll</span>
-      <div class="w-[1px] h-12 bg-gradient-to-b from-[#008B9B] to-transparent relative overflow-hidden">
-        <div class="scroll-line-inner absolute top-0 left-0 w-full h-full bg-white/40"></div>
-      </div>
-    </div>
+    {/* 3. AIコンシェルジュバナー：15pxマージン */}
+    <div class="ai-banner absolute top-[90px] left-1/2 -translate-x-1/2 w-11/12 md:w-1/2 z-[60] pointer-events-none opacity-0">
+  <a 
+    href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" 
+    target="_blank" 
+    class="
+      pointer-events-auto block w-full py-3 
+      bg-white text-black text-center 
+      font-mb101 font-bold text-sm md:text-base tracking-widest 
+      border border-[#008B9B] shadow-xl 
+      transition-all duration-300 ease-in-out
+      hover:bg-[#008B9B] hover:text-white 
+      transform hover:scale-[1.02] active:scale-[0.98] 
+      rounded-sm
+    "
+  >
+    東北ネヂのAIコンシェルジュに聞く
+  </a>
+</div>
+
+<div class="scroll-guide absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+  <span class="text-[10px] uppercase tracking-[0.4em] text-white/70 mb-2 font-serif">Scroll</span>
+  <div class="w-[1px] h-20 bg-gradient-to-b from-[#008B9B] to-transparent relative overflow-hidden">
+    <div class="scroll-line-inner absolute top-0 left-0 w-full h-full bg-white/40"></div>
+  </div>
+</div>
     
   </section>
 
-  {/* 強みセクション */}
+  {/* --- 強みセクション --- */}
   <section class="py-12 bg-gray-50">
     <div class="container mx-auto px-6">
       <div class="text-center mb-16">
@@ -120,7 +135,7 @@ const latestNews = response.contents;
     </div>
   </section>
 
-  {/* 新着情報セクション */}
+  {/* --- 新着情報セクション --- */}
   <section class="py-12 bg-white border-t border-gray-100">
     <div class="container mx-auto px-6 max-w-6xl">
       <div class="flex items-center justify-between mb-12">
@@ -173,7 +188,7 @@ const latestNews = response.contents;
     </div>
   </section>
 
-  {/* ソーシャルメディアセクション */}
+  {/* --- ソーシャルメディアセクション --- */}
   <section class="py-12 bg-gray-50 border-t border-gray-100">
     <div class="container mx-auto px-6 max-w-6xl">
       <div class="grid grid-cols-1 md:grid-cols-2 gap-12">
@@ -207,27 +222,30 @@ const latestNews = response.contents;
 </Layout>
 
 <style>
-  /* 扉の移動アニメーション */
+  /* 扉の移動（既存） */
   :global(.is-animated) #intro-panel {
     transform: translateX(-100%);
   }
 
-  /* スクロールガイドの初期状態とフェードイン */
-  .scroll-guide {
-    opacity: 0;
-    transition: opacity 1.5s ease-out;
+  /* AIバナーとスクロールガイドの初期状態とフェードイン */
+  .ai-banner, .scroll-guide {
+    opacity: 0; /* 初期は透明 */
+    visibility: hidden; /* クリック防止 */
+    transition: opacity 2s ease-out, visibility 2s;
   }
 
+  /* 3秒後（is-animated付与時）に表示 */
+  :global(.is-animated) .ai-banner,
   :global(.is-animated) .scroll-guide {
     opacity: 1;
+    visibility: visible;
   }
 
-  /* 線が流れるアニメーション */
+  /* スクロール線が流れるアニメーション */
   .scroll-line-inner {
     transform: translateY(-100%);
     animation: scrollLine 2s infinite ease-in-out;
-    /* 3秒の静寂後、扉が開くタイミングでアニメーション開始 */
-    animation-delay: 3s; 
+    animation-delay: 3s; /* 扉が開くタイミングで開始 */
   }
 
   @keyframes scrollLine {
