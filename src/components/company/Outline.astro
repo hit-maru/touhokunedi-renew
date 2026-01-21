@@ -39,7 +39,7 @@ const outlineData = [
 ---
 
 <section id="outline" class="py-10 bg-white border-t border-gray-100">
-  <div class="container mx-auto px-6 max-w-5xl">
+  <div class="container mx-auto px-4 max-w-5xl">
     
     <div class="mb-10 text-primary">
       <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
@@ -53,14 +53,14 @@ const outlineData = [
         {outlineData.map((item) => (
           <div class="flex flex-col md:flex-row border-b border-gray-100 last:border-0">
             {/* 左側：項目名（MB101 14px） */}
-            <dt class="bg-gray-50 py-4 px-6 md:w-[220px] shrink-0 flex items-start md:items-center">
+            <dt class="bg-gray-50 py-4 px-4 md:w-[220px] shrink-0 flex items-start md:items-center">
               <span class="font-mb101 font-bold text-ink text-[14px]">
                 {item.label}
               </span>
             </dt>
             
             {/* 右側：内容（すべて Noto Sans JP） */}
-            <dd class="bg-white py-4 px-6 w-full">
+            <dd class="bg-white py-4 px-4 w-full">
               {!item.isList ? (
                 <span class="font-sans text-[14px] text-ink font-medium leading-relaxed">
                   {item.value}

@@ -3,37 +3,37 @@
 import Layout from '../layouts/Layout.astro';
 ---
 
-<Layout title="採用に関するお問い合わせ">
+<Layout title="採用のお問合せ | 東北ネヂ製造株式会社">
   
   {/* ヒーローエリア */}
   <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
     <div class="container mx-auto px-6">
-      <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">採用のお問い合わせ</h1>
+      <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">採用<span class="text-[0.7em] align-baseline text-[#008B9B]">の</span>お問合せ</h1>
       <p class="text-gray-500 font-serif tracking-wider uppercase">RECRUITMENT INQUIRY</p>
     </div>
   </div>
 
   <section class="py-12 bg-white">
-    <div class="container mx-auto px-6 max-w-4xl">
+    <div class="container mx-auto px-4 max-w-4xl">
       
       {/* お電話 */}
-      <div class="bg-[#E0F7FA] p-8 md:p-12 mb-20 border-l-8 border-[#008B9B]">
+      <div class="bg-[#E0F7FA] p-4 md:p-12 mb-20 border-l-8 border-[#008B9B]">
         <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">
-  <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
-    📞
-    <span class="pl-1">
-      お電話での<wbr>お問合せ
-    </span>
-  </span>
-</h2>
+          <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
+            📞
+            <span class="pl-1">
+              お電話でのお問合せ
+            </span>
+          </span>
+        </h2>
         <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
           採用に関するご質問は、お電話でも承ります。採用担当が丁寧にご対応いたします。
         </p>
         <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
           <div>
             <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">Recruitment</p>
-            <a href="tel:0246564571" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors">
-              0246-56-4571
+            <a href="tel:0246564751" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight">
+              0246-56-4751
             </a>
             <p class="font-sans text-[12px] text-gray-500 mt-2 font-medium">受付時間：8:00〜17:00（土日祝除く）</p>
           </div>
@@ -43,7 +43,7 @@ import Layout from '../layouts/Layout.astro';
       {/* メールフォーム */}
       <h2 class="text-[#008B9B] font-mb101 text-3xl font-bold mb-8">メールフォーム</h2>
       <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium">
-        採用に関するご質問、エントリーについてなど、お気軽にお問い合わせください。通常、3営業日以内に採用担当者よりご連絡いたします。
+        採用に関するご質問、エントリーについてなど、お気軽にお問合せください。通常、3営業日以内に採用担当者よりご連絡いたします。
       </p>
 
       <form action="https://formspree.io/f/xvzzpqwq" method="POST" class="space-y-8">
@@ -71,7 +71,7 @@ import Layout from '../layouts/Layout.astro';
 
         <div>
           <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
-            お問い合わせ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
           </label>
           <textarea id="message" name="message" rows="6" placeholder="採用に関するご質問をご記入ください" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required></textarea>
         </div>
