@@ -2,17 +2,19 @@
 // src/components/company/Access.astro
 const locations = [
   { 
+    id: "access-main",
     label: "HQ", 
     title: "本社・工場", 
     zip: "971-8184", 
     addr: "福島県いわき市泉町黒須野字砂利59番地", 
     tel: "0246-56-4751",
-    suffix: "㈹", // 70%縮小する部分を分離
+    suffix: "㈹", 
     fax: "0246-56-4575", 
     color: "#008B9B",
     mapQuery: "福島県いわき市泉町黒須野字砂利59番地"
   },
   { 
+    id: "access-tokyo",
     label: "TOKYO", 
     title: "東京本社・東京営業部", 
     zip: "110-0015", 
@@ -24,6 +26,7 @@ const locations = [
     mapQuery: "東京都台東区東上野1丁目26-2 オーラムビル"
   },
   { 
+    id: "access-sendai",
     label: "SENDAI", 
     title: "仙台営業部", 
     zip: "983-0043", 
@@ -35,6 +38,7 @@ const locations = [
     mapQuery: "宮城県仙台市宮城野区萩野町4-4-35"
   },
   { 
+    id: "access-koriyama",
     label: "KORIYAMA", 
     title: "郡山営業所", 
     zip: "963-0725", 
@@ -58,7 +62,7 @@ const locations = [
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
       {locations.map((loc) => (
-        <div class="bg-white p-5 shadow-sm border border-gray-100 flex flex-col h-full">
+        <div id={loc.id} class="bg-white p-5 shadow-sm border border-gray-100 flex flex-col h-full scroll-mt-24">
           <div class="flex items-center gap-2 mb-4">
             <span 
               class="text-white text-[10px] font-bold px-1.5 py-0.5 rounded-sm"
@@ -73,7 +77,6 @@ const locations = [
             <p class="font-bold">〒{loc.zip}</p>
             <p class="mb-4">{loc.addr}</p>
 
-            {/* TEL / FAX エリア：space-y-3で上下の余白をタイトに調整 */}
             <div class="space-y-1">
               <div class="flex flex-col">
                 <span class="text-[10px] font-bold text-gray-400 font-mb101 leading-none mb-0">TEL</span>
@@ -93,7 +96,6 @@ const locations = [
             </div>
           </div>
 
-          {/* マップ：現行の記述を完全に維持  */}
           <div class="mt-auto aspect-video w-full bg-gray-100 border border-gray-200 overflow-hidden rounded-sm">
             <iframe 
               src={`https://www.google.com/maps?output=embed&q=${encodeURIComponent(loc.mapQuery)}&z=15&t=m&hl=ja`}

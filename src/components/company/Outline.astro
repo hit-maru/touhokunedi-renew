@@ -1,12 +1,11 @@
 ---
 // src/components/company/Outline.astro
-// 会社概要.txt  の情報を一文字も漏らさず構造化
 const outlineData = [
   { label: "会社名", value: "東北ネヂ製造株式会社" },
   { label: "創業", value: "昭和18年10月18日" },
   { label: "会社設立", value: "昭和25年9月16日" },
   { label: "代表者", value: "代表取締役社長　関口 龍一郎" },
-  { label: "所在地", value: "〒971-8184 福島県いわき市泉町黒須野字砂利59番地" }, // 正しい住所 
+  { label: "所在地", value: "〒971-8184 福島県いわき市泉町黒須野字砂利59番地" },
   { label: "資本金", value: "1,800万円" },
   { 
     label: "取扱品目", 
@@ -18,48 +17,38 @@ const outlineData = [
       { category: "機械部品", text: "六角穴付ボルト、六角ボルト、車輌モーター固定ボルト、NUボルト等" }
     ]
   },
-  { label: "取扱材質", value: "SS、SC、SCM、SNCM、SUS全般、その他合金鋼" },
   { 
-    label: "工場敷地", 
+    label: "事業所", 
     isList: true,
     items: [
-      { category: "本社工場", text: "福島県いわき市泉町黒須野字砂利59番地 15,665㎡" },
-      { category: "郡山営業所", text: "福島県郡山市田村町金屋字新家99-1 809㎡" }
+      { category: "本社", text: "福島県いわき市泉町黒須野字砂利59番地 15", hash: "#access-main" },
+      { category: "東京本社・東京営業部", text: "東京都台東区東上野1丁目26-2 オーラムビル4F", hash: "#access-tokyo" },
+      { category: "郡山営業所", text: "福島県郡山市田村町金屋字新家99-1", hash: "#access-koriyama" },
+      { category: "仙台営業部", text: "宮城県仙台市宮城野区萩野町4-4-35", hash: "#access-sendai" }
     ]
   },
-  { 
-    label: "建物", 
-    isList: true,
-    items: [
-      { category: "本社工場", text: "鉄筋スレート葺 2,432㎡ / 事務所2階建 216㎡ / 倉庫 981㎡ / 工場、休憩室、その他 386㎡ / 販売事務所及倉庫 546㎡" },
-      { category: "郡山営業所", text: "事務所及倉庫 581㎡" }
-    ]
-  }
+  { label: "取扱材質", value: "SS、SC、SCM、SNCM、SUS全般、その他合金鋼" },
 ];
 ---
 
 <section id="outline" class="py-10 bg-white border-t border-gray-100">
   <div class="container mx-auto px-4 max-w-5xl">
-    
     <div class="mb-10 text-primary">
       <h2 class="font-mb101 text-2xl font-bold flex items-center gap-4">
         <span class="w-1.5 h-6 bg-accent"></span>企業概要
       </h2>
     </div>
 
-    {/* 企業概要テーブル：15px以下の可読性規準とカテゴリサイズ維持 */}
     <div class="border border-gray-200 shadow-sm overflow-hidden">
       <dl class="divide-y divide-gray-100">
         {outlineData.map((item) => (
           <div class="flex flex-col md:flex-row border-b border-gray-100 last:border-0">
-            {/* 左側：項目名（MB101 14px） */}
             <dt class="bg-gray-50 py-4 px-4 md:w-[220px] shrink-0 flex items-start md:items-center">
               <span class="font-mb101 font-bold text-ink text-[14px]">
                 {item.label}
               </span>
             </dt>
             
-            {/* 右側：内容（すべて Noto Sans JP） */}
             <dd class="bg-white py-4 px-4 w-full">
               {!item.isList ? (
                 <span class="font-sans text-[14px] text-ink font-medium leading-relaxed">
@@ -69,14 +58,23 @@ const outlineData = [
                 <div class="space-y-6">
                   {item.items?.map(sub => (
                     <div class="flex flex-col gap-1.5">
-                      {/* 【修正】カテゴリ見出し：指示通りサイズを下げず 14px MB101 で統一 */}
                       <span class="font-mb101 text-[14px] text-primary font-bold">
                         [{sub.category}]
                       </span>
-                      {/* 本文：Noto Sans 14px */}
-                      <p class="font-sans text-[14px] text-ink leading-relaxed font-medium">
-                        {sub.text}
-                      </p>
+                      {sub.hash ? (
+                        <a 
+                          href={`/company${sub.hash}`} 
+                          class="group inline-block font-sans text-[14px] text-ink leading-relaxed font-medium hover:text-primary transition-colors"
+                        >
+                          <span class="border-b border-gray-300 group-hover:border-primary">
+                            {sub.text}
+                          </span>
+                        </a>
+                      ) : (
+                        <p class="font-sans text-[14px] text-ink leading-relaxed font-medium">
+                          {sub.text}
+                        </p>
+                      )}
                     </div>
                   ))}
                 </div>
@@ -86,6 +84,5 @@ const outlineData = [
         ))}
       </dl>
     </div>
-
   </div>
 </section>

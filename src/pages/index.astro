@@ -27,13 +27,16 @@ const latestNews = response.contents;
     
     {/* 1. 背景ビデオ */}
     <div id="video-panel" class="absolute inset-0 w-full h-full z-10">
-      <video autoplay muted loop playsinline poster="/images/main-visual.webp" class="w-full h-full object-cover object-center">
+      <video id="mainVideo" muted loop playsinline class="w-full h-full object-cover object-center opacity-0 transition-opacity duration-500">
         <source src="/videos/Nedzi_web.mp4" type="video/mp4" />
       </video>
+      <div id="video-poster" class="absolute inset-0 z-[15]">
+        <img src="/images/main-visual.webp" alt="" class="w-full h-full object-cover object-center" />
+      </div>
       <div class="absolute inset-0 bg-gradient-to-tr from-[#E64A19] to-gray-900 opacity-10 mix-blend-multiply z-20"></div>
       
       {/* 創業年表示 */}
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 text-white text-center md:text-right z-30">
+      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 text-white text-center md:text-right z-[100]">
         <p class="text-sm tracking-widest mb-2 uppercase text-white">Established in</p>
         <p class="font-serif text-5xl md:text-6xl text-white">1943</p>
       </div>
@@ -44,7 +47,7 @@ const latestNews = response.contents;
       <div class="absolute top-0 left-0 w-full md:w-2 h-2 md:h-full bg-[#008B9B]"></div>
       
       <div class="relative max-w-[400px] flex flex-col items-center md:items-start">
-        <p class="font-serif text-[#008B9B] text-lg tracking-[0.2em] mb-4 uppercase">Iwaki, Japan</p>
+        <p class="font-serif text-[#008B9B] text-lg tracking-[0.2em] mb-4 uppercase">Fukushima, Japan</p>
         <h1 class="font-serif text-7xl md:text-9xl text-gray-900 mb-6 tracking-tight leading-tight">nedzi</h1>
         <p class="font-serif text-gray-500 text-xl tracking-wide italic mb-10 md:mb-12 text-center md:text-left">High-Quality Hot-Forged Bolt MFG.</p>
 
@@ -70,32 +73,41 @@ const latestNews = response.contents;
       </div>
     </div>
 
-    {/* 3. AIコンシェルジュバナー：15pxマージン */}
-    <div class="ai-banner absolute top-[90px] left-1/2 -translate-x-1/2 w-11/12 md:w-1/2 z-[60] pointer-events-none opacity-0">
-  <a 
-    href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" 
-    target="_blank" 
-    class="
-      pointer-events-auto block w-full py-3 
-      bg-white text-black text-center 
-      font-mb101 font-bold text-sm md:text-base tracking-widest 
-      border border-[#008B9B] shadow-xl 
-      transition-all duration-300 ease-in-out
-      hover:bg-[#008B9B] hover:text-white 
-      transform hover:scale-[1.02] active:scale-[0.98] 
-      rounded-sm
-    "
-  >
-    東北ネヂのAIコンシェルジュに聞く
-  </a>
-</div>
+    {/* 3. AIコンシェルジュバナー（右下・ロッカクン付き） */}
+    <div class="ai-banner absolute bottom-[150px] right-6 md:right-10 z-[60] pointer-events-none opacity-0 flex flex-col items-end">
+      {/* ロッカクンキャラクター */}
+      <img
+        id="rokkakun"
+        src="/images/rokkakun.png"
+        alt="ロッカクン"
+        class="w-16 h-16 md:w-20 md:h-20 mb-1 drop-shadow-lg pointer-events-none select-none"
+      />
+      {/* AIコンシェルジュボタン */}
+      <a
+        href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html"
+        target="_blank"
+        class="
+          pointer-events-auto block px-4 py-2
+          bg-white text-black text-center
+          font-mb101 font-bold text-xs md:text-sm tracking-widest
+          border border-[#008B9B] shadow-xl
+          transition-all duration-300 ease-in-out
+          hover:bg-[#008B9B] hover:text-white
+          transform hover:scale-[1.02] active:scale-[0.98]
+          rounded-sm whitespace-nowrap
+        "
+      >
+        東北ネヂのAIコンシェルジュに聞く
+      </a>
+    </div>
 
-<div class="scroll-guide absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
-  <span class="text-[10px] uppercase tracking-[0.4em] text-white/70 mb-2 font-serif">Scroll</span>
-  <div class="w-[1px] h-20 bg-gradient-to-b from-[#008B9B] to-transparent relative overflow-hidden">
-    <div class="scroll-line-inner absolute top-0 left-0 w-full h-full bg-white/40"></div>
-  </div>
-</div>
+    {/* スクロールガイド */}
+    <div class="scroll-guide absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+      <span class="text-base uppercase tracking-[0.4em] text-white/70 mb-2 font-serif">Scroll</span>
+      <div class="w-[1px] h-20 bg-gradient-to-b from-[#008B9B] to-transparent relative overflow-hidden">
+        <div class="scroll-line-inner absolute top-0 left-0 w-full h-full bg-white/40"></div>
+      </div>
+    </div>
     
   </section>
 
@@ -222,46 +234,146 @@ const latestNews = response.contents;
 </Layout>
 
 <style>
-  /* 扉の移動（既存） */
+  /* =============================================
+     扉（イントロパネル）のスライドアウト
+     ============================================= */
   :global(.is-animated) #intro-panel {
     transform: translateX(-100%);
   }
 
-  /* AIバナーとスクロールガイドの初期状態とフェードイン */
-  .ai-banner, .scroll-guide {
-    opacity: 0; /* 初期は透明 */
-    visibility: hidden; /* クリック防止 */
+  /* =============================================
+     AIバナー＆スクロールガイド：初期非表示→フェードイン
+     ============================================= */
+  .ai-banner,
+  .scroll-guide {
+    opacity: 0;
+    visibility: hidden;
     transition: opacity 2s ease-out, visibility 2s;
   }
 
-  /* 3秒後（is-animated付与時）に表示 */
   :global(.is-animated) .ai-banner,
   :global(.is-animated) .scroll-guide {
     opacity: 1;
     visibility: visible;
   }
 
-  /* スクロール線が流れるアニメーション */
+  /* =============================================
+     スクロール線アニメーション
+     ============================================= */
   .scroll-line-inner {
     transform: translateY(-100%);
     animation: scrollLine 2s infinite ease-in-out;
-    animation-delay: 3s; /* 扉が開くタイミングで開始 */
+    animation-delay: 3s;
   }
 
   @keyframes scrollLine {
-    0% { transform: translateY(-100%); }
-    50% { transform: translateY(100%); }
+    0%   { transform: translateY(-100%); }
+    50%  { transform: translateY(100%); }
     100% { transform: translateY(100%); }
+  }
+
+  /* =============================================
+     ロッカクン：ぶるぶる＋跳ねアニメーション
+     ============================================= */
+  #rokkakun {
+    transform-origin: bottom center;
+    animation: rokkakunDance 1s ease-in-out infinite;
+    /* 扉が開ききった後に開始 */
+    animation-delay: 5.5s;
+    /* delay中は初期位置を維持 */
+    animation-fill-mode: both;
+  }
+
+  @keyframes rokkakunDance {
+    0%   { transform: translateX(0)    translateY(0)     rotate(0deg);  }
+    10%  { transform: translateX(-5px) translateY(0)     rotate(-4deg); }
+    20%  { transform: translateX(5px)  translateY(0)     rotate(4deg);  }
+    30%  { transform: translateX(-4px) translateY(0)     rotate(-3deg); }
+    40%  { transform: translateX(3px)  translateY(0)     rotate(2deg);  }
+    50%  { transform: translateX(0)    translateY(-12px) rotate(0deg);  }
+    65%  { transform: translateX(0)    translateY(2px)   rotate(0deg);  }
+    75%  { transform: translateX(-3px) translateY(0)     rotate(-2deg); }
+    87%  { transform: translateX(3px)  translateY(0)     rotate(2deg);  }
+    100% { transform: translateX(0)    translateY(0)     rotate(0deg);  }
+  }
+
+  /* =============================================
+     左パネル：ホバー復帰時はCSSアニメを短くする
+     ============================================= */
+  #intro-panel.is-hover-controlled {
+    transition-duration: 600ms;
   }
 </style>
 
 <script>
   document.addEventListener('DOMContentLoaded', () => {
+    const heroSection = document.getElementById('hero-section');
+    const introPanel  = document.getElementById('intro-panel');
+    const video = document.getElementById('mainVideo');
+    const poster = document.getElementById('video-poster');
+
+    // =========================================
+    // 0. 1秒だけ静止画を見せてから動画再生
+    // =========================================
     setTimeout(() => {
-      const heroSection = document.getElementById('hero-section');
-      if (heroSection) {
-        heroSection.classList.add('is-animated');
+      if (video) {
+        video.play().catch(() => {});
+        video.classList.remove('opacity-0');
+        video.classList.add('opacity-100');
       }
+
+      if (poster) {
+        poster.style.transition = 'opacity 0.5s ease';
+        poster.style.opacity = '0';
+
+        setTimeout(() => {
+          poster.remove();
+        }, 500);
+      }
+    }, 1000);
+
+    // =========================================
+    // 1. 3秒後にアニメーション開始（扉スライドアウト）
+    // =========================================
+    setTimeout(() => {
+      if (heroSection) heroSection.classList.add('is-animated');
     }, 3000);
+
+    // =========================================
+    // 2. カーソル位置で左パネルを出し入れ
+    //    左70%以内  → パネル復帰
+    //    右30%超    → パネル退場
+    //    ヒーロー外 → パネル退場
+    // =========================================
+    if (!heroSection || !introPanel) return;
+
+    // 扉アニメが完了してから（3秒 + 2.5秒）有効化
+    let panelInteractive = false;
+    setTimeout(() => {
+      panelInteractive = true;
+      // ホバー時は短いトランジションに切り替え
+      introPanel.classList.add('is-hover-controlled');
+    }, 5600);
+
+    heroSection.addEventListener('mousemove', (e) => {
+      if (!panelInteractive) return;
+
+      const sectionWidth = heroSection.offsetWidth;
+      const cursorRatio  = e.clientX / sectionWidth; // 0.0〜1.0
+
+      if (cursorRatio <= 0.70) {
+        // 左70%エリア → パネルを戻す
+        introPanel.style.transform = 'translateX(0)';
+      } else {
+        // 右30%エリア → パネルを消す
+        introPanel.style.transform = 'translateX(-100%)';
+      }
+    });
+
+    // ヒーローセクション外に出たら退場
+    heroSection.addEventListener('mouseleave', () => {
+      if (!panelInteractive) return;
+      introPanel.style.transform = 'translateX(-100%)';
+    });
   });
 </script>

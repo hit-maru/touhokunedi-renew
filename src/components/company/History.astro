@@ -1,6 +1,6 @@
 ---
 // src/components/company/History.astro
-// 丸さん提示の全歴史情報を1文字も漏らさず定義
+// 全歴史情報を1文字も漏らさず定義
 const historyData = [
   { ad: "1943", era: "昭和18年", month: "10月", content: "常磐炭田への資材供給を目的として『炭坑機器製作組合ボルト工場』をいわき市平字正月町49で創業。資本金80万円" },
   { ad: "1950", era: "昭和25年", month: "9月", content: "株式会社に組織変更、社名を『東北ネヂ製造株式会社』とする。資本金300万円に増資" },
@@ -37,7 +37,8 @@ const historyData = [
   { ad: "2024", era: "令和6年", month: "9月", content: "仙台営業所、ラジオ広告が仙台広告表彰 大賞受賞" },
   { ad: "2024", era: "令和6年", month: "12月", content: "東京営業所、東京本社として移転" },
   { ad: "2025", era: "令和7年", month: "1月", content: "福島県次世代育成支援「働く女性応援」「仕事と生活の調和」推進企業認定" },
-  { ad: "2025", era: "令和7年", month: "3月", content: "健康経営優良法人2025認定" }
+  { ad: "2025", era: "令和7年", month: "3月", content: "健康経営優良法人2025認定" },
+  { ad: "2025", era: "令和7年", month: "4月", content: "仙台営業所を仙台営業部に名称変更、東京営業所を東京営業部に名称変更" }
 ];
 ---
 
@@ -50,23 +51,18 @@ const historyData = [
       </h2>
     </div>
 
-    {/* 表組み：スマホでの「事項部」の広さを確保 */}
     <div class="bg-white overflow-hidden border border-gray-200 shadow-sm">
       <table class="w-full border-collapse table-fixed md:table-auto">
         <thead>
           <tr class="bg-gray-50 border-b border-gray-200">
-            {/* 年：スマホ80px / PC140px */}
             <th class="py-4 px-4 md:px-6 text-left font-mb101 text-[13px] text-primary w-[80px] md:w-[140px]">年</th>
-            {/* 月：スマホ60px / PC100px */}
             <th class="py-4 px-2 md:px-6 text-left font-mb101 text-[13px] text-primary w-[60px] md:w-[100px]">月</th>
-            {/* 事項：残りの幅をすべて使用 */}
             <th class="py-4 px-4 md:px-6 text-left font-mb101 text-[13px] text-primary">事項</th>
           </tr>
         </thead>
         <tbody class="divide-y divide-gray-100">
           {historyData.map((item) => (
             <tr class="hover:bg-gray-50/50 transition-colors">
-              {/* 年：西暦（EB Garamond 400 正体）/ 和暦（MB101） */}
               <td class="py-4 px-4 md:px-6 align-top">
                 <div class="font-serif text-[18px] md:text-[20px] leading-none text-primary mb-1">
                   {item.ad}
@@ -75,13 +71,11 @@ const historyData = [
                   {item.era}
                 </div>
               </td>
-              {/* 月：極力幅を詰め、かつ改行を禁止 */}
               <td class="py-4 px-2 md:px-6 align-top">
                 <div class="font-mb101 text-[13px] md:text-[14px] text-ink whitespace-nowrap">
                   {item.month}
                 </div>
               </td>
-              {/* 事項：スマホでの可読性を最優先 */}
               <td class="py-4 px-4 md:px-6 align-top">
                 <p class="font-mb101 text-[12px] md:text-[13px] leading-relaxed text-ink font-medium">
                   {item.content}

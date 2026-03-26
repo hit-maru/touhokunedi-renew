@@ -1,0 +1,769 @@
+---
+// src/pages/sales.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="販売事業 | 東北ネヂ製造株式会社">
+
+  <div id="top" class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
+    <div class="container mx-auto px-2">
+      <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">販売事業</h1>
+      <p class="text-gray-500 font-serif tracking-wider uppercase">SALES BUSINESS</p>
+    </div>
+  </div>
+
+  <div class="sticky top-20 bg-white/95 backdrop-blur z-40 border-b border-gray-100 shadow-sm">
+    <div class="container mx-auto px-6 py-3">
+
+      <div class="md:hidden relative">
+        <select
+          onchange="window.location.hash = this.value"
+          class="w-full bg-white border border-[#008B9B]/30 text-[#008B9B] text-sm font-bold rounded-sm px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-[#008B9B] font-mb101"
+        >
+          <option value="#">メニュー：セクションを選択</option>
+          <option value="#products">取扱商品</option>
+          <option value="#system">販売体制</option>
+          <option value="#labo-2">ねぢラボ</option>
+          <option value="#inquiry">お問合せ</option>
+        </select>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+          <svg class="w-4 h-4 text-[#008B9B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex flex-row justify-center gap-10 text-[13px] font-bold text-gray-500 font-mb101 uppercase tracking-wide">
+        <a href="#products" class="hover:text-[#008B9B] transition-colors">取扱商品</a>
+        <a href="#system" class="hover:text-[#008B9B] transition-colors">販売体制</a>
+        <a href="#labo-2" class="hover:text-[#008B9B] transition-colors">ねぢラボ</a>
+        <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
+      </nav>
+
+    </div>
+  </div>
+
+  <div class="[&>section]:scroll-mt-[30px] md:[&>section]:scroll-mt-[20px]">
+
+    {/* --- 取扱商品セクション --- */}
+    <section id="products" class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6">
+
+        <div class="max-w-4xl mx-auto text-center mb-20">
+          <h2 class="font-mb101 text-4xl md:text-5xl text-[#008B9B] mb-8 tracking-tighter">取扱商品</h2>
+          <p class="font-futomin font-normal text-xl md:text-2xl text-gray-900 mb-12">総品種 10,000 種類以上在庫 / ねじならなんでも揃う</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto mb-20">
+          <div class="bg-gray-100 py-2 text-center mb-4 border border-gray-200">
+            <span class="font-mb101 font-bold text-sm tracking-widest text-gray-700">取扱カテゴリー</span>
+          </div>
+          <p class="text-center text-gray-400 text-xs mb-6 font-medium">
+            <span class="inline-flex items-center gap-2">
+              <span class="inline-block w-2 h-2 rounded-full bg-[#008B9B]"></span>
+              図面・規格マークの製品はクリックで規格表をご覧いただけます
+              <span class="text-gray-300">／</span>
+              <span class="inline-block w-2 h-2 rounded-full bg-gray-300"></span>
+              その他の製品は規格表を順次公開予定
+            </span>
+          </p>
+
+          {/* 写真カードグリッド — data-spec-id に products.json の id（なければ空文字で「準備中」表示） */}
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {[
+              { name: "六角ボルト",          img: "022_20250114_061736_web.webp", specId: "B00000"  },
+              { name: "ハイテンションボルト", img: "2a-cut_web.webp",              specId: ""        },
+              { name: "Uボルト",             img: "item-ubolt_web.webp",           specId: "C00700"  },
+              { name: "六角穴付きボルト",     img: "019_20250114_061736_web.webp", specId: "A0000C"  },
+              { name: "止めネジ",            img: "018_20250114_061736_web.webp",  specId: ""        },
+              { name: "六角ナット",           img: "017_20250114_061736_web.webp", specId: "M00000"  },
+              { name: "ゆるみ止めナット",     img: "7b-cut_web.webp",              specId: "N08010"  },
+              { name: "高ナット",            img: "016_20250114_061736_web.webp",  specId: "N00H00"  },
+              { name: "座金",                img: "015_20250114_061736_web.webp",  specId: "W00000"  },
+              { name: "小ねじ",              img: "12-cut_web.webp",               specId: "000000"  },
+              { name: "木材用",              img: "011_20250114_061736_web.webp",  specId: "600002"  },
+              { name: "鉄用ビス",            img: "16a-cut_web.webp",              specId: ""        },
+              { name: "あと施工アンカー",     img: "17a-cut_web.webp",             specId: ""        },
+              { name: "あと施工アンカー",     img: "17b-cut_web.webp",             specId: ""        },
+              { name: "L型アンカー",         img: "009_20250114_061736_web.webp",  specId: "U1L000"  },
+              { name: "止め輪",              img: "008_20250114_061736_web.webp",  specId: ""        },
+              { name: "ボルト加工品",         img: "007_20250114_061736_web.webp", specId: ""        },
+              { name: "曲げ加工品",           img: "item-tool.webp",               specId: ""        },
+              { name: "アイボルト",           img: "004_20250114_061736_web.webp", specId: "C00350"  },
+              { name: "ゆるみ止めナット",     img: "7a-cut_web.webp",              specId: "N00254"  },
+            ].map((item) => (
+              <div
+                class="border border-gray-200 p-4 flex flex-col items-center justify-between aspect-square bg-white transition-colors relative cursor-pointer hover:border-[#008B9B] group spec-card"
+                data-spec-id={item.specId}
+                data-name={item.name}
+              >
+                {item.specId
+                  ? <span class="absolute top-1.5 right-1.5 bg-[#008B9B] text-white text-[8px] font-mb101 px-1.5 py-0.5 leading-none z-10">図面・規格</span>
+                  : <span class="absolute top-1.5 right-1.5 bg-gray-300 text-white text-[8px] font-mb101 px-1.5 py-0.5 leading-none z-10">準備中</span>
+                }
+                <div class="flex-grow flex items-center justify-center mb-2 w-full overflow-hidden">
+                  <img
+                    src={`/images/${item.img}`}
+                    alt={item.name}
+                    class="max-h-[120px] w-auto object-contain group-hover:scale-105 transition-transform duration-300"
+                  />
+                </div>
+                <span class="text-[11px] font-bold text-gray-700 text-center leading-tight">{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* ===== ライトボックス ===== */}
+        <div id="spec-overlay" class="fixed inset-0 z-50 hidden items-center justify-center p-2 bg-black/70 backdrop-blur-sm">
+          <div id="spec-box" class="bg-white w-full max-w-[92vw] max-h-[96vh] flex flex-col shadow-2xl overflow-hidden">
+
+            {/* ヘッダー */}
+            <div class="flex items-center justify-between px-5 py-3 border-b border-gray-200 flex-shrink-0 bg-gray-50">
+              <div class="flex items-center gap-3">
+                <div id="lb-code" class="text-xs text-[#008B9B] font-mono tracking-widest bg-[#e0f5f7] px-2 py-0.5"></div>
+                <div id="lb-name" class="text-base font-bold text-gray-900 font-mb101"></div>
+              </div>
+              <button id="lb-close" class="w-8 h-8 flex items-center justify-center text-gray-400 hover:bg-gray-200 hover:text-gray-700 transition-colors text-xl leading-none flex-shrink-0">✕</button>
+            </div>
+
+            {/* PDFタブ（複数PDF時のみ表示） */}
+            <div id="lb-pdf-tabs" class="hidden flex-shrink-0 px-5 pt-3 pb-0 border-b border-gray-200 bg-white">
+              <div id="lb-pdf-tabs-inner" class="flex gap-1 flex-wrap"></div>
+            </div>
+
+            {/* ボディ：スマホ=縦積み、md以上=左PDF40%/右規格表60% */}
+            <div id="lb-body" class="flex flex-col md:flex-row flex-1 overflow-hidden min-h-0">
+
+              {/* PDFビューワー：スマホ=高さ50vh固定、md以上=左40% */}
+              <div id="lb-pdf-panel" class="w-full md:w-[50%] flex-shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col bg-gray-100 overflow-hidden" style="height:50vh;min-height:200px">
+                <iframe
+                  id="lb-pdf-frame"
+                  src=""
+                  class="flex-1 w-full border-0"
+                  style="min-height:0"
+                ></iframe>
+              </div>
+
+              {/* 規格表：スマホ=残り高さ、md以上=右60% */}
+              <div id="lb-spec" class="flex-1 overflow-auto min-w-0" style="padding:12px 10px"></div>
+            </div>
+
+            {/* フッター */}
+            <div class="flex flex-col sm:flex-row items-start sm:items-center justify-between px-4 py-2 gap-2 border-t border-gray-100 bg-gray-50 flex-shrink-0">
+              <span id="lb-footer-code" class="text-xs font-mono text-gray-400"></span>
+              <div class="flex items-center gap-3 w-full sm:w-auto justify-between sm:justify-end">
+                <span class="text-xs font-mono text-gray-400 hidden sm:inline">図面／規格 2026/02/16</span>
+                <a id="lb-download" href="#" download
+                  class="inline-flex items-center gap-2 bg-[#008B9B] hover:bg-[#006064] text-white text-xs font-mb101 font-bold px-4 py-2 transition-colors whitespace-nowrap">
+                  <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v13M7 11l5 5 5-5M5 20h14"/>
+                  </svg>
+                  <span id="lb-download-label">PDFをダウンロード</span>
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <style is:global>
+          #spec-overlay.active { display: flex; }
+          /* md以上ではPDFパネルの固定高さを解除して親に従わせる */
+          @media (min-width: 768px) {
+            #lb-pdf-panel { height: auto !important; min-height: 0 !important; }
+          }
+
+          /* ===== PDFタブ ===== */
+          .pdf-tab-btn {
+            font-size: 10px !important;
+            font-weight: 700;
+            padding: 5px 10px;
+            border: none;
+            border-bottom: 3px solid transparent;
+            color: #888;
+            cursor: pointer;
+            background: none;
+            transition: color .15s, border-color .15s;
+            white-space: nowrap;
+          }
+          .pdf-tab-btn.active { color: #008B9B !important; border-bottom-color: #008B9B !important; background-color: #FFD700 !important; }
+          .pdf-tab-btn:hover:not(.active) { color: #333 !important; }
+
+          /* ===== 規格タブ（鉄/SUSなど） ===== */
+          .spec-tab-btn {
+            font-size: 8px !important;
+            font-weight: 600;
+            padding: 2px 8px;
+            border: 1px solid #ccc;
+            color: #666;
+            cursor: pointer;
+            transition: all .15s;
+          }
+          .spec-tab-btn.active { background: #008B9B !important; color: #fff !important; border-color: #008B9B !important; }
+
+          /* ===== 規格表 ===== */
+          .spec-table {
+            width: 100% !important;
+            border-collapse: collapse !important;
+            font-size: 10px !important;
+          }
+          .spec-table th {
+            background: #1a1a18 !important;
+            color: #fff !important;
+            font-family: monospace !important;
+            font-size: 10px !important;
+            padding: 4px 5px !important;
+            text-align: center !important;
+            white-space: nowrap !important;
+            border-right: 1px solid rgba(255,255,255,0.3) !important;
+            border-bottom: none !important;
+          }
+          .spec-table th:last-child { border-right: none !important; }
+          .spec-table th.th-main { background: #008B9B !important; }
+          .spec-table td {
+            padding: 3px 5px !important;
+            text-align: center !important;
+            font-family: monospace !important;
+            font-size: 10px !important;
+            border-bottom: 1px solid #e5e7eb !important;
+            border-right: 1px solid #d1d5db !important;
+          }
+          .spec-table td:last-child { border-right: none !important; }
+          .spec-table tbody tr:nth-child(even) td { background: #f9fafb !important; }
+          .spec-table tbody tr:hover td { background: #e0f5f7 !important; }
+          .spec-table td.td-main {
+            font-weight: 600 !important;
+            color: #008B9B !important;
+            background: #f0fafb !important;
+          }
+          .spec-table tbody tr:hover td.td-main { background: #e0f5f7 !important; }
+        </style>
+
+        <script>
+        let PRODUCTS = [];
+        let currentProduct = null;
+        let currentPdfIdx = 0;  // 現在表示中のPDFタブ
+        let currentSpecIdx = 0; // 現在表示中の規格タブ（鉄/SUSなど）
+
+        // products.json 読み込み
+        fetch('/data/products.json')
+          .then(r => r.json())
+          .then(data => {
+            PRODUCTS = data;
+            document.querySelectorAll('.spec-card').forEach(card => {
+              card.addEventListener('click', () => {
+                const id = card.dataset.specId;
+                const name = card.dataset.name;
+                if (id) {
+                  const product = PRODUCTS.find(p => p.id === id);
+                  if (product) openLightbox(product);
+                } else {
+                  openPending(name);
+                }
+              });
+            });
+          })
+          .catch(e => console.error('products.json 読み込み失敗:', e));
+
+        // ==========================================
+        // ライトボックスを開く（規格あり）
+        // ==========================================
+        function openLightbox(product) {
+          currentProduct = product;
+          currentPdfIdx = 0;
+          currentSpecIdx = 0;
+
+          document.getElementById('lb-code').textContent = product.id;
+          document.getElementById('lb-name').textContent = product.name;
+          document.getElementById('lb-footer-code').textContent = product.id;
+
+          // ダウンロードリンクを有効化
+          const dlBtn = document.getElementById('lb-download');
+          dlBtn.style.opacity = '1';
+          dlBtn.style.pointerEvents = 'auto';
+
+          // PDFタブ制御
+          renderPdfTabs(product);
+          // 最初のPDFを表示
+          showPdf(product.pdfs[0]);
+
+          // 規格表
+          renderSpec(product, 0);
+
+          openOverlay();
+        }
+
+        // PDFタブ描画
+        function renderPdfTabs(product) {
+          const tabsWrap = document.getElementById('lb-pdf-tabs');
+          const tabsInner = document.getElementById('lb-pdf-tabs-inner');
+
+          if (!product.pdfs || product.pdfs.length <= 1) {
+            tabsWrap.classList.add('hidden');
+            tabsWrap.classList.remove('flex');
+            return;
+          }
+
+          tabsWrap.classList.remove('hidden');
+          tabsWrap.classList.add('flex');
+          tabsInner.innerHTML = product.pdfs.map((pdf, i) => `
+            <button class="pdf-tab-btn ${i === 0 ? 'active' : ''}"
+              onclick="switchPdfTab(${i})">${pdf.label}</button>
+          `).join('');
+        }
+
+        // PDFタブ切り替え
+        window.switchPdfTab = function(idx) {
+          currentPdfIdx = idx;
+          currentSpecIdx = idx;
+          // タブボタンのactive切り替え
+          document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === idx);
+          });
+          showPdf(currentProduct.pdfs[idx]);
+          // 対応する規格表も切り替え（specsが存在する場合のみ）
+          if (currentProduct.specs && currentProduct.specs[idx]) {
+            renderSpec(currentProduct, idx);
+          }
+        };
+
+        // iframeにPDFをセット＋ダウンロードリンク更新
+        function showPdf(pdfObj) {
+          const frame = document.getElementById('lb-pdf-frame');
+          // iframeのsrcをセット（ブラウザがPDFビューワーで表示）
+          frame.src = pdfObj.path;
+
+          // ダウンロードリンクを現在のPDFに更新
+          const dlBtn = document.getElementById('lb-download');
+          dlBtn.href = pdfObj.path;
+          // ファイル名はpathの末尾から
+          const filename = pdfObj.path.split('/').pop();
+          dlBtn.setAttribute('download', filename);
+          document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
+        }
+
+        // ==========================================
+        // 規格表レンダリング（右パネル）
+        // ==========================================
+        function renderSpec(product, tabIdx = 0) {
+          const el = document.getElementById('lb-spec');
+          const specs = product.specs;
+          // specsが存在しない・または該当インデックスがない場合はスキップ
+          if (!specs || !specs[tabIdx]) {
+            console.warn('specデータなし idx=', tabIdx);
+            return;
+          }
+          let html = '';
+
+          // 規格タブ（鉄/SUSなど複数材質）
+          if (specs.length > 1) {
+            html += `<div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">`;
+            specs.forEach((s, i) => {
+              html += `<button class="spec-tab-btn${i===tabIdx?' active':''}" onclick="switchSpecTab(${i})">${s.label}</button>`;
+            });
+            html += `</div>`;
+          } else {
+            html += `<div style="font-size:10px;color:#999;font-family:monospace;margin-bottom:8px">${specs[0].label}</div>`;
+          }
+
+          const spec = specs[tabIdx];
+          html += `<div style="overflow-x:auto"><table class="spec-table">`;
+
+          if (spec.headerRows) {
+            html += `<thead><tr>`;
+            spec.headerRows.forEach(([span,label,isMain]) => {
+              html += `<th colspan="${span}" class="${isMain?'th-main':''}">${label}</th>`;
+            });
+            html += `</tr><tr>`;
+            spec.subHeaderRow.forEach((sub,ci) => {
+              html += `<th class="${ci===0?'th-main':''}" style="font-size:8px;background:${ci===0?'#008B9B':'#333'}">${sub}</th>`;
+            });
+            html += `</tr></thead>`;
+          } else {
+            html += `<thead><tr>`;
+            spec.columns.forEach((col,ci) => {
+              html += `<th class="${ci===spec.mainCol?'th-main':''}">${col}</th>`;
+            });
+            html += `</tr></thead>`;
+          }
+
+          html += `<tbody>`;
+          spec.rows.forEach(row => {
+            html += `<tr>`;
+            row.forEach((cell,ci) => {
+              const isMain = ci === spec.mainCol;
+              const val = String(cell===null||cell===undefined?'−':cell).replace(/\n/g,'<br>');
+              html += `<td class="${isMain?'td-main':''}">${val}</td>`;
+            });
+            html += `</tr>`;
+          });
+          html += `</tbody></table></div>`;
+
+          if (spec.note) {
+            html += `<div style="margin-top:10px;font-size:9px;color:#666;line-height:1.8;padding:8px 10px;background:#f8f8f8;border-left:3px solid #ccc">${spec.note.replace(/\n/g,'<br>')}</div>`;
+          }
+          el.innerHTML = html;
+        }
+
+        window.switchSpecTab = function(idx) {
+          currentSpecIdx = idx;
+          currentPdfIdx = idx;
+          // 右：規格表を切り替え
+          renderSpec(currentProduct, idx);
+          // 左：対応するPDFも切り替え
+          if (currentProduct.pdfs && currentProduct.pdfs[idx]) {
+            showPdf(currentProduct.pdfs[idx]);
+          }
+          // PDFタブのactiveも連動して切り替え
+          document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
+            btn.classList.toggle('active', i === idx);
+          });
+        };
+
+        // ==========================================
+        // 準備中ライトボックス
+        // ==========================================
+        function openPending(name) {
+          currentProduct = null;
+          document.getElementById('lb-code').textContent = '準備中';
+          document.getElementById('lb-name').textContent = name;
+          document.getElementById('lb-footer-code').textContent = '—';
+
+          // PDFタブ非表示
+          document.getElementById('lb-pdf-tabs').classList.add('hidden');
+          document.getElementById('lb-pdf-tabs').classList.remove('flex');
+
+          // iframeをクリア
+          document.getElementById('lb-pdf-frame').src = 'about:blank';
+
+          // ダウンロードボタン無効化
+          const dlBtn = document.getElementById('lb-download');
+          dlBtn.href = '#';
+          dlBtn.removeAttribute('download');
+          dlBtn.style.opacity = '0.35';
+          dlBtn.style.pointerEvents = 'none';
+          document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
+
+          // 右パネルに「準備中」メッセージ
+          document.getElementById('lb-spec').innerHTML = `
+            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:20px;padding:32px;text-align:center">
+              <div style="width:60px;height:60px;background:#f0fafb;border-radius:50%;display:flex;align-items:center;justify-content:center">
+                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#008B9B" stroke-width="1.5">
+                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+                </svg>
+              </div>
+              <div>
+                <p style="font-size:15px;font-weight:700;color:#1a1a18;margin-bottom:8px">規格表を準備中です</p>
+                <p style="font-size:13px;color:#888;line-height:1.9">
+                  <strong style="color:#333">${name}</strong> の図面・規格表は<br>
+                  現在データを整備中です。
+                </p>
+              </div>
+              <div style="padding:12px 20px;background:#f8f8f8;border-left:3px solid #008B9B;text-align:left">
+                <p style="font-size:11px;color:#666;line-height:1.8">
+                  お急ぎの場合はお電話またはメールフォームよりお問合せください。
+                </p>
+              </div>
+              <a href="#inquiry" onclick="window.closeLightbox()"
+                style="display:inline-flex;align-items:center;gap:6px;background:#008B9B;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;text-decoration:none">
+                お問合せはこちら →
+              </a>
+            </div>
+          `;
+
+          openOverlay();
+        }
+
+        // ==========================================
+        // オーバーレイ開閉
+        // ==========================================
+        function openOverlay() {
+          const ov = document.getElementById('spec-overlay');
+          ov.classList.remove('hidden');
+          ov.classList.add('active');
+          document.body.style.overflow = 'hidden';
+        }
+
+        window.closeLightbox = function() {
+          const ov = document.getElementById('spec-overlay');
+          ov.classList.add('hidden');
+          ov.classList.remove('active');
+          document.body.style.overflow = '';
+          // iframeをリセット（メモリ解放）
+          document.getElementById('lb-pdf-frame').src = 'about:blank';
+        };
+
+        document.getElementById('lb-close').addEventListener('click', window.closeLightbox);
+        document.getElementById('spec-overlay').addEventListener('click', e => {
+          if (e.target === document.getElementById('spec-overlay')) window.closeLightbox();
+        });
+        document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeLightbox(); });
+        </script>
+        </script>
+
+        <div class="max-w-4xl mx-auto space-y-12">
+          <div class="text-center">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 font-mb101">
+              ホームセンターにないネジも、東北ネヂなら取り揃えています。
+            </h3>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-10 text-[15px] leading-relaxed text-gray-600 font-medium">
+            <div class="space-y-6">
+              <p>
+                「あと 1 本だけ、特殊なネジが見つからない……。」<br>
+                大切なプロジェクトが進行中なのに、規格外のネジがなかなか手に入らず、作業が滞ってしまう。こんな経験はありませんか？金物商社や工場、工事施工業者の皆さまが抱えるこのような課題に、当社営業部がお応えします。
+              </p>
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">豊富な在庫とフルアソートメントサービス</h4>
+                <p>東北ネヂ営業部では、約10,000種類以上のネジ・締結部品を常時在庫し、バラ単位からご注文いただくことが可能です。ホームセンターには置いていないような特殊ネジや、国産・輸入品を含む幅広いラインナップを取りそろえ、あらゆる現場・ニーズに迅速対応いたします。</p>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">時間・コストを削減</h4>
+                <p>「必要なネジを探し回る」手間や移動コストを大幅に削減し、業務効率を向上させるとともに、一度のご来店で様々なネジ関連商品を購入できるためリピートされる方も多数おられ、在庫がある商品は最短で24時間以内に発送できる体制を整えているため、納期が迫っている案件でも安心してお任せいただけます。</p>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">品質・技術サポートも万全</h4>
+                <p>当社は製造事業部を併せ持つ"ネジの総合企業"として、必要な規格や強度をしっかりと把握し、技術面でのご相談にもお応えします。特殊加工やオーダーメイドのご要望にも柔軟に対応できるのが当社の強みです。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#008B9B]/5 p-4 border-l-4 border-[#008B9B]">
+            <h4 class="font-mb101 font-bold text-lg mb-4 text-[#008B9B]">お客様の声</h4>
+            <blockquote class="text-[14px] text-gray-700 leading-relaxed">
+              「大型プロジェクトで特殊ネジが不足し、工期が危ぶまれました。東北ネヂ営業部へ連絡すると、当日のうちに必要な本数をそろえてくれたので、納期に間に合い、クライアントからの信頼を損ねずに済みました」。
+              <footer class="mt-4 text-xs font-bold text-gray-500 text-right">— 大手建設会社 現場監督様より</footer>
+            </blockquote>
+          </div>
+
+          <div class="text-center pt-8">
+            <p class="font-bold text-gray-800">ネジ探しに時間と労力をかける必要は、もうありません。貴社のプロジェクトをスムーズに進めるため、ぜひ当社営業部の「フルアソートメントサービス」をご活用ください。</p>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    {/* --- 販売体制セクション --- */}
+    <section id="system" class="pt-12 pb-12 bg-gray-50">
+      <div class="container mx-auto px-6">
+
+        <div class="max-w-4xl mb-20">
+          <span class="text-[#E64A19] font-serif font-normal tracking-widest text-base mb-4 block uppercase tracking-[0.2em]">Sales System</span>
+          <h2 class="font-mb101 text-4xl md:text-5xl mb-8 border-l-8 border-[#008B9B] pl-6 leading-none">販売体制</h2>
+          <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+            福島県・宮城県を拠点に展開する営業ネットワークと、製造のノウハウを活かした確かな供給体制で、現場の課題解決を支えます。
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white p-4 md:p-12 shadow-sm border border-gray-100">
+
+          <div class="text-[15px] leading-relaxed text-gray-600 font-medium mb-16">
+            <p class="mb-6">当社販売事業は、ネヂ・ボルトをはじめとした自社製品に加え、一般のネヂや関連する締結品まで幅広く取り扱う「総合小売販売」の機能を備えています。福島県・宮城県を拠点に展開する3つの営業所では、地域密着の即納体制と豊富な在庫を活かし、現場を持つすべての企業へ迅速かつ正確に商品をお届け。カバーエリアの広い営業活動を通じて、技術提案も含めたトータルサポートを行っています。</p>
+            <p>製造事業とは異なるビジネスドメインとして、当社が培ってきたネヂ製造のノウハウを生かしながら、アイテム数の充実や在庫管理の徹底を図り、フルアソートメントサービスを実現。「ネヂの総合企業」として、社会や産業を支える締結部品を素早く安定的にご提供できるよう、これからも取り組みを強化してまいります。</p>
+          </div>
+
+          <div class="mb-20 text-center">
+            <h3 class="font-mb101 font-bold text-xl md:text-3xl text-gray-800 mb-10 leading-tight">
+              ねじの総合企業としての<br class="md:hidden">フルアソートメントサービス
+            </h3>
+            <div class="max-w-3xl mx-auto">
+              <img
+                src="/images/Full Assortment Service-Sales.png"
+                alt="フルアソートメントサービス 3つの強みトライアングル"
+                class="w-full h-auto drop-shadow-md"
+              />
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-12">
+            <div class="grid md:grid-cols-2 gap-8 items-stretch">
+              <a
+                href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html"
+                target="_blank"
+                class="flex flex-col items-center justify-center bg-[#a7dad5fd] text-white p-8 rounded-2xl shadow-lg hover:bg-[#006064] transition-all group"
+              >
+                <span class="text-xs font-bold mb-2 opacity-80 uppercase tracking-widest">AI Assistant</span>
+                <span class="text-xl md:text-2xl font-mb101 font-bold leading-tight text-center">
+                  AIチャットボットに<br>聞いてみる
+                </span>
+                <span class="mt-4 bg-white/20 px-4 py-1 rounded-full text-[10px] group-hover:bg-white/30 transition-colors">
+                  CLICK TO CHAT
+                </span>
+              </a>
+
+              <div class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-[#E64A19] text-lg">◉</span>
+                  <p class="font-bold text-gray-800">Instagram DMでも受付中</p>
+                </div>
+                <img src="/images/QR_touhokubolt.png" alt="Instagram QRコード" class="w-32 h-32 mb-4 shadow-sm" />
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">Follow Us on Instagram</p>
+              </div>
+            </div>
+
+            <div class="mt-12 text-center">
+              <p class="text-[14px] text-gray-600 font-medium leading-relaxed">
+                販売事業は、皆さまのネジに関するあらゆるお悩みに真摯に向き合い、解決へ導くパートナーとなることをお約束いたします。<br>
+                どうぞお気軽にご相談ください。
+              </p>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* --- ねぢラボセクション --- */}
+    <section id="labo-2" class="pt-12 pb-12 bg-gray-900 text-white relative overflow-hidden scroll-mt-40">
+
+      {/* 背景装飾 */}
+      <div class="absolute top-0 right-0 w-2/3 h-full bg-[#008B9B] opacity-10 -skew-x-12 translate-x-1/4"></div>
+
+      <div class="container mx-auto px-6 relative z-10">
+
+        {/* 1. 導入セクション */}
+        <div class="max-w-4xl mx-auto text-center mb-24">
+          <span class="text-[#E64A19] font-serif font-normal tracking-widest text-sm mb-4 block uppercase">Quality Assurance</span>
+          <h2 class="font-mb101 text-white text-4xl md:text-6xl mb-8 leading-none">ねぢラボ</h2>
+          <h3 class="font-futomin text-xl md:text-2xl text-[#008B9B] mb-6 font-normal">皆さんは知ってますか？当社の調査研究チームねぢラボ</h3>
+          <p class="font-sans text-[15px] text-gray-200 leading-relaxed font-medium">
+            当社独自の調査・研究チーム「ねぢラボ」は、ボルトやナットなどネジ締結部品に関する疑問を解明し、新たな付加価値を生み出すために発足しました。特殊な検査や調査、さらには研究開発までを一貫して行い、お客様とともに次なる課題解決に取り組んでいます。こうした総合的な品質保証と「ねぢラボ」の活動を通じ、私たちはこれからも社会インフラを力強く支えてまいります。
+          </p>
+        </div>
+
+        {/* 2. 調査コンテンツ */}
+        <div class="grid grid-cols-1 gap-20 mb-32 max-w-6xl mx-auto">
+
+          {/* 調査 */}
+          <div class="flex flex-col md:flex-row-reverse gap-12 items-center">
+            <div class="md:w-1/2">
+              <h4 class="text-2xl font-bold mb-6 border-l-4 border-[#E64A19] pl-4 font-mb101 text-white">調査</h4>
+              <p class="text-gray-300 leading-relaxed font-medium mb-4">
+                当社品・他社品を問わず、ネジ締結部品の使用中に折損などの不具合原因調査。金属ミクロ組織〜寸法外観などのマクロ観察による調査を「ねぢラボ」がお手伝いいたします。
+              </p>
+            </div>
+            <div class="md:w-1/2 grid grid-cols-2 gap-4">
+              <div class="relative group">
+                <img src="/images/0985_02webp.png" alt="疲労破壊面" class="w-full h-48 object-cover rounded shadow-lg" />
+                <p class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent text-white p-3 text-xs text-center font-bold">疲労破壊面(マクロ観察)</p>
+              </div>
+              <div class="relative group">
+                <img src="/images/micro-obs_web.webp" alt="ストライエーション" class="w-full h-48 object-cover rounded shadow-lg" />
+                <p class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent text-white p-3 text-xs text-center font-bold">ストライエーション模様</p>
+              </div>
+            </div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    {/* --- お問合せセクション --- */}
+    <section id="inquiry" class="pt-12 pb-24 bg-white">
+      <div class="container mx-auto px-6 max-w-4xl">
+
+        <div class="bg-[#E0F7FA] p-4 md:p-12 mb-20 border-l-8 border-[#008B9B]">
+          <h2 class="text-2xl font-bold text-[#008B9B] mb-4 flex items-center gap-3 font-mb101">
+            📞 <span class="pt-1">お電話でのお問合せ</span>
+          </h2>
+          <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
+            在庫確認、お見積もりなど、お急ぎの場合はお電話がスムーズです。販売担当がその場で対応いたします。
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+            {[
+              { label: "本社販売部", tel: "0246-56-4571" },
+              { label: "東京営業部", tel: "03-6284-7130" },
+              { label: "仙台営業部", tel: "022-284-2675" },
+              { label: "郡山営業所", tel: "024-943-3311" },
+            ].map((office) => (
+              <div class="flex flex-col">
+                <p class="text-[11px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">{office.label}</p>
+                <a
+                  href={`tel:${office.tel.replace(/-/g, '')}`}
+                  class="text-2xl md:text-3xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight"
+                >
+                  {office.tel}
+                </a>
+              </div>
+            ))}
+          </div>
+          <p class="font-sans text-[12px] text-gray-500 mt-8 font-medium border-t border-[#008B9B]/20 pt-4">
+            受付時間：8:00〜17:00（土日祝除く）
+          </p>
+        </div>
+
+        <h2 class="text-[#008B9B] font-mb101 text-3xl font-normal mb-8 tracking-tighter">メールフォーム</h2>
+        <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium">
+          製品の在庫確認、お見積もり、納期についてなど、お気軽にお問合せください。通常、3営業日以内に販売担当者よりご連絡いたします。
+        </p>
+
+        <form action="https://formspree.io/f/mbddrkzp" method="POST" class="space-y-8">
+
+          <div>
+            <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              貴社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <input
+              type="text" id="company" name="company"
+              placeholder="例）東北ネヂ製造株式会社"
+              class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors"
+              required
+            />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input
+                type="text" id="name" name="name"
+                placeholder="例）東北 太郎"
+                class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors"
+                required
+              />
+            </div>
+            <div>
+              <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input
+                type="email" id="email" name="email"
+                placeholder="例）taro.tohoku@example.com"
+                class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors"
+                required
+              />
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <textarea
+              id="message" name="message" rows="6"
+              placeholder="お問合せ内容をご記入ください。製品名、サイズ、数量などもお分かりであればご記入いただけますとスムーズです。"
+              class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors"
+              required
+            ></textarea>
+          </div>
+
+          <div class="text-center">
+            <button
+              type="submit"
+              class="bg-[#008B9B] text-white px-12 py-4 font-mb101 font-bold text-lg hover:bg-[#006064] transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#008B9B] focus:ring-offset-2"
+            >
+              この内容で送信する
+            </button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+
+  </div>
+</Layout>

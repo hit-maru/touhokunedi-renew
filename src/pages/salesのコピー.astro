@@ -1,0 +1,314 @@
+---
+// src/pages/sales.astro
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="販売事業 | 東北ネヂ製造株式会社">
+
+  <div id="top" class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
+    <div class="container mx-auto px-2">
+      <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">販売事業</h1>
+      <p class="text-gray-500 font-serif tracking-wider uppercase">SALES BUSINESS</p>
+    </div>
+  </div>
+
+  <div class="sticky top-20 bg-white/95 backdrop-blur z-40 border-b border-gray-100 shadow-sm">
+    <div class="container mx-auto px-6 py-3">
+      <div class="md:hidden relative">
+        <select 
+          onchange="window.location.hash = this.value"
+          class="w-full bg-white border border-[#008B9B]/30 text-[#008B9B] text-sm font-bold rounded-sm px-4 py-3 appearance-none focus:outline-none focus:ring-2 focus:ring-[#008B9B] font-mb101"
+        >
+          <option value="#">メニュー：セクションを選択</option>
+          <option value="#products">取扱商品</option>
+          <option value="#system">販売体制</option>
+          <option value="#labo-2">ねぢラボ</option>
+          <option value="#inquiry">お問合せ</option>
+        </select>
+        <div class="absolute inset-y-0 right-4 flex items-center pointer-events-none">
+          <svg class="w-4 h-4 text-[#008B9B]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+            <path d="M19 9l-7 7-7-7" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"/>
+          </svg>
+        </div>
+      </div>
+
+      <nav class="hidden md:flex flex-row justify-center gap-10 text-[13px] font-bold text-gray-500 font-mb101 uppercase tracking-wide">
+        <a href="#products" class="hover:text-[#008B9B] transition-colors">取扱商品</a>
+        <a href="#system" class="hover:text-[#008B9B] transition-colors">販売体制</a>
+        <a href="#labo-2" class="hover:text-[#008B9B] transition-colors">ねぢラボ</a>
+        <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
+      </nav>
+    </div>
+  </div>
+
+  <div class="[&>section]:scroll-mt-[30px] md:[&>section]:scroll-mt-[20px]">
+    
+    <section id="products" class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mx-auto text-center mb-20">
+          <h2 class="font-mb101 text-4xl md:text-5xl text-[#008B9B] mb-8 tracking-tighter">取扱商品</h2>
+          <p class="font-futomin font-normal text-xl md:text-2xl text-gray-900 mb-12">総品種 10,000 種類以上在庫 / ねじならなんでも揃う</p>
+        </div>
+
+        <div class="max-w-6xl mx-auto mb-20">
+          <div class="bg-gray-100 py-2 text-center mb-4 border border-gray-200">
+            <span class="font-mb101 font-bold text-sm tracking-widest text-gray-700">取扱カテゴリー</span>
+          </div>
+          <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
+            {[
+              { name: "六角ボルト", img: "022_20250114_061736_web.webp" },
+              { name: "ハイテンションボルト", img: "2a-cut_web.webp" },
+              { name: "Uボルト", img: "item-ubolt_web.webp" },
+              { name: "六角穴付きボルト", img: "019_20250114_061736_web.webp" },
+              { name: "止めネジ", img: "018_20250114_061736_web.webp" },
+              { name: "六角ナット", img: "017_20250114_061736_web.webp" },
+              { name: "ゆるみ止めナット", img: "7b-cut_web.webp" },
+              { name: "高ナット", img: "016_20250114_061736_web.webp" },
+              { name: "座金", img: "015_20250114_061736_web.webp" },
+              { name: "小ねじ", img: "12-cut_web.webp" },
+              { name: "木材用", img: "011_20250114_061736_web.webp" },
+              { name: "鉄用ビス", img: "16a-cut_web.webp" },
+              { name: "あと施工アンカー", img: "17a-cut_web.webp" },
+              { name: "あと施工アンカー", img: "17b-cut_web.webp" },
+              { name: "L型アンカー", img: "009_20250114_061736_web.webp" },
+              { name: "止め輪", img: "008_20250114_061736_web.webp" },
+              { name: "ボルト加工品", img: "007_20250114_061736_web.webp" },
+              { name: "曲げ加工品", img: "item-tool.webp" },
+              { name: "アイボルト", img: "004_20250114_061736_web.webp" },
+              { name: "ゆるみ止めナット", img: "7a-cut_web.webp" }
+            ].map((item) => (
+              <div class="border border-gray-200 p-4 flex flex-col items-center justify-between aspect-square group hover:border-[#008B9B] transition-colors bg-white">
+                <div class="flex-grow flex items-center justify-center mb-2">
+                  <img src={`/images/${item.img}`} alt={item.name} class="max-h-[144px] w-auto group-hover:scale-110 transition-transform duration-300" />
+                </div>
+                <span class="text-[11px] font-bold text-gray-700 text-center leading-tight">{item.name}</span>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        <div class="max-w-4xl mx-auto space-y-12">
+          <div class="text-center">
+            <h3 class="text-xl md:text-2xl font-bold text-gray-800 mb-6 font-mb101">
+              ホームセンターにないネジも、東北ネヂなら取り揃えています。
+            </h3>
+          </div>
+
+          <div class="grid md:grid-cols-2 gap-10 text-[15px] leading-relaxed text-gray-600 font-medium">
+            <div class="space-y-6">
+              <p>「あと 1 本だけ、特殊なネジが見つからない……。」<br>大切なプロジェクトが進行中なのに、規格外のネジがなかなか手に入らず、作業が滞ってしまう。こんな経験はありませんか？金物商社や工場、工事施工業者の皆さまが抱えるこのような課題に、当社営業部がお応えします。</p>
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">豊富な在庫とフルアソートメントサービス</h4>
+                <p>東北ネヂ営業部では、約10,000種類以上のネジ・締結部品を常時在庫し、バラ単位からご注文いただくことが可能です。ホームセンターには置いていないような特殊ネジや、国産・輸入品を含む幅広いラインナップを取りそろえ、あらゆる現場・ニーズに迅速対応いたします。</p>
+              </div>
+            </div>
+            <div class="space-y-6">
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">時間・コストを削減</h4>
+                <p>「必要なネジを探し回る」手間や移動コストを大幅に削減し、業務効率を向上させるとともに、一度のご来店で様々なネジ関連商品を購入できるためリピートされる方も多数おられ、在庫がある商品は最短で24時間以内に発送できる体制を整えているため、納期が迫っている案件でも安心してお任せいただけます。</p>
+              </div>
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">品質・技術サポートも万全</h4>
+                <p>当社は製造事業部を併せ持つ"ネジの総合企業"として、必要な規格や強度をしっかりと把握し、技術面でのご相談にもお応えします。特殊加工やオーダーメイドのご要望にも柔軟に対応できるのが当社の強みです。</p>
+              </div>
+            </div>
+          </div>
+
+          <div class="bg-[#008B9B]/5 p-4 border-l-4 border-[#008B9B]">
+            <h4 class="font-mb101 font-bold text-lg mb-4 text-[#008B9B]">お客様の声</h4>
+            <blockquote class="text-[14px] text-gray-700 leading-relaxed">
+              「大型プロジェクトで特殊ネジが不足し、工期が危ぶまれました。東北ネヂ営業部へ連絡すると、当日のうちに必要な本数をそろえてくれたので、納期に間に合い、クライアントからの信頼を損ねずに済みました」。
+              <footer class="mt-4 text-xs font-bold text-gray-500 text-right">— 大手建設会社 現場監督様より</footer>
+            </blockquote>
+          </div>
+          
+          <div class="text-center pt-8">
+            <p class="font-bold text-gray-800">ネジ探しに時間と労力をかける必要は、もうありません。貴社のプロジェクトをスムーズに進めるため、ぜひ当社営業部の「フルアソートメントサービス」をご活用ください。</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="system" class="pt-12 pb-12 bg-gray-50">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mb-20">
+          <span class="text-[#E64A19] font-serif font-normal tracking-widest text-base mb-4 block uppercase tracking-[0.2em]">Sales System</span>
+          <h2 class="font-mb101 text-4xl md:text-5xl mb-8 border-l-8 border-[#008B9B] pl-6 leading-none">販売体制</h2>
+          <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+            福島県・宮城県を拠点に展開する営業ネットワークと、製造のノウハウを活かした確かな供給体制で、現場の課題解決を支えます。
+          </p>
+        </div>
+
+        <div class="max-w-4xl mx-auto bg-white p-4 md:p-12 shadow-sm border border-gray-100">
+          <div class="text-[15px] leading-relaxed text-gray-600 font-medium mb-16">
+            <p class="mb-6">当社販売事業は、ネヂ・ボルトをはじめとした自社製品に加え、一般のネヂや関連する締結品まで幅広く取り扱う「総合小売販売」の機能を備えています。福島県・宮城県を拠点に展開する3つの営業所では、地域密着の即納体制と豊富な在庫を活かし、現場を持つすべての企業へ迅速かつ正確に商品をお届け。カバーエリアの広い営業活動を通じて、技術提案も含めたトータルサポートを行っています。</p>
+            <p>製造事業とは異なるビジネスドメインとして、当社が培ってきたネヂ製造のノウハウを生かしながら、アイテム数の充実や在庫管理の徹底を図り、フルアソートメントサービスを実現。「ネヂの総合企業」として、社会や産業を支える締結部品を素早く安定的にご提供できるよう、これからも取り組みを強化してまいります。</p>
+          </div>
+
+          <div class="mb-20 text-center">
+            <h3 class="font-mb101 font-bold text-xl md:text-3xl text-gray-800 mb-10 leading-tight">
+              ねじの総合企業としての<br class="md:hidden">フルアソートメントサービス
+            </h3>
+            <div class="max-w-3xl mx-auto">
+              <img src="/images/Full Assortment Service-Sales.png" alt="フルアソートメントサービス 3つの強みトライアングル" class="w-full h-auto drop-shadow-md" />
+            </div>
+          </div>
+
+          <div class="border-t border-gray-200 pt-12">
+            <div class="grid md:grid-cols-2 gap-8 items-stretch">
+              <a 
+                href="https://kazuhito.xsrv.jp/ai/T-Nedi-GPT.html" 
+                target="_blank" 
+                class="flex flex-col items-center justify-center bg-[#a7dad5fd] text-white p-8 rounded-2xl shadow-lg hover:bg-[#006064] transition-all group"
+              >
+                <span class="text-xs font-bold mb-2 opacity-80 uppercase tracking-widest">AI Assistant</span>
+                <span class="text-xl md:text-2xl font-mb101 font-bold leading-tight text-center">
+                  AIチャットボットに<br>聞いてみる
+                </span>
+                <span class="mt-4 bg-white/20 px-4 py-1 rounded-full text-[10px] group-hover:bg-white/30 transition-colors">
+                  CLICK TO CHAT
+                </span>
+              </a>
+
+              <div class="flex flex-col items-center justify-center bg-gray-50 p-6 rounded-2xl border border-gray-100">
+                <div class="flex items-center gap-2 mb-4">
+                  <span class="text-[#E64A19] text-lg">◉</span>
+                  <p class="font-bold text-gray-800">Instagram DMでも受付中</p>
+                </div>
+                <img src="/images/QR_touhokubolt.png" alt="Instagram QRコード" class="w-32 h-32 mb-4 shadow-sm" />
+                <p class="text-[10px] font-bold text-gray-500 uppercase tracking-widest text-center">Follow Us on Instagram</p>
+              </div>
+            </div>
+
+            <div class="mt-12 text-center">
+              <p class="text-[14px] text-gray-600 font-medium leading-relaxed">
+                販売事業は、皆さまのネジに関するあらゆるお悩みに真摯に向き合い、解決へ導くパートナーとなることをお約束いたします。<br>
+                どうぞお気軽にご相談ください。
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    {/* ねぢラボセクション：manufacture#laboの内容を以下にコピーしてください */}
+    <section id="labo-2" class="pt-12 pb-12 bg-white">
+      <div class="container mx-auto px-6">
+        <div class="max-w-4xl mb-20">
+          <span class="text-[#E64A19] font-serif font-normal tracking-widest text-base mb-4 block uppercase tracking-[0.2em]">Nedi Labo</span>
+          <h2 class="font-mb101 text-4xl md:text-5xl mb-8 border-l-8 border-[#008B9B] pl-6 leading-none">ねぢラボ</h2>
+          <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+            製造事業部で培った高度な解析技術と試験設備を、販売事業のお客様へも。規格外品の測定や強度試験など、技術的な裏付けを持って最適な締結部品をご提案いたします。
+          </p>
+        </div>
+  <section id="labo" class="pt-12 pb-12 bg-gray-900 text-white relative overflow-hidden scroll-mt-40">
+        {/* 背景装飾 */}
+      <div class="absolute top-0 right-0 w-2/3 h-full bg-[#008B9B] opacity-10 -skew-x-12 translate-x-1/4"></div>
+    <div class="container mx-auto px-6 relative z-10">
+
+    {/* 2. 事業内容エリア */}
+    <div class="grid grid-cols-1 gap-20 mb-32 max-w-6xl mx-auto">
+      
+      {/* 特殊な検査 */}
+
+      {/* 調査 */}
+      <div class="flex flex-col md:flex-row-reverse gap-12 items-center">
+        <div class="md:w-1/2">
+          <h4 class="text-2xl font-bold mb-6 border-l-4 border-[#E64A19] pl-4 font-mb101 text-white">調査</h4>
+          <p class="text-gray-300 leading-relaxed font-medium mb-4">
+            当社品・他社品を問わず、ネジ締結部品の使用中に折損などの不具合原因調査。金属ミクロ組織〜寸法外観などのマクロ観察による調査を「ねぢラボ」がお手伝いいたします。
+          </p>
+        </div>
+        <div class="md:w-1/2 grid grid-cols-2 gap-4">
+          <div class="relative group">
+            <img src="/images/0985_02webp.png" alt="疲労破壊面" class="w-full h-48 object-cover rounded shadow-lg" />
+            <p class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent text-white p-3 text-xs text-center font-bold">疲労破壊面(マクロ観察)</p>
+          </div>
+          <div class="relative group">
+            <img src="/images/micro-obs_web.webp" alt="ストライエーション" class="w-full h-48 object-cover rounded shadow-lg" />
+            <p class="absolute bottom-0 left-0 right-0 bg-gradient-to-t from-black via-black/90 to-transparent text-white p-3 text-xs text-center font-bold">ストライエーション模様</p>
+          </div>
+        </div>
+      </div>
+
+      {/* 研究開発 */}
+     </div>
+    </div>
+  </section>
+
+    <section id="inquiry" class="pt-12 pb-24 bg-white">
+      <div class="container mx-auto px-6 max-w-4xl">
+        
+        <div class="bg-[#E0F7FA] p-4 md:p-12 mb-20 border-l-8 border-[#008B9B]">
+          <h2 class="text-2xl font-bold text-[#008B9B] mb-4 flex items-center gap-3 font-mb101">
+            📞 <span class="pt-1">お電話でのお問合せ</span>
+          </h2>
+          <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
+            在庫確認、お見積もりなど、お急ぎの場合はお電話がスムーズです。販売担当がその場で対応いたします。
+          </p>
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+            {[
+              { label: "本社販売部", tel: "0246-56-4571" },
+              { label: "東京営業部", tel: "03-6284-7130" },
+              { label: "仙台営業部", tel: "022-284-2675" },
+              { label: "郡山営業所", tel: "024-943-3311" }
+            ].map((office) => (
+              <div class="flex flex-col">
+                <p class="text-[11px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">{office.label}</p>
+                <a href={`tel:${office.tel.replace(/-/g, '')}`} class="text-2xl md:text-3xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight">
+                  {office.tel}
+                </a>
+              </div>
+            ))}
+          </div>
+          <p class="font-sans text-[12px] text-gray-500 mt-8 font-medium border-t border-[#008B9B]/20 pt-4">
+            受付時間：8:00〜17:00（土日祝除く）
+          </p>
+        </div>
+
+        <h2 class="text-[#008B9B] font-mb101 text-3xl font-normal mb-8 tracking-tighter">メールフォーム</h2>
+        <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium">
+          製品の在庫確認、お見積もり、納期についてなど、お気軽にお問合せください。通常、3営業日以内に販売担当者よりご連絡いたします。
+        </p>
+
+        <form action="https://formspree.io/f/mbddrkzp" method="POST" class="space-y-8">
+          <div>
+            <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              貴社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <input type="text" id="company" name="company" placeholder="例）東北ネヂ製造株式会社" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input type="text" id="name" name="name" placeholder="例）東北 太郎" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+            </div>
+            <div>
+              <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+                メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+              <input type="email" id="email" name="email" placeholder="例）taro.tohoku@example.com" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required />
+            </div>
+          </div>
+
+          <div>
+            <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">
+              お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+            <textarea id="message" name="message" rows="6" placeholder="お問合せ内容をご記入ください。製品名、サイズ、数量などもお分かりであればご記入いただけますとスムーズです。" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px] focus:outline-none focus:border-[#008B9B] focus:bg-white transition-colors" required></textarea>
+          </div>
+
+          <div class="text-center">
+            <button type="submit" class="bg-[#008B9B] text-white px-12 py-4 font-mb101 font-bold text-lg hover:bg-[#006064] transition-all hover:shadow-lg focus:outline-none focus:ring-2 focus:ring-[#008B9B] focus:ring-offset-2">
+              この内容で送信する
+            </button>
+          </div>
+        </form>
+      </div>
+    </section>
+
+  </div>
+</Layout>
