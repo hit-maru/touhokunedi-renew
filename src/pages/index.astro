@@ -35,10 +35,10 @@ const latestNews = response.contents;
       </div>
       <div class="absolute inset-0 bg-gradient-to-tr from-[#E64A19] to-gray-900 opacity-10 mix-blend-multiply z-20"></div>
       
-      {/* 創業年表示 */}
-      <div class="absolute bottom-10 left-1/2 -translate-x-1/2 md:left-auto md:right-10 md:translate-x-0 text-white text-center md:text-right z-[100]">
-        <p class="text-sm tracking-widest mb-2 uppercase text-white">Established in</p>
-        <p class="font-serif text-5xl md:text-6xl text-white">1943</p>
+      {/* 創業年表示：スマホ=左下、md以上=右下 */}
+      <div class="absolute bottom-5 right-6 md:left-auto md:right-10 md:bottom-10 md:translate-x-0 text-white text-right md:text-right z-[100]">
+        <p class="text-xs md:text-sm tracking-widest mb-1 uppercase text-white/80">Established in</p>
+        <p class="font-serif text-4xl md:text-6xl text-white">1943</p>
       </div>
     </div>
 
@@ -74,7 +74,7 @@ const latestNews = response.contents;
     </div>
 
     {/* 3. AIコンシェルジュバナー（右下・ロッカクン付き） */}
-    <div class="ai-banner absolute bottom-[150px] right-6 md:right-10 z-[60] pointer-events-none opacity-0 flex flex-col items-end">
+    <div class="ai-banner absolute bottom-[170px] md:bottom-[150px] right-6 md:right-10 z-[60] pointer-events-none opacity-0 flex flex-col items-end">
       {/* ロッカクンキャラクター */}
       <img
         id="rokkakun"
@@ -101,8 +101,8 @@ const latestNews = response.contents;
       </a>
     </div>
 
-    {/* スクロールガイド */}
-    <div class="scroll-guide absolute bottom-20 left-1/2 -translate-x-1/2 z-40 flex flex-col items-center pointer-events-none">
+    {/* スクロールガイド：スマホ=AIボタン下、md=中央下部 */}
+    <div class="scroll-guide absolute bottom-[50px] md:bottom-20 left-1/2 -translate-x-1/2 z-[55] flex flex-col items-center pointer-events-none">
       <span class="text-base uppercase tracking-[0.4em] text-white/70 mb-2 font-serif">Scroll</span>
       <div class="w-[1px] h-20 bg-gradient-to-b from-[#008B9B] to-transparent relative overflow-hidden">
         <div class="scroll-line-inner absolute top-0 left-0 w-full h-full bg-white/40"></div>

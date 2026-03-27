@@ -22,6 +22,7 @@ import Layout from '../layouts/Layout.astro';
         >
           <option value="#">メニュー：セクションを選択</option>
           <option value="#products">取扱商品</option>
+          <option value="#category">　└ 取扱カテゴリー</option>
           <option value="#system">販売体制</option>
           <option value="#labo-2">ねぢラボ</option>
           <option value="#inquiry">お問合せ</option>
@@ -35,6 +36,7 @@ import Layout from '../layouts/Layout.astro';
 
       <nav class="hidden md:flex flex-row justify-center gap-10 text-[13px] font-bold text-gray-500 font-mb101 uppercase tracking-wide">
         <a href="#products" class="hover:text-[#008B9B] transition-colors">取扱商品</a>
+        <a href="#category" class="hover:text-[#008B9B] transition-colors">取扱カテゴリー</a>
         <a href="#system" class="hover:text-[#008B9B] transition-colors">販売体制</a>
         <a href="#labo-2" class="hover:text-[#008B9B] transition-colors">ねぢラボ</a>
         <a href="#inquiry" class="hover:text-[#008B9B] transition-colors">お問合せ</a>
@@ -96,7 +98,7 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <div class="max-w-6xl mx-auto mt-14 mb-14">
+        <div id="category" class="max-w-6xl mx-auto mt-14 mb-14 scroll-mt-[54px]">
           <div class="bg-[#008B9B] py-2 text-center mb-4 border border-gray-200">
             <span class="font-mb101 font-bold text-sm tracking-widest text-white">取扱カテゴリー</span>
           </div>
@@ -174,11 +176,37 @@ import Layout from '../layouts/Layout.astro';
               <div id="lb-pdf-tabs-inner" class="flex gap-1 flex-wrap"></div>
             </div>
 
-            {/* ボディ：スマホ=縦積み、md以上=左PDF40%/右規格表60% */}
-            <div id="lb-body" class="flex flex-col md:flex-row flex-1 overflow-hidden min-h-0">
+            {/* ボディ：スマホ=縦積みvh指定、md以上=左PDF40%/右規格表60% */}
+            <div id="lb-body" class="flex flex-col md:flex-row flex-1 min-h-0">
 
-              {/* PDFビューワー：スマホ=高さ50vh固定、md以上=左40% */}
-              <div id="lb-pdf-panel" class="w-full md:w-[50%] flex-shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col bg-gray-100 overflow-hidden" style="height:50vh;min-height:200px">
+              {/* PDFビューワー：スマホ=65vh固定、md以上=左40% */}
+              <div id="lb-pdf-panel" class="w-full md:w-[50%] flex-shrink-0 border-b md:border-b-0 md:border-r border-gray-200 flex flex-col bg-gray-100 overflow-hidden relative">
+                {/* スマホ用ボタン群：左上に戻る＋全画面で開く */}
+                <div class="md:hidden absolute top-2 left-2 z-10 flex items-center gap-2">
+                  <button
+                    id="lb-back-btn"
+                    onclick="window.closeLightbox()"
+                    class="flex items-center gap-1 bg-white/90 border border-gray-300 text-gray-700 text-xs font-bold px-3 py-1.5 shadow-sm"
+                    style="backdrop-filter:blur(4px)"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M15 19l-7-7 7-7"/>
+                    </svg>
+                    戻る
+                  </button>
+                  <a
+                    id="lb-open-pdf"
+                    href="#"
+                    target="_blank"
+                    class="flex items-center gap-1 bg-[#008B9B]/90 border border-[#008B9B] text-white text-xs font-bold px-3 py-1.5 shadow-sm"
+                    style="backdrop-filter:blur(4px)"
+                  >
+                    <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                      <path stroke-linecap="round" stroke-linejoin="round" d="M10 6H6a2 2 0 00-2 2v10a2 2 0 002 2h10a2 2 0 002-2v-4M14 4h6m0 0v6m0-6L10 14"/>
+                    </svg>
+                    全画面で開く
+                  </a>
+                </div>
                 <iframe
                   id="lb-pdf-frame"
                   src=""
@@ -187,8 +215,8 @@ import Layout from '../layouts/Layout.astro';
                 ></iframe>
               </div>
 
-              {/* 規格表：スマホ=残り高さ、md以上=右60% */}
-              <div id="lb-spec" class="flex-1 overflow-auto min-w-0" style="padding:12px 10px"></div>
+              {/* 規格表：スマホ=30vh固定、md以上=右60% */}
+              <div id="lb-spec" class="min-w-0 overflow-auto" style="padding:12px 10px"></div>
             </div>
 
             {/* フッター */}
@@ -210,9 +238,19 @@ import Layout from '../layouts/Layout.astro';
 
         <style is:global>
           #spec-overlay.active { display: flex; }
-          /* md以上ではPDFパネルの固定高さを解除して親に従わせる */
+          /* スマホ：lb-boxを画面高さいっぱいにしてflexで分割 */
+          @media (max-width: 767px) {
+            #spec-box { height: 96vh !important; max-height: 96vh !important; }
+            #lb-body { flex: 1 !important; display: flex !important; flex-direction: column !important; min-height: 0 !important; overflow: visible !important; }
+            #lb-pdf-panel { flex: 7 !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
+            #lb-spec { flex: 3 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
+          }
+          /* md以上：高さ指定をすべて解除して横並びに戻す */
           @media (min-width: 768px) {
-            #lb-pdf-panel { height: auto !important; min-height: 0 !important; }
+            #spec-box { height: auto !important; }
+            #lb-body { overflow: hidden !important; }
+            #lb-pdf-panel { flex: none !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
+            #lb-spec { flex: 1 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
           }
 
           /* ===== PDFタブ ===== */
@@ -246,7 +284,8 @@ import Layout from '../layouts/Layout.astro';
           /* ===== 規格表 ===== */
           .spec-table {
             width: 100% !important;
-            border-collapse: collapse !important;
+            border-collapse: separate !important;
+            border-spacing: 0 !important;
             font-size: 10px !important;
           }
           .spec-table th {
@@ -258,7 +297,10 @@ import Layout from '../layouts/Layout.astro';
             text-align: center !important;
             white-space: nowrap !important;
             border-right: 1px solid rgba(255,255,255,0.3) !important;
-            border-bottom: none !important;
+            border-bottom: 1px solid #555 !important;
+            position: sticky !important;
+            top: 0 !important;
+            z-index: 2 !important;
           }
           .spec-table th:last-child { border-right: none !important; }
           .spec-table th.th-main { background: #008B9B !important; }
@@ -372,8 +414,8 @@ import Layout from '../layouts/Layout.astro';
         // iframeにPDFをセット＋ダウンロードリンク更新
         function showPdf(pdfObj) {
           const frame = document.getElementById('lb-pdf-frame');
-          // iframeのsrcをセット（ブラウザがPDFビューワーで表示）
-          frame.src = pdfObj.path;
+          // page-width でPDFを幅いっぱいに表示、navpanes=0でサムネイル非表示
+          frame.src = pdfObj.path + '#toolbar=1&navpanes=0&view=FitH';
 
           // ダウンロードリンクを現在のPDFに更新
           const dlBtn = document.getElementById('lb-download');
@@ -382,6 +424,10 @@ import Layout from '../layouts/Layout.astro';
           const filename = pdfObj.path.split('/').pop();
           dlBtn.setAttribute('download', filename);
           document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
+
+          // 全画面で開くボタンのhrefも更新（スマホ用）
+          const openBtn = document.getElementById('lb-open-pdf');
+          if (openBtn) openBtn.href = pdfObj.path;
         }
 
         // ==========================================
