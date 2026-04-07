@@ -1,12 +1,11 @@
 ---
-// src/pages/sales.astro
 import Layout from '../layouts/Layout.astro';
 ---
 
 <Layout title="販売事業 | 東北ネヂ製造株式会社">
 
   <div id="top" class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
-    <div class="container mx-auto px-2">
+    <div class="container mx-auto px-6">
       <h1 class="text-4xl md:text-5xl font-mincho font-bold text-[#008B9B] mb-4">販売事業</h1>
       <p class="text-gray-500 font-serif tracking-wider uppercase">SALES BUSINESS</p>
     </div>
@@ -64,10 +63,10 @@ import Layout from '../layouts/Layout.astro';
 
           <div class="grid md:grid-cols-2 gap-10 text-[15px] leading-relaxed text-gray-600 font-medium">
             <div class="space-y-6">
-              <p>
-                「あと 1 本だけ、特殊なネジが見つからない……。」<br>
-                大切なプロジェクトが進行中なのに、規格外のネジがなかなか手に入らず、作業が滞ってしまう。こんな経験はありませんか？金物商社や工場、工事施工業者の皆さまが抱えるこのような課題に、当社営業部がお応えします。
-              </p>
+              <div>
+                <h4 class="font-bold text-gray-800 mb-2 text-xl">あと 1 本だけ、特殊なネジが見つからない…。</h4>
+                <p>大切なプロジェクトが進行中なのに、規格外のネジがなかなか手に入らず、作業が滞ってしまう。こんな経験はありませんか？金物商社や工場、工事施工業者の皆さまが抱えるこのような課題に、当社営業部がお応えします。</p>
+              </div>    
               <div>
                 <h4 class="font-bold text-gray-800 mb-2 text-xl">豊富な在庫とフルアソートメントサービス</h4>
                 <p>東北ネヂ営業部では、約10,000種類以上のネジ・締結部品を常時在庫し、バラ単位からご注文いただくことが可能です。ホームセンターには置いていないような特殊ネジや、国産・輸入品を含む幅広いラインナップを取りそろえ、あらゆる現場・ニーズに迅速対応いたします。</p>
@@ -94,7 +93,10 @@ import Layout from '../layouts/Layout.astro';
           </div>
 
           <div class="text-center pt-8">
-            <p class="font-bold text-gray-800">ネジ探しに時間と労力をかける必要は、もうありません。貴社のプロジェクトをスムーズに進めるため、ぜひ当社営業部の「フルアソートメントサービス」をご活用ください。</p>
+            <p class="font-bold text-gray-800">
+              <span class="text-[24px]">ネジ探しに時間と労力をかける必要は、もうありません。</span><br>
+              <span class="text-[17px]">貴社のプロジェクトをスムーズに進めるため、ぜひ当社営業部の「フルアソートメントサービス」をご活用ください。</span>
+            </p>
           </div>
         </div>
 
@@ -236,360 +238,6 @@ import Layout from '../layouts/Layout.astro';
           </div>
         </div>
 
-        <style is:global>
-          #spec-overlay.active { display: flex; }
-          /* スマホ：lb-boxを画面高さいっぱいにしてflexで分割 */
-          @media (max-width: 767px) {
-            #spec-box { height: 96vh !important; max-height: 96vh !important; }
-            #lb-body { flex: 1 !important; display: flex !important; flex-direction: column !important; min-height: 0 !important; overflow: visible !important; }
-            #lb-pdf-panel { flex: 7 !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
-            #lb-spec { flex: 3 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
-          }
-          /* md以上：高さ指定をすべて解除して横並びに戻す */
-          @media (min-width: 768px) {
-            #spec-box { height: auto !important; }
-            #lb-body { overflow: hidden !important; }
-            #lb-pdf-panel { flex: none !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
-            #lb-spec { flex: 1 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
-          }
-
-          /* ===== PDFタブ ===== */
-          .pdf-tab-btn {
-            font-size: 10px !important;
-            font-weight: 700;
-            padding: 5px 10px;
-            border: none;
-            border-bottom: 3px solid transparent;
-            color: #888;
-            cursor: pointer;
-            background: none;
-            transition: color .15s, border-color .15s;
-            white-space: nowrap;
-          }
-          .pdf-tab-btn.active { color: #008B9B !important; border-bottom-color: #008B9B !important; background-color: #FFD700 !important; }
-          .pdf-tab-btn:hover:not(.active) { color: #333 !important; }
-
-          /* ===== 規格タブ（鉄/SUSなど） ===== */
-          .spec-tab-btn {
-            font-size: 8px !important;
-            font-weight: 600;
-            padding: 2px 8px;
-            border: 1px solid #ccc;
-            color: #666;
-            cursor: pointer;
-            transition: all .15s;
-          }
-          .spec-tab-btn.active { background: #008B9B !important; color: #fff !important; border-color: #008B9B !important; }
-
-          /* ===== 規格表 ===== */
-          .spec-table {
-            width: 100% !important;
-            border-collapse: separate !important;
-            border-spacing: 0 !important;
-            font-size: 10px !important;
-          }
-          .spec-table th {
-            background: #1a1a18 !important;
-            color: #fff !important;
-            font-family: monospace !important;
-            font-size: 10px !important;
-            padding: 4px 5px !important;
-            text-align: center !important;
-            white-space: nowrap !important;
-            border-right: 1px solid rgba(255,255,255,0.3) !important;
-            border-bottom: 1px solid #555 !important;
-            position: sticky !important;
-            top: 0 !important;
-            z-index: 2 !important;
-          }
-          .spec-table th:last-child { border-right: none !important; }
-          .spec-table th.th-main { background: #008B9B !important; }
-          .spec-table td {
-            padding: 3px 5px !important;
-            text-align: center !important;
-            font-family: monospace !important;
-            font-size: 10px !important;
-            border-bottom: 1px solid #e5e7eb !important;
-            border-right: 1px solid #d1d5db !important;
-          }
-          .spec-table td:last-child { border-right: none !important; }
-          .spec-table tbody tr:nth-child(even) td { background: #f9fafb !important; }
-          .spec-table tbody tr:hover td { background: #e0f5f7 !important; }
-          .spec-table td.td-main {
-            font-weight: 600 !important;
-            color: #008B9B !important;
-            background: #f0fafb !important;
-          }
-          .spec-table tbody tr:hover td.td-main { background: #e0f5f7 !important; }
-        </style>
-
-        <script>
-        let PRODUCTS = [];
-        let currentProduct = null;
-        let currentPdfIdx = 0;  // 現在表示中のPDFタブ
-        let currentSpecIdx = 0; // 現在表示中の規格タブ（鉄/SUSなど）
-
-        // products.json 読み込み
-        fetch('/data/products.json')
-          .then(r => r.json())
-          .then(data => {
-            PRODUCTS = data;
-            document.querySelectorAll('.spec-card').forEach(card => {
-              card.addEventListener('click', () => {
-                const id = card.dataset.specId;
-                const name = card.dataset.name;
-                if (id) {
-                  const product = PRODUCTS.find(p => p.id === id);
-                  if (product) openLightbox(product);
-                } else {
-                  openPending(name);
-                }
-              });
-            });
-          })
-          .catch(e => console.error('products.json 読み込み失敗:', e));
-
-        // ==========================================
-        // ライトボックスを開く（規格あり）
-        // ==========================================
-        function openLightbox(product) {
-          currentProduct = product;
-          currentPdfIdx = 0;
-          currentSpecIdx = 0;
-
-          document.getElementById('lb-code').textContent = product.id;
-          document.getElementById('lb-name').textContent = product.name;
-          document.getElementById('lb-footer-code').textContent = product.id;
-
-          // ダウンロードリンクを有効化
-          const dlBtn = document.getElementById('lb-download');
-          dlBtn.style.opacity = '1';
-          dlBtn.style.pointerEvents = 'auto';
-
-          // PDFタブ制御
-          renderPdfTabs(product);
-          // 最初のPDFを表示
-          showPdf(product.pdfs[0]);
-
-          // 規格表
-          renderSpec(product, 0);
-
-          openOverlay();
-        }
-
-        // PDFタブ描画
-        function renderPdfTabs(product) {
-          const tabsWrap = document.getElementById('lb-pdf-tabs');
-          const tabsInner = document.getElementById('lb-pdf-tabs-inner');
-
-          if (!product.pdfs || product.pdfs.length <= 1) {
-            tabsWrap.classList.add('hidden');
-            tabsWrap.classList.remove('flex');
-            return;
-          }
-
-          tabsWrap.classList.remove('hidden');
-          tabsWrap.classList.add('flex');
-          tabsInner.innerHTML = product.pdfs.map((pdf, i) => `
-            <button class="pdf-tab-btn ${i === 0 ? 'active' : ''}"
-              onclick="switchPdfTab(${i})">${pdf.label}</button>
-          `).join('');
-        }
-
-        // PDFタブ切り替え
-        window.switchPdfTab = function(idx) {
-          currentPdfIdx = idx;
-          currentSpecIdx = idx;
-          // タブボタンのactive切り替え
-          document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
-            btn.classList.toggle('active', i === idx);
-          });
-          showPdf(currentProduct.pdfs[idx]);
-          // 対応する規格表も切り替え（specsが存在する場合のみ）
-          if (currentProduct.specs && currentProduct.specs[idx]) {
-            renderSpec(currentProduct, idx);
-          }
-        };
-
-        // iframeにPDFをセット＋ダウンロードリンク更新
-        function showPdf(pdfObj) {
-          const frame = document.getElementById('lb-pdf-frame');
-          // page-width でPDFを幅いっぱいに表示、navpanes=0でサムネイル非表示
-          frame.src = pdfObj.path + '#toolbar=1&navpanes=0&view=FitH';
-
-          // ダウンロードリンクを現在のPDFに更新
-          const dlBtn = document.getElementById('lb-download');
-          dlBtn.href = pdfObj.path;
-          // ファイル名はpathの末尾から
-          const filename = pdfObj.path.split('/').pop();
-          dlBtn.setAttribute('download', filename);
-          document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
-
-          // 全画面で開くボタンのhrefも更新（スマホ用）
-          const openBtn = document.getElementById('lb-open-pdf');
-          if (openBtn) openBtn.href = pdfObj.path;
-        }
-
-        // ==========================================
-        // 規格表レンダリング（右パネル）
-        // ==========================================
-        function renderSpec(product, tabIdx = 0) {
-          const el = document.getElementById('lb-spec');
-          const specs = product.specs;
-          // specsが存在しない・または該当インデックスがない場合はスキップ
-          if (!specs || !specs[tabIdx]) {
-            console.warn('specデータなし idx=', tabIdx);
-            return;
-          }
-          let html = '';
-
-          // 規格タブ（鉄/SUSなど複数材質）
-          if (specs.length > 1) {
-            html += `<div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">`;
-            specs.forEach((s, i) => {
-              html += `<button class="spec-tab-btn${i===tabIdx?' active':''}" onclick="switchSpecTab(${i})">${s.label}</button>`;
-            });
-            html += `</div>`;
-          } else {
-            html += `<div style="font-size:10px;color:#999;font-family:monospace;margin-bottom:8px">${specs[0].label}</div>`;
-          }
-
-          const spec = specs[tabIdx];
-          html += `<div style="overflow-x:auto"><table class="spec-table">`;
-
-          if (spec.headerRows) {
-            html += `<thead><tr>`;
-            spec.headerRows.forEach(([span,label,isMain]) => {
-              html += `<th colspan="${span}" class="${isMain?'th-main':''}">${label}</th>`;
-            });
-            html += `</tr><tr>`;
-            spec.subHeaderRow.forEach((sub,ci) => {
-              html += `<th class="${ci===0?'th-main':''}" style="font-size:8px;background:${ci===0?'#008B9B':'#333'}">${sub}</th>`;
-            });
-            html += `</tr></thead>`;
-          } else {
-            html += `<thead><tr>`;
-            spec.columns.forEach((col,ci) => {
-              html += `<th class="${ci===spec.mainCol?'th-main':''}">${col}</th>`;
-            });
-            html += `</tr></thead>`;
-          }
-
-          html += `<tbody>`;
-          spec.rows.forEach(row => {
-            html += `<tr>`;
-            row.forEach((cell,ci) => {
-              const isMain = ci === spec.mainCol;
-              const val = String(cell===null||cell===undefined?'−':cell).replace(/\n/g,'<br>');
-              html += `<td class="${isMain?'td-main':''}">${val}</td>`;
-            });
-            html += `</tr>`;
-          });
-          html += `</tbody></table></div>`;
-
-          if (spec.note) {
-            html += `<div style="margin-top:10px;font-size:9px;color:#666;line-height:1.8;padding:8px 10px;background:#f8f8f8;border-left:3px solid #ccc">${spec.note.replace(/\n/g,'<br>')}</div>`;
-          }
-          el.innerHTML = html;
-        }
-
-        window.switchSpecTab = function(idx) {
-          currentSpecIdx = idx;
-          currentPdfIdx = idx;
-          // 右：規格表を切り替え
-          renderSpec(currentProduct, idx);
-          // 左：対応するPDFも切り替え
-          if (currentProduct.pdfs && currentProduct.pdfs[idx]) {
-            showPdf(currentProduct.pdfs[idx]);
-          }
-          // PDFタブのactiveも連動して切り替え
-          document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
-            btn.classList.toggle('active', i === idx);
-          });
-        };
-
-        // ==========================================
-        // 準備中ライトボックス
-        // ==========================================
-        function openPending(name) {
-          currentProduct = null;
-          document.getElementById('lb-code').textContent = '準備中';
-          document.getElementById('lb-name').textContent = name;
-          document.getElementById('lb-footer-code').textContent = '—';
-
-          // PDFタブ非表示
-          document.getElementById('lb-pdf-tabs').classList.add('hidden');
-          document.getElementById('lb-pdf-tabs').classList.remove('flex');
-
-          // iframeをクリア
-          document.getElementById('lb-pdf-frame').src = 'about:blank';
-
-          // ダウンロードボタン無効化
-          const dlBtn = document.getElementById('lb-download');
-          dlBtn.href = '#';
-          dlBtn.removeAttribute('download');
-          dlBtn.style.opacity = '0.35';
-          dlBtn.style.pointerEvents = 'none';
-          document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
-
-          // 右パネルに「準備中」メッセージ
-          document.getElementById('lb-spec').innerHTML = `
-            <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:20px;padding:32px;text-align:center">
-              <div style="width:60px;height:60px;background:#f0fafb;border-radius:50%;display:flex;align-items:center;justify-content:center">
-                <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#008B9B" stroke-width="1.5">
-                  <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
-                </svg>
-              </div>
-              <div>
-                <p style="font-size:15px;font-weight:700;color:#1a1a18;margin-bottom:8px">規格表を準備中です</p>
-                <p style="font-size:13px;color:#888;line-height:1.9">
-                  <strong style="color:#333">${name}</strong> の図面・規格表は<br>
-                  現在データを整備中です。
-                </p>
-              </div>
-              <div style="padding:12px 20px;background:#f8f8f8;border-left:3px solid #008B9B;text-align:left">
-                <p style="font-size:11px;color:#666;line-height:1.8">
-                  お急ぎの場合はお電話またはメールフォームよりお問合せください。
-                </p>
-              </div>
-              <a href="#inquiry" onclick="window.closeLightbox()"
-                style="display:inline-flex;align-items:center;gap:6px;background:#008B9B;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;text-decoration:none">
-                お問合せはこちら →
-              </a>
-            </div>
-          `;
-
-          openOverlay();
-        }
-
-        // ==========================================
-        // オーバーレイ開閉
-        // ==========================================
-        function openOverlay() {
-          const ov = document.getElementById('spec-overlay');
-          ov.classList.remove('hidden');
-          ov.classList.add('active');
-          document.body.style.overflow = 'hidden';
-        }
-
-        window.closeLightbox = function() {
-          const ov = document.getElementById('spec-overlay');
-          ov.classList.add('hidden');
-          ov.classList.remove('active');
-          document.body.style.overflow = '';
-          // iframeをリセット（メモリ解放）
-          document.getElementById('lb-pdf-frame').src = 'about:blank';
-        };
-
-        document.getElementById('lb-close').addEventListener('click', window.closeLightbox);
-        document.getElementById('spec-overlay').addEventListener('click', e => {
-          if (e.target === document.getElementById('spec-overlay')) window.closeLightbox();
-        });
-        document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeLightbox(); });
-        </script>
-        </script>
-
-      
 
       </div>
     </section>
@@ -598,10 +246,10 @@ import Layout from '../layouts/Layout.astro';
     <section id="system" class="pt-12 pb-12 bg-gray-50">
       <div class="container mx-auto px-6">
 
-        <div class="max-w-4xl mb-20">
+        <div class="max-w-4xl mx-auto mb-20">
           <span class="text-[#E64A19] font-serif font-normal tracking-widest text-base mb-4 block uppercase tracking-[0.2em]">Sales System</span>
           <h2 class="font-mb101 text-4xl md:text-5xl mb-8 border-l-8 border-[#008B9B] pl-6 leading-none">販売体制</h2>
-          <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+          <p class="font-sans text-[16px] text-gray-600 leading-relaxed font-medium">
             福島県・宮城県を拠点に展開する営業ネットワークと、製造のノウハウを活かした確かな供給体制で、現場の課題解決を支えます。
           </p>
         </div>
@@ -676,9 +324,14 @@ import Layout from '../layouts/Layout.astro';
         <div class="max-w-4xl mx-auto text-center mb-24">
           <span class="text-[#E64A19] font-serif font-normal tracking-widest text-sm mb-4 block uppercase">Quality Assurance</span>
           <h2 class="font-mb101 text-white text-4xl md:text-6xl mb-8 leading-none">ねぢラボ</h2>
-          <h3 class="font-futomin text-xl md:text-2xl text-[#008B9B] mb-6 font-normal">皆さんは知ってますか？当社の調査研究チームねぢラボ</h3>
-          <p class="font-sans text-[15px] text-gray-200 leading-relaxed font-medium">
-            当社独自の調査・研究チーム「ねぢラボ」は、ボルトやナットなどネジ締結部品に関する疑問を解明し、新たな付加価値を生み出すために発足しました。特殊な検査や調査、さらには研究開発までを一貫して行い、お客様とともに次なる課題解決に取り組んでいます。こうした総合的な品質保証と「ねぢラボ」の活動を通じ、私たちはこれからも社会インフラを力強く支えてまいります。
+          <h3 class="font-futomin text-xl md:text-2xl text-[#008B9B] mb-6 font-normal">皆さんは知ってますか？ 当社の調査研究チームねぢラボ</h3>
+          <p class="font-sans text-[15px] text-gray-200 leading-relaxed font-medium" style="text-align:justify;text-align-last:left;">
+            ネジについてお困りなことはございませんか？当社では自社製品だけでなく他社の製品も当社独自の調査・研究チーム「ねぢラボ」でボルトやナットの締結品から小ねじ類に至るまで疑問を究明してお客様とともにに問題課題の解決に取り組みます。<br />
+当社では特殊な検査設備を用いて調査・研究をし、お客様からの安心信頼の価値を高めていきたいと思います。
+小さなネジから大きなネジまで当社に御相談いただければきっと何かの解決ができるはずです。
+「本当に効果があるのか？」その疑問に自社調査研究データで明確にお応えします。
+何かネジでの疑問や心配事がありましたお問い合わせください。
+お客様とともに問題課題の解決に取り組み社会インフラを強く支えてまいります。
           </p>
         </div>
 
@@ -722,13 +375,12 @@ import Layout from '../layouts/Layout.astro';
           </p>
           <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
             {[
-              { label: "本社販売部", tel: "0246-56-4571" },
-              { label: "東京営業部", tel: "03-6284-7130" },
+              { label: "いわき営業所・鉄道車両チーム", tel: "0246-56-4571" },
               { label: "仙台営業部", tel: "022-284-2675" },
               { label: "郡山営業所", tel: "024-943-3311" },
             ].map((office) => (
               <div class="flex flex-col">
-                <p class="text-[11px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">{office.label}</p>
+                <p class="text-[13px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">{office.label}</p>
                 <a
                   href={`tel:${office.tel.replace(/-/g, '')}`}
                   class="text-2xl md:text-3xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight"
@@ -813,4 +465,357 @@ import Layout from '../layouts/Layout.astro';
     </section>
 
   </div>
+
+<style is:global>
+  #spec-overlay.active { display: flex; }
+  /* スマホ：lb-boxを画面高さいっぱいにしてflexで分割 */
+  @media (max-width: 767px) {
+    #spec-box { height: 96vh !important; max-height: 96vh !important; }
+    #lb-body { flex: 1 !important; display: flex !important; flex-direction: column !important; min-height: 0 !important; overflow: visible !important; }
+    #lb-pdf-panel { flex: 7 !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
+    #lb-spec { flex: 3 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
+  }
+  /* md以上：高さ指定をすべて解除して横並びに戻す */
+  @media (min-width: 768px) {
+    #spec-box { height: auto !important; }
+    #lb-body { overflow: hidden !important; }
+    #lb-pdf-panel { flex: none !important; height: auto !important; min-height: 0 !important; overflow: hidden !important; }
+    #lb-spec { flex: 1 !important; height: auto !important; min-height: 0 !important; overflow-y: auto !important; }
+  }
+
+  /* ===== PDFタブ ===== */
+  .pdf-tab-btn {
+    font-size: 10px !important;
+    font-weight: 700;
+    padding: 5px 10px;
+    border: none;
+    border-bottom: 3px solid transparent;
+    color: #888;
+    cursor: pointer;
+    background: none;
+    transition: color .15s, border-color .15s;
+    white-space: nowrap;
+  }
+  .pdf-tab-btn.active { color: #008B9B !important; border-bottom-color: #008B9B !important; background-color: #FFD700 !important; }
+  .pdf-tab-btn:hover:not(.active) { color: #333 !important; }
+
+  /* ===== 規格タブ（鉄/SUSなど） ===== */
+  .spec-tab-btn {
+    font-size: 8px !important;
+    font-weight: 600;
+    padding: 2px 8px;
+    border: 1px solid #ccc;
+    color: #666;
+    cursor: pointer;
+    transition: all .15s;
+  }
+  .spec-tab-btn.active { background: #008B9B !important; color: #fff !important; border-color: #008B9B !important; }
+
+  /* ===== 規格表 ===== */
+  .spec-table {
+    width: 100% !important;
+    border-collapse: separate !important;
+    border-spacing: 0 !important;
+    font-size: 10px !important;
+  }
+  .spec-table th {
+    background: #1a1a18 !important;
+    color: #fff !important;
+    font-family: monospace !important;
+    font-size: 10px !important;
+    padding: 4px 5px !important;
+    text-align: center !important;
+    white-space: nowrap !important;
+    border-right: 1px solid rgba(255,255,255,0.3) !important;
+    border-bottom: 1px solid #555 !important;
+    position: sticky !important;
+    top: 0 !important;
+    z-index: 2 !important;
+  }
+  .spec-table th:last-child { border-right: none !important; }
+  .spec-table th.th-main { background: #008B9B !important; }
+  .spec-table td {
+    padding: 3px 5px !important;
+    text-align: center !important;
+    font-family: monospace !important;
+    font-size: 10px !important;
+    border-bottom: 1px solid #e5e7eb !important;
+    border-right: 1px solid #d1d5db !important;
+  }
+  .spec-table td:last-child { border-right: none !important; }
+  .spec-table tbody tr:nth-child(even) td { background: #f9fafb !important; }
+  .spec-table tbody tr:hover td { background: #e0f5f7 !important; }
+  .spec-table td.td-main {
+    font-weight: 600 !important;
+    color: #008B9B !important;
+    background: #f0fafb !important;
+  }
+  .spec-table tbody tr:hover td.td-main { background: #e0f5f7 !important; }
+</style>
+
+<script is:inline>
+let PRODUCTS = [];
+let currentProduct = null;
+let currentPdfIdx = 0;  // 現在表示中のPDFタブ
+let currentSpecIdx = 0; // 現在表示中の規格タブ（鉄/SUSなど）
+
+// products.json 読み込み
+fetch('/data/products.json')
+  .then(r => r.json())
+  .then(data => {
+    PRODUCTS = data;
+    document.querySelectorAll('.spec-card').forEach(card => {
+      card.addEventListener('click', () => {
+        const id = card.dataset.specId;
+        const name = card.dataset.name;
+        if (id) {
+          const product = PRODUCTS.find(p => p.id === id);
+          if (product) openLightbox(product);
+        } else {
+          openPending(name);
+        }
+      });
+    });
+  })
+  .catch(e => console.error('products.json 読み込み失敗:', e));
+
+// ==========================================
+// ライトボックスを開く（規格あり）
+// ==========================================
+function openLightbox(product) {
+  currentProduct = product;
+  currentPdfIdx = 0;
+  currentSpecIdx = 0;
+
+  document.getElementById('lb-code').textContent = product.id;
+  document.getElementById('lb-name').textContent = product.name;
+  document.getElementById('lb-footer-code').textContent = product.id;
+
+  // ダウンロードリンクを有効化
+  const dlBtn = document.getElementById('lb-download');
+  dlBtn.style.opacity = '1';
+  dlBtn.style.pointerEvents = 'auto';
+
+  // PDFタブ制御
+  renderPdfTabs(product);
+  // 最初のPDFを表示
+  showPdf(product.pdfs[0]);
+
+  // 規格表
+  renderSpec(product, 0);
+
+  openOverlay();
+}
+
+// PDFタブ描画
+function renderPdfTabs(product) {
+  const tabsWrap = document.getElementById('lb-pdf-tabs');
+  const tabsInner = document.getElementById('lb-pdf-tabs-inner');
+
+  if (!product.pdfs || product.pdfs.length <= 1) {
+    tabsWrap.classList.add('hidden');
+    tabsWrap.classList.remove('flex');
+    return;
+  }
+
+  tabsWrap.classList.remove('hidden');
+  tabsWrap.classList.add('flex');
+  tabsInner.innerHTML = product.pdfs.map((pdf, i) => `
+    <button class="pdf-tab-btn ${i === 0 ? 'active' : ''}"
+      onclick="switchPdfTab(${i})">${pdf.label}</button>
+  `).join('');
+}
+
+// PDFタブ切り替え
+window.switchPdfTab = function(idx) {
+  currentPdfIdx = idx;
+  currentSpecIdx = idx;
+  // タブボタンのactive切り替え
+  document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+  showPdf(currentProduct.pdfs[idx]);
+  // 対応する規格表も切り替え（specsが存在する場合のみ）
+  if (currentProduct.specs && currentProduct.specs[idx]) {
+    renderSpec(currentProduct, idx);
+  }
+};
+
+// iframeにPDFをセット＋ダウンロードリンク更新
+function showPdf(pdfObj) {
+  const frame = document.getElementById('lb-pdf-frame');
+  // page-width でPDFを幅いっぱいに表示、navpanes=0でサムネイル非表示
+  frame.src = pdfObj.path + '#toolbar=1&navpanes=0&view=FitH';
+
+  // ダウンロードリンクを現在のPDFに更新
+  const dlBtn = document.getElementById('lb-download');
+  dlBtn.href = pdfObj.path;
+  // ファイル名はpathの末尾から
+  const filename = pdfObj.path.split('/').pop();
+  dlBtn.setAttribute('download', filename);
+  document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
+
+  // 全画面で開くボタンのhrefも更新（スマホ用）
+  const openBtn = document.getElementById('lb-open-pdf');
+  if (openBtn) openBtn.href = pdfObj.path;
+}
+
+// ==========================================
+// 規格表レンダリング（右パネル）
+// ==========================================
+function renderSpec(product, tabIdx = 0) {
+  const el = document.getElementById('lb-spec');
+  const specs = product.specs;
+  // specsが存在しない・または該当インデックスがない場合はスキップ
+  if (!specs || !specs[tabIdx]) {
+    console.warn('specデータなし idx=', tabIdx);
+    return;
+  }
+  let html = '';
+
+  // 規格タブ（鉄/SUSなど複数材質）
+  if (specs.length > 1) {
+    html += `<div style="display:flex;gap:4px;margin-bottom:12px;flex-wrap:wrap">`;
+    specs.forEach((s, i) => {
+      html += `<button class="spec-tab-btn${i===tabIdx?' active':''}" onclick="switchSpecTab(${i})">${s.label}</button>`;
+    });
+    html += `</div>`;
+  } else {
+    html += `<div style="font-size:10px;color:#999;font-family:monospace;margin-bottom:8px">${specs[0].label}</div>`;
+  }
+
+  const spec = specs[tabIdx];
+  html += `<div style="overflow-x:auto"><table class="spec-table">`;
+
+  if (spec.headerRows) {
+    html += `<thead><tr>`;
+    spec.headerRows.forEach(([span,label,isMain]) => {
+      html += `<th colspan="${span}" class="${isMain?'th-main':''}">${label}</th>`;
+    });
+    html += `</tr><tr>`;
+    spec.subHeaderRow.forEach((sub,ci) => {
+      html += `<th class="${ci===0?'th-main':''}" style="font-size:8px;background:${ci===0?'#008B9B':'#333'}">${sub}</th>`;
+    });
+    html += `</tr></thead>`;
+  } else {
+    html += `<thead><tr>`;
+    spec.columns.forEach((col,ci) => {
+      html += `<th class="${ci===spec.mainCol?'th-main':''}">${col}</th>`;
+    });
+    html += `</tr></thead>`;
+  }
+
+  html += `<tbody>`;
+  spec.rows.forEach(row => {
+    html += `<tr>`;
+    row.forEach((cell,ci) => {
+      const isMain = ci === spec.mainCol;
+      const val = String(cell===null||cell===undefined?'−':cell).replace(/\n/g,'<br>');
+      html += `<td class="${isMain?'td-main':''}">${val}</td>`;
+    });
+    html += `</tr>`;
+  });
+  html += `</tbody></table></div>`;
+
+  if (spec.note) {
+    html += `<div style="margin-top:10px;font-size:9px;color:#666;line-height:1.8;padding:8px 10px;background:#f8f8f8;border-left:3px solid #ccc">${spec.note.replace(/\n/g,'<br>')}</div>`;
+  }
+  el.innerHTML = html;
+}
+
+window.switchSpecTab = function(idx) {
+  currentSpecIdx = idx;
+  currentPdfIdx = idx;
+  // 右：規格表を切り替え
+  renderSpec(currentProduct, idx);
+  // 左：対応するPDFも切り替え
+  if (currentProduct.pdfs && currentProduct.pdfs[idx]) {
+    showPdf(currentProduct.pdfs[idx]);
+  }
+  // PDFタブのactiveも連動して切り替え
+  document.querySelectorAll('.pdf-tab-btn').forEach((btn, i) => {
+    btn.classList.toggle('active', i === idx);
+  });
+};
+
+// ==========================================
+// 準備中ライトボックス
+// ==========================================
+function openPending(name) {
+  currentProduct = null;
+  document.getElementById('lb-code').textContent = '準備中';
+  document.getElementById('lb-name').textContent = name;
+  document.getElementById('lb-footer-code').textContent = '—';
+
+  // PDFタブ非表示
+  document.getElementById('lb-pdf-tabs').classList.add('hidden');
+  document.getElementById('lb-pdf-tabs').classList.remove('flex');
+
+  // iframeをクリア
+  document.getElementById('lb-pdf-frame').src = 'about:blank';
+
+  // ダウンロードボタン無効化
+  const dlBtn = document.getElementById('lb-download');
+  dlBtn.href = '#';
+  dlBtn.removeAttribute('download');
+  dlBtn.style.opacity = '0.35';
+  dlBtn.style.pointerEvents = 'none';
+  document.getElementById('lb-download-label').textContent = 'PDFをダウンロード';
+
+  // 右パネルに「準備中」メッセージ
+  document.getElementById('lb-spec').innerHTML = `
+    <div style="display:flex;flex-direction:column;align-items:center;justify-content:center;height:100%;gap:20px;padding:32px;text-align:center">
+      <div style="width:60px;height:60px;background:#f0fafb;border-radius:50%;display:flex;align-items:center;justify-content:center">
+        <svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="#008B9B" stroke-width="1.5">
+          <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 11-18 0 9 9 0 0118 0z"/>
+        </svg>
+      </div>
+      <div>
+        <p style="font-size:15px;font-weight:700;color:#1a1a18;margin-bottom:8px">規格表を準備中です</p>
+        <p style="font-size:13px;color:#888;line-height:1.9">
+          <strong style="color:#333">${name}</strong> の図面・規格表は<br>
+          現在データを整備中です。
+        </p>
+      </div>
+      <div style="padding:12px 20px;background:#f8f8f8;border-left:3px solid #008B9B;text-align:left">
+        <p style="font-size:11px;color:#666;line-height:1.8">
+          お急ぎの場合はお電話またはメールフォームよりお問合せください。
+        </p>
+      </div>
+      <a href="#inquiry" onclick="window.closeLightbox()"
+        style="display:inline-flex;align-items:center;gap:6px;background:#008B9B;color:#fff;font-size:12px;font-weight:700;padding:10px 20px;text-decoration:none">
+        お問合せはこちら →
+      </a>
+    </div>
+  `;
+
+  openOverlay();
+}
+
+// ==========================================
+// オーバーレイ開閉
+// ==========================================
+function openOverlay() {
+  const ov = document.getElementById('spec-overlay');
+  ov.classList.remove('hidden');
+  ov.classList.add('active');
+  document.body.style.overflow = 'hidden';
+}
+
+window.closeLightbox = function() {
+  const ov = document.getElementById('spec-overlay');
+  ov.classList.add('hidden');
+  ov.classList.remove('active');
+  document.body.style.overflow = '';
+  // iframeをリセット（メモリ解放）
+  document.getElementById('lb-pdf-frame').src = 'about:blank';
+};
+
+document.getElementById('lb-close').addEventListener('click', window.closeLightbox);
+document.getElementById('spec-overlay').addEventListener('click', e => {
+  if (e.target === document.getElementById('spec-overlay')) window.closeLightbox();
+});
+document.addEventListener('keydown', e => { if (e.key === 'Escape') window.closeLightbox(); });
+</script>
+
 </Layout>

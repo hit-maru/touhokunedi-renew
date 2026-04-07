@@ -1,5 +1,4 @@
 ---
-// src/pages/manufacture.astro
 import Layout from '../layouts/Layout.astro';
 import Process from '../components/manufacture/Process.astro';
 import Capability from '../components/manufacture/Capability.astro';
@@ -74,7 +73,7 @@ import Labo from '../components/manufacture/Labo.astro';
           </p>
           <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
             <div>
-              <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">Manufacturing</p>
+              <p class="text-[13px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">ねじ製造に関するお問合せ</p>
               <a href="tel:03-6284-7130" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors">
                 03-6284-7130
               </a>
@@ -84,7 +83,7 @@ import Labo from '../components/manufacture/Labo.astro';
         </div>
 
         {/* メールフォーム */}
-        <h2 class="text-[#008B9B] font-mb101 text-3xl font-bold mb-8 ttracking-tighter">メールフォーム</h2>
+        <h2 class="text-[#008B9B] font-mb101 text-3xl font-bold mb-8 tracking-tighter">メールフォーム</h2>
         <p class="font-sans text-[15px] text-gray-600 mb-12 leading-relaxed font-medium">
           特注品の製造、技術相談、図面に関するご質問など、お気軽にお問合せください。通常、3営業日以内に製造担当者よりご連絡いたします。
         </p>
@@ -120,13 +119,13 @@ import Labo from '../components/manufacture/Labo.astro';
           </div>
 
           <div class="text-center pt-8">
-  <button 
-    type="submit" 
-    class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1"
-  >
-    内容を確認して送信する
-  </button>
-</div>
+            <button 
+              type="submit" 
+              class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg hover:shadow-none translate-y-0 hover:translate-y-1"
+            >
+              内容を確認して送信する
+            </button>
+          </div>
         </form>
       </div>
     </section>
@@ -151,9 +150,28 @@ import Labo from '../components/manufacture/Labo.astro';
     /* ドラッグ移動モード */
     .mode-move { cursor: grab; transform: scale(1.5); will-change: transform; }
     .mode-move:active { cursor: grabbing; }
+
+    /* スケールマップのクリック帯ホバー */
+    .scale-band {
+      position: absolute;
+      top: 0;
+      height: 100%;
+      cursor: pointer;
+      opacity: 0;
+      transition: opacity 0.2s ease;
+      border-radius: 4px;
+    }
+    .scale-band:hover {
+      opacity: 0.35;
+    }
+    .scale-band-blue   { background: #1565C0; }
+    .scale-band-green  { background: #2E7D32; }
+    .scale-band-orange { background: #E65100; }
+    .scale-band-brown  { background: #4E342E; }
   </style>
 
   <script>
+    // ── ライトボックス ──
     const overlay = document.getElementById('lightbox-overlay');
     const container = document.getElementById('lightbox-container');
     const lightboxImg = document.getElementById('lightbox-img') as HTMLImageElement;
@@ -181,7 +199,7 @@ import Labo from '../components/manufacture/Labo.astro';
         if (target.classList.contains('js-rotate')) {
           currentMode = 'rotate';
           lightboxImg.classList.add('mode-rotate');
-          lightboxImg.style.transform = ''; 
+          lightboxImg.style.transform = '';
         } else {
           currentMode = 'move';
           lightboxImg.classList.add('mode-move');
@@ -228,6 +246,17 @@ import Labo from '../components/manufacture/Labo.astro';
     container?.addEventListener('touchstart', startDrag, { passive: false });
     window.addEventListener('touchmove', moveDrag, { passive: false });
     window.addEventListener('touchend', stopDrag);
+
+    // ── スケール帯クリック → 製品写真へスムーズスクロール ──
+    document.querySelectorAll('[data-scroll-to]').forEach(el => {
+      el.addEventListener('click', () => {
+        const targetId = (el as HTMLElement).dataset.scrollTo;
+        if (!targetId) return;
+        const target = document.getElementById(targetId);
+        if (!target) return;
+        target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      });
+    });
   </script>
 
 </Layout>

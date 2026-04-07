@@ -2,10 +2,9 @@
 // src/components/Footer.astro
 const today = new Date();
 
-// 拠点データ（Googleマップのリンク付き）
 const offices = [
   { 
-    label: "本社・工場", 
+    label: "本社・工場・いわき営業所・鉄道車両チーム", 
     zip: "〒971-8184", 
     addr: "福島県いわき市泉町黒須野字砂利59番地",
     mapQuery: "福島県いわき市泉町黒須野字砂利59番地"
@@ -33,17 +32,18 @@ const offices = [
 
 <footer class="bg-gray-900 text-white pt-20 pb-10 border-t-4 border-[#E64A19]">
   <div class="container mx-auto px-6">
-    {/* 上部：ロゴエリア - 下マージンを増やして余白を作る */}
+
+    {/* 上部：ロゴエリア */}
     <div class="mb-8 md:mb-1">
       <div class="grid grid-cols-1 md:grid-cols-12 gap-12">
         <div class="md:col-span-5">
-          <p class="font-serif text-4xl tracking-tighter leading-none mb-2 text-white">nedzi</p>
-          <p class="font-serif text-[10px] tracking-widest text-gray-400 uppercase">Tohoku Bolt Mfg. Co., Ltd.</p>
+          <p class="font-serif text-5xl tracking-normal leading-none mb-2 text-white">nedzi</p>
+          <p class="font-serif text-[12px] tracking-widest text-gray-400 uppercase">Tohoku Bolt Mfg. Co., Ltd.</p>
         </div>
       </div>
     </div>
 
-    {/* 見出し行：横ラインで揃える - スマホでは非表示 */}
+    {/* 見出し行：スマホでは非表示 */}
     <div class="hidden md:grid grid-cols-1 md:grid-cols-12 gap-12 mb-4">
       <div class="md:col-span-5"></div>
       <div class="md:col-span-2">
@@ -57,9 +57,9 @@ const offices = [
       </div>
     </div>
 
-    {/* コンテンツ行：横ラインで揃える */}
+    {/* コンテンツ行 */}
     <div class="grid grid-cols-1 md:grid-cols-12 gap-12 mb-16">
-      
+
       {/* 左ブロック：4拠点情報 */}
       <div class="md:col-span-5">
         <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
@@ -81,7 +81,7 @@ const offices = [
         </div>
       </div>
 
-      {/* 中ブロック：メニューリンク（COMPANY） */}
+      {/* 中ブロック：COMPANY */}
       <div class="md:col-span-2">
         <p class="font-mb101 text-[12px] text-gray-400 tracking-widest mb-3 uppercase font-bold md:hidden">Company</p>
         <ul class="space-y-3 font-sans text-[14px]">
@@ -92,7 +92,7 @@ const offices = [
         </ul>
       </div>
 
-      {/* 中ブロック：メニューリンク（PRODUCTS / NEWS） */}
+      {/* 中ブロック：PRODUCTS / NEWS */}
       <div class="md:col-span-2">
         <p class="font-mb101 text-[12px] text-gray-400 tracking-widest mb-3 uppercase font-bold md:hidden">Products</p>
         <ul class="space-y-3 font-sans text-[14px]">
@@ -105,17 +105,26 @@ const offices = [
       {/* 右ブロック：お問合せ */}
       <div class="md:col-span-3">
         <p class="font-mb101 text-[12px] text-gray-400 tracking-widest mb-3 uppercase font-bold md:hidden">Contact</p>
-        <div class="mb-6">
-          <p class="text-[11px] text-gray-400 mb-1 font-sans">お電話でのご相談</p>
-          <a href="tel:0246564751" class="font-serif text-4xl text-white hover:text-[#008B9B] transition-colors">
-            0246-56-4751
-          </a>
-        </div>
+        <div class="mb-6 space-y-4">
+          <div>
+            <p class="text-[11px] text-[#008B9B] mb-1 font-sans">本社代表電話</p>
+            <a href="tel:0246564751" class="font-serif text-2xl text-white hover:text-[#008B9B] transition-colors">
+              0246-56-4751
+            </a>
+          </div>
+          <div>
+            <p class="text-[11px] text-[#008B9B] mb-1 font-sans">ねじ製造問合せ</p>
+            <a href="tel:0362847130" class="font-serif text-2xl text-white hover:text-[#008B9B] transition-colors">
+              03-6284-7130
+            </a>
+          </div>
+        </div>{/* ← mb-6 space-y-4 の閉じ */}
         <a href="/contact#mail-form" class="inline-block border border-white text-white px-6 py-3 text-[12px] font-mb101 font-bold hover:bg-white hover:text-gray-900 transition-all">
           お問合せフォーム →
         </a>
-      </div>
-    </div>
+      </div>{/* ← md:col-span-3 の閉じ */}
+
+    </div>{/* ← grid mb-16 の閉じ */}
 
     {/* コピーライト */}
     <div class="pt-8 border-t border-white/10 text-center flex flex-col md:flex-row justify-between items-center gap-4">
@@ -127,5 +136,6 @@ const offices = [
         &copy; {today.getFullYear()} Tohoku Bolt Mfg. Co., Ltd. All rights reserved.
       </p>
     </div>
-  </div>
+
+  </div>{/* ← container の閉じ */}
 </footer>
