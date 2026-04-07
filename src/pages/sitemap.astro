@@ -1,0 +1,159 @@
+---
+import Layout from '../layouts/Layout.astro';
+---
+
+<Layout title="サイトマップ | 東北ネジ製造株式会社">
+  <main class="sitemap-page">
+    <div class="sitemap-inner">
+      <h1 class="sitemap-title">サイトマップ</h1>
+
+      <div class="sitemap-grid">
+
+        <!-- 企業情報 -->
+        <section class="sitemap-section">
+          <h2><a href="/company/">企業情報</a></h2>
+          <ul>
+            <li><a href="/company/#concept">コンセプト</a></li>
+            <li><a href="/company/#message">メッセージ</a></li>
+            <li><a href="/company/#statement">TOHOKU BOLT WAY</a></li>
+            <li><a href="/company/#philosophy">ビジョン</a></li>
+            <li><a href="/company/#outline">概要</a></li>
+            <li><a href="/company/#sdgs">SDGs</a></li>
+            <li><a href="/company/#certification">認証</a></li>
+            <li><a href="/company/#history">沿革</a></li>
+            <li><a href="/company/#access">アクセス</a></li>
+          </ul>
+        </section>
+
+        <!-- 製造事業 -->
+        <section class="sitemap-section">
+          <h2><a href="/manufacture/">製造事業</a></h2>
+          <ul>
+            <li><a href="/manufacture/#process">一貫製造体制</a></li>
+            <li><a href="/manufacture/#capability">製品紹介</a></li>
+            <li><a href="/manufacture/#equipment">主要設備</a></li>
+            <li><a href="/manufacture/#labo">ねぢラボ</a></li>
+            <li><a href="/contact-manufacture/">お問合せ</a></li>
+          </ul>
+        </section>
+
+        <!-- 販売事業 -->
+        <section class="sitemap-section">
+          <h2><a href="/sales/">販売事業</a></h2>
+          <ul>
+            <li><a href="/sales/#products">取扱商品</a></li>
+            <li><a href="/sales/#category">取扱カテゴリー</a></li>
+            <li><a href="/sales/#system">販売体制</a></li>
+            <li><a href="/sales/#labo-2">ねぢラボ</a></li>
+            <li><a href="/contact-sales/">お問合せ</a></li>
+          </ul>
+        </section>
+
+        <!-- 採用情報 -->
+        <section class="sitemap-section">
+          <h2><a href="/recruit/">採用情報</a></h2>
+          <ul>
+            <li><a href="/recruit/#top">信頼</a></li>
+            <li><a href="/recruit/#guidelines-new">新卒採用</a></li>
+            <li><a href="/recruit/#guidelines-career">キャリア採用</a></li>
+            <li><a href="/recruit/#voice">社員の声</a></li>
+            <li><a href="/contact-recruit/">お問合せ</a></li>
+          </ul>
+        </section>
+
+        <!-- お問合せ -->
+        <section class="sitemap-section">
+          <h2><a href="/contact/">お問合せ</a></h2>
+          <ul>
+            <li><a href="/contact-manufacture/">製造に関するお問合せ</a></li>
+            <li><a href="/contact-sales/">販売に関するお問合せ</a></li>
+            <li><a href="/contact-recruit/">採用に関するお問合せ</a></li>
+          </ul>
+        </section>
+
+                <!-- お知らせ -->
+        <section class="sitemap-section">
+          <h2><a href="/news/">お知らせ</a></h2>
+        </section>
+
+        <!-- English -->
+        <section class="sitemap-section">
+          <h2><a href="/en/">English</a></h2>
+          <ul>
+            <li><a href="/en/company/">Company</a></li>
+            <li><a href="/en/manufacture/">Manufacture</a></li>
+            <li><a href="/en/product/">Products</a></li>
+          </ul>
+        </section>
+
+      </div>
+    </div>
+  </main>
+</Layout>
+
+<style>
+  .sitemap-page {
+    padding: 80px 20px 120px;
+    background: var(--color-bg, #fff);
+  }
+
+  .sitemap-inner {
+    max-width: 960px;
+    margin: 0 auto;
+  }
+
+  .sitemap-title {
+    font-size: 2rem;
+    font-weight: 700;
+    margin-bottom: 60px;
+    padding-bottom: 16px;
+    border-bottom: 2px solid #e0e0e0;
+  }
+
+  .sitemap-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+    gap: 48px 40px;
+  }
+
+  .sitemap-section h2 {
+    font-size: 1rem;
+    font-weight: 700;
+    margin-bottom: 12px;
+  }
+
+  .sitemap-section h2 a {
+    color: inherit;
+    text-decoration: none;
+    border-bottom: 2px solid currentColor;
+    padding-bottom: 2px;
+  }
+
+  .sitemap-section h2 a:hover {
+    opacity: 0.7;
+  }
+
+  .sitemap-section ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  .sitemap-section ul li::before {
+    content: "– ";
+    color: #999;
+  }
+
+  .sitemap-section ul a {
+    color: #555;
+    text-decoration: none;
+    font-size: 0.9rem;
+  }
+
+  .sitemap-section ul a:hover {
+    color: #008B9B;
+  }
+</style>
