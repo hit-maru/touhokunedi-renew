@@ -17,7 +17,7 @@
       
       <div id="lineup-01" class="group scroll-mt-40">
         <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
-          <img src="/images/lineup_01photo.png" alt="鉄道・レール分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+          <img src="/images/lineup_01photo.png" alt="鉄道・レール分野" class="js-lb-img cursor-zoom-in w-full h-auto transition-transform duration-700 group-hover:scale-105" data-src="/images/lineup_01photo.png" data-caption="鉄道・レール分野" />
         </div>
         <div class="pl-2 border-l-2 border-[#008B9B]">
           <h4 class="font-bold text-xl mb-1 text-gray-800">鉄道・レール分野</h4>
@@ -28,7 +28,7 @@
 
       <div id="lineup-04" class="group scroll-mt-40">
         <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
-          <img src="/images/lineup_02photo.png" alt="建築・土木分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+          <img src="/images/lineup_02photo.png" alt="建築・土木分野" class="js-lb-img cursor-zoom-in w-full h-auto transition-transform duration-700 group-hover:scale-105" data-src="/images/lineup_02photo.png" data-caption="建築・土木分野" />
         </div>
         <div class="pl-2 border-l-2 border-[#008B9B]">
           <h4 class="font-bold text-xl mb-1 text-gray-800">建築・土木分野</h4>
@@ -39,7 +39,7 @@
 
       <div id="lineup-03" class="group scroll-mt-40">
         <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
-          <img src="/images/lineup_03photo.png" alt="エネルギー・プラント分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+          <img src="/images/lineup_03photo.png" alt="エネルギー・プラント分野" class="js-lb-img cursor-zoom-in w-full h-auto transition-transform duration-700 group-hover:scale-105" data-src="/images/lineup_03photo.png" data-caption="エネルギー・プラント分野" />
         </div>
         <div class="pl-2 border-l-2 border-[#008B9B]">
           <h4 class="font-bold text-xl mb-1 text-gray-800">エネルギー・プラント分野</h4>
@@ -50,7 +50,7 @@
 
       <div id="lineup-02" class="group scroll-mt-40">
         <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
-          <img src="/images/lineup_04photo.png" alt="機械部品" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+          <img src="/images/lineup_04photo.png" alt="機械部品" class="js-lb-img cursor-zoom-in w-full h-auto transition-transform duration-700 group-hover:scale-105" data-src="/images/lineup_04photo.png" data-caption="機械部品" />
         </div>
         <div class="pl-2 border-l-2 border-[#008B9B]">
           <h4 class="font-bold text-xl mb-1 text-gray-800">機械部品</h4>
@@ -187,13 +187,261 @@
   </div>
 </section>
 
+<!-- ライトボックス オーバーレイ -->
+<div id="img-lb-overlay"
+  style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.88);touch-action:none;overflow:hidden;">
+
+  <!-- キャプション -->
+  <div id="img-lb-caption"
+    style="position:absolute;top:0;left:0;right:0;padding:14px 56px 14px 20px;color:#fff;font-size:13px;font-weight:700;font-family:sans-serif;background:linear-gradient(to bottom,rgba(0,0,0,0.6),transparent);z-index:2;pointer-events:none;"></div>
+
+  <!-- 閉じるボタン -->
+  <button id="img-lb-close"
+    style="position:absolute;top:10px;right:14px;z-index:3;background:rgba(255,255,255,0.15);border:none;color:#fff;font-size:22px;line-height:1;width:38px;height:38px;border-radius:50%;cursor:pointer;display:flex;align-items:center;justify-content:center;">✕</button>
+
+  <!-- 操作ヒント -->
+  <div id="img-lb-hint"
+    style="position:absolute;bottom:14px;left:50%;transform:translateX(-50%);color:rgba(255,255,255,0.55);font-size:11px;font-family:sans-serif;white-space:nowrap;pointer-events:none;z-index:2;">
+    ドラッグ／スワイプで移動　ホイール／ピンチで拡大縮小
+  </div>
+
+  <!-- 画像コンテナ -->
+  <div id="img-lb-container" style="position:absolute;inset:0;overflow:hidden;cursor:grab;">
+    <img id="img-lb-img" src="" alt=""
+      style="position:absolute;transform-origin:0 0;user-select:none;-webkit-user-drag:none;max-width:none;" />
+  </div>
+</div>
+
+<script>
+(function() {
+  const overlay   = document.getElementById('img-lb-overlay');
+  const container = document.getElementById('img-lb-container');
+  const img       = document.getElementById('img-lb-img');
+  const caption   = document.getElementById('img-lb-caption');
+  const closeBtn  = document.getElementById('img-lb-close');
+  const hint      = document.getElementById('img-lb-hint');
+
+  let scale = 1, minScale = 1, maxScale = 8;
+  let tx = 0, ty = 0;
+  let dragging = false;
+  let wasPinching = false;   // ピンチ操作中フラグ
+  let lastX = 0, lastY = 0;
+  let lastDist = 0;
+
+  // ---------- ユーティリティ ----------
+  function clamp(v, lo, hi) { return Math.max(lo, Math.min(hi, v)); }
+
+  function applyTransform() {
+    img.style.transform = `translate(${tx}px,${ty}px) scale(${scale})`;
+  }
+
+  function clampTranslation() {
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    const iw = img.naturalWidth  * scale;
+    const ih = img.naturalHeight * scale;
+    const maxTx = Math.max(0, (iw - cw) / 2);
+    const maxTy = Math.max(0, (ih - ch) / 2);
+    tx = clamp(tx, cw / 2 - iw / 2 - maxTx, cw / 2 - iw / 2 + maxTx);
+    ty = clamp(ty, ch / 2 - ih / 2 - maxTy, ch / 2 - ih / 2 + maxTy);
+  }
+
+  function resetTransform() {
+    const cw = container.clientWidth;
+    const ch = container.clientHeight;
+    const fw = img.naturalWidth;
+    const fh = img.naturalHeight;
+    // 画面に収まるscaleを初期値に
+    minScale = Math.min(cw / fw, ch / fh, 1);
+    scale = minScale;
+    tx = (cw - fw * scale) / 2;
+    ty = (ch - fh * scale) / 2;
+    applyTransform();
+  }
+
+  // ---------- ズーム（中心点を固定） ----------
+  function zoomAt(cx, cy, factor) {
+    const newScale = clamp(scale * factor, minScale, maxScale);
+    const ratio = newScale / scale;
+    tx = cx - ratio * (cx - tx);
+    ty = cy - ratio * (cy - ty);
+    scale = newScale;
+    clampTranslation();
+    applyTransform();
+  }
+
+  // ---------- 開閉 ----------
+  function open(src, cap) {
+    img.src = src;
+    caption.textContent = cap;
+    overlay.style.display = 'block';
+    document.body.style.overflow = 'hidden';
+    img.onload = () => { resetTransform(); };
+    // すでにキャッシュ済みの場合
+    if (img.complete && img.naturalWidth) resetTransform();
+    // ヒントを3秒後に消す
+    hint.style.opacity = '1';
+    setTimeout(() => { hint.style.opacity = '0'; hint.style.transition = 'opacity 0.5s'; }, 3000);
+  }
+
+  function close() {
+    overlay.style.display = 'none';
+    document.body.style.overflow = '';
+    img.src = '';
+  }
+
+  // ---------- 起動トリガー ----------
+  document.querySelectorAll('.js-lb-img').forEach(el => {
+    el.addEventListener('click', () => {
+      open(el.dataset.src, el.dataset.caption || el.alt);
+    });
+  });
+
+  closeBtn.addEventListener('click', close);
+  overlay.addEventListener('click', e => {
+    // 画像本体・閉じるボタン以外の黒背景エリアをクリック/タップしたら閉じる
+    const target = e.target;
+    if (target === overlay || target === container || target === hint || target === caption) {
+      close();
+    }
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') close(); });
+
+  // ---------- マウスドラッグ ----------
+  container.addEventListener('mousedown', e => {
+    if (e.button !== 0) return;
+    dragging = true;
+    lastX = e.clientX; lastY = e.clientY;
+    container.style.cursor = 'grabbing';
+    e.preventDefault();
+  });
+  window.addEventListener('mousemove', e => {
+    if (!dragging) return;
+    tx += e.clientX - lastX;
+    ty += e.clientY - lastY;
+    lastX = e.clientX; lastY = e.clientY;
+    clampTranslation();
+    applyTransform();
+  });
+  window.addEventListener('mouseup', () => {
+    dragging = false;
+    container.style.cursor = 'grab';
+  });
+
+  // ---------- ホイールズーム ----------
+  container.addEventListener('wheel', e => {
+    e.preventDefault();
+    const rect = container.getBoundingClientRect();
+    const cx = e.clientX - rect.left;
+    const cy = e.clientY - rect.top;
+    const factor = e.deltaY < 0 ? 1.12 : 1 / 1.12;
+    zoomAt(cx, cy, factor);
+  }, { passive: false });
+
+  // ---------- タッチ：パン＆ピンチ ----------
+  container.addEventListener('touchstart', e => {
+    if (e.touches.length === 1) {
+      dragging = true;
+      wasPinching = false;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+    } else if (e.touches.length === 2) {
+      dragging = false;
+      wasPinching = true;
+      lastDist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  container.addEventListener('touchmove', e => {
+    if (e.touches.length === 1 && dragging) {
+      tx += e.touches[0].clientX - lastX;
+      ty += e.touches[0].clientY - lastY;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+      clampTranslation();
+      applyTransform();
+    } else if (e.touches.length === 2) {
+      const dist = Math.hypot(
+        e.touches[0].clientX - e.touches[1].clientX,
+        e.touches[0].clientY - e.touches[1].clientY
+      );
+      const rect = container.getBoundingClientRect();
+      const cx = (e.touches[0].clientX + e.touches[1].clientX) / 2 - rect.left;
+      const cy = (e.touches[0].clientY + e.touches[1].clientY) / 2 - rect.top;
+      if (lastDist > 0) zoomAt(cx, cy, dist / lastDist);
+      lastDist = dist;
+    }
+    e.preventDefault();
+  }, { passive: false });
+
+  container.addEventListener('touchend', e => {
+    const remainingTouches = e.touches.length;
+
+    // ===== 2本指→0本指（ピンチ終了）=====
+    if (wasPinching && remainingTouches === 0) {
+      wasPinching = false;
+      dragging = false;
+      lastDist = 0;
+      // スケール・位置はそのまま保持。何もしない。
+      return;
+    }
+
+    // ===== 2本指→1本指（片方だけ離した）=====
+    if (remainingTouches === 1) {
+      wasPinching = false;
+      dragging = true;
+      lastDist = 0;
+      lastX = e.touches[0].clientX;
+      lastY = e.touches[0].clientY;
+      return;
+    }
+
+    // ===== 1本指→0本指（タップ終了）=====
+    dragging = false;
+    lastDist = 0;
+
+    const t = e.changedTouches[0];
+    const now = Date.now();
+
+    // ダブルタップ：2倍ズーム or リセット
+    if (now - lastTap < 300) {
+      const rect = container.getBoundingClientRect();
+      const cx = t.clientX - rect.left;
+      const cy = t.clientY - rect.top;
+      if (scale > minScale * 1.5) {
+        resetTransform(); // 拡大中ならリセット
+      } else {
+        zoomAt(cx, cy, 2.5 / scale); // 2.5倍にズーム
+      }
+      lastTap = 0;
+      return;
+    }
+    lastTap = now;
+
+    // シングルタップ：画像外なら閉じる
+    const el = document.elementFromPoint(t.clientX, t.clientY);
+    if (el && el !== img) close();
+  });
+
+  let lastTap = 0;
+
+  // ---------- ダブルクリックでリセット ----------
+  container.addEventListener('dblclick', () => resetTransform());
+
+})();
+</script>
+
 <script>
   const tooltip = document.getElementById('scale-tooltip');
 
   function scrollToTarget(targetId: string) {
     const target = document.getElementById(targetId);
     if (!target) return;
-    const top = target.getBoundingClientRect().top + window.scrollY - 100;
+    const top = target.getBoundingClientRect().top + window.scrollY - 160;
     window.scrollTo({ top, behavior: 'smooth' });
   }
 
