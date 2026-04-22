@@ -1,0 +1,251 @@
+---
+// src/components/manufacture/Capability.astro
+---
+<section id="capability" class="pt-4 md:pt-12 pb-12 bg-white text-gray-900 overflow-hidden">
+  <div class="container mx-auto px-6">
+    
+    <div class="mb-8 md:mb-20">
+      <span class="text-[#E64A19] font-serif font-bold tracking-widest text-base mb-4 block uppercase tracking-[0.2em]">Products</span>
+      <h2 class="font-mb101 text-4xl md:text-5xl mb-8 border-l-8 border-[#008B9B] pl-6 leading-none">製品紹介</h2>
+      <p class="font-sans text-[15px] text-gray-600 leading-relaxed font-medium">
+        JIS認定規格の標準製品から、社会インフラの深部を支えるM110超の太径ボルトまで。
+        多岐にわたる重要締結部品のラインナップが、あらゆる現場のニーズに応えます。
+      </p>
+    </div>
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-x-12 gap-y-8 md:gap-y-20 mb-8 md:mb-32">
+      
+      <div id="lineup-01" class="group scroll-mt-40">
+        <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
+          <img src="/images/lineup_01photo.png" alt="鉄道・レール分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="pl-2 border-l-2 border-[#008B9B]">
+          <h4 class="font-bold text-xl mb-1 text-gray-800">鉄道・レール分野</h4>
+          <p class="text-sm text-[#008B9B] font-bold mb-3">JIS認定の信頼。日本の動脈を支える締結技術。</p>
+          <p class="text-[13px] text-gray-600 leading-relaxed font-medium">レール締結用ボルト、レール用ねじくぎ、TNフックボルト、継目板ボルト、犬くぎ等</p>
+        </div>
+      </div>
+
+      <div id="lineup-04" class="group scroll-mt-40">
+        <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
+          <img src="/images/lineup_02photo.png" alt="建築・土木分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="pl-2 border-l-2 border-[#008B9B]">
+          <h4 class="font-bold text-xl mb-1 text-gray-800">建築・土木分野</h4>
+          <p class="text-sm text-[#008B9B] font-bold mb-3">巨大構造物を基礎から支える、見えない信頼。</p>
+          <p class="text-[13px] text-gray-600 leading-relaxed font-medium">アンカーボルト、スタッドボルト、タワークレーン用ボルト、トンネル継手部品等</p>
+        </div>
+      </div>
+
+      <div id="lineup-03" class="group scroll-mt-40">
+        <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
+          <img src="/images/lineup_03photo.png" alt="エネルギー・プラント分野" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="pl-2 border-l-2 border-[#008B9B]">
+          <h4 class="font-bold text-xl mb-1 text-gray-800">エネルギー・プラント分野</h4>
+          <p class="text-sm text-[#008B9B] font-bold mb-3">過酷な環境に耐える、高強度・高品質の証。</p>
+          <p class="text-[13px] text-gray-600 leading-relaxed font-medium">風力発電用ボルト、スタッドボルト、植込ボルト、アンカーボルト、ガス管用Ｔ型ボルト等</p>
+        </div>
+      </div>
+
+      <div id="lineup-02" class="group scroll-mt-40">
+        <div class="overflow-hidden bg-gray-50 rounded-lg mb-6 shadow-sm border border-gray-100">
+          <img src="/images/lineup_04photo.png" alt="機械部品" class="js-rotate cursor-pointer w-full h-auto transition-transform duration-700 group-hover:scale-105" />
+        </div>
+        <div class="pl-2 border-l-2 border-[#008B9B]">
+          <h4 class="font-bold text-xl mb-1 text-gray-800">機械部品</h4>
+          <p class="text-sm text-[#008B9B] font-bold mb-3">精密な設計思想を具現化する、特殊頭部と太径の融合。</p>
+          <p class="text-[13px] text-gray-600 leading-relaxed font-medium">六角穴付ボルト、六角ボルト、車輌モーター固定ボルト、NUボルト等</p>
+        </div>
+      </div>
+
+    </div>
+
+    <!--
+      スケールエリア全体
+      スマホ: px-0 rounded-none（左右余白ゼロで図を全幅表示）
+      PC:     px-8 rounded-[40px]（通常デザイン）
+    -->
+    <div class="bg-[#f8f9fa] px-0 py-10 md:px-8 md:py-16 md:rounded-[40px] relative overflow-hidden">
+
+      <!-- タイトル・説明・凡例：内側に px-4 をつけてスマホでも読みやすく -->
+      <div class="px-4 md:px-0">
+        <h3 class="text-center font-mb101 font-bold text-2xl mb-3 text-gray-800">
+          径サイズ展開スケール <span class="text-[#008B9B] text-sm ml-2 font-sans font-normal opacity-60">Bolt Diameter Scale</span>
+        </h3>
+
+        <p class="text-center text-[12px] text-gray-500 mb-5 font-medium">
+          各色帯をタップ／クリックすると該当分野の製品写真へジャンプします
+        </p>
+
+        <!--
+          凡例
+          スマホ: grid 2列（折り返しなし）
+          PC:     flex 横1列・中央揃え（タイトルと揃う）
+        -->
+        <div class="grid grid-cols-2 gap-x-4 gap-y-2 mb-8 md:hidden">
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-01">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#1976D2] bg-[#1976D2]/10"></span>
+            <span class="text-[11px] font-bold text-gray-600 font-mb101 text-left">鉄道・レール分野</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-03">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#2E7D32] bg-[#2E7D32]/10"></span>
+            <span class="text-[11px] font-bold text-gray-600 font-mb101 text-left">エネルギー・プラント</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-02">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#E65100] bg-[#E65100]/10"></span>
+            <span class="text-[11px] font-bold text-gray-600 font-mb101 text-left">機械部品</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-04">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#795548] bg-[#795548]/10"></span>
+            <span class="text-[11px] font-bold text-gray-600 font-mb101 text-left">建設・土木用</span>
+          </button>
+        </div>
+
+        <!-- PC用凡例：横1列・中央揃え -->
+        <div class="hidden md:flex flex-wrap justify-center gap-6 mb-10 text-[12px] font-bold font-mb101">
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-01">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#1976D2] bg-[#1976D2]/10"></span>
+            <span class="text-gray-600">鉄道・レール分野</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-03">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#2E7D32] bg-[#2E7D32]/10"></span>
+            <span class="text-gray-600">エネルギー・プラント分野</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-02">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#E65100] bg-[#E65100]/10"></span>
+            <span class="text-gray-600">機械部品</span>
+          </button>
+          <button class="scale-legend-btn flex items-center gap-2 hover:opacity-70 transition-opacity" data-scroll-to="lineup-04">
+            <span class="inline-block w-4 h-4 flex-shrink-0 rounded-sm border-2 border-[#795548] bg-[#795548]/10"></span>
+            <span class="text-gray-600">建設・土木用</span>
+          </button>
+        </div>
+      </div>
+
+      <!-- 図エリア：スマホは全幅（余白ゼロ）、PCは max-w-5xl mx-auto -->
+      <div class="w-full md:max-w-5xl md:mx-auto relative">
+
+        <!-- ベース画像（lightbox無効・js-クラスなし） -->
+        <img
+          src="/images/lineup_map.svg"
+          alt="径サイズ展開スケール M16-M110"
+          class="w-full h-auto drop-shadow-sm block select-none"
+          draggable="false"
+          id="scale-map-img"
+        />
+
+        <!-- 青帯：鉄道・レール分野 -->
+        <div class="scale-band"
+          data-scroll-to="lineup-01"
+          data-label="鉄道・レール分野"
+          data-color="25,118,210"
+          style="position:absolute;left:42.4%;width:15%;top:64.6%;height:29.7%;cursor:pointer;border-radius:4px;border:2px solid transparent;transition:background 0.2s,border-color 0.2s;box-sizing:border-box;-webkit-tap-highlight-color:transparent;"
+          role="button" tabindex="0" aria-label="鉄道・レール分野の製品写真へジャンプ"
+        ></div>
+
+        <!-- 修正後 -->
+        <!-- 緑帯：エネルギー・プラント分野 -->
+        <div class="scale-band"
+          data-scroll-to="lineup-03"
+          data-label="エネルギー・プラント分野"
+          data-color="46,125,50"
+          style="position:absolute;left:57.4%;width:15.6%;top:22.7%;height:71.6%;cursor:pointer;border-radius:4px;border:2px solid transparent;transition:background 0.2s,border-color 0.2s;box-sizing:border-box;-webkit-tap-highlight-color:transparent;"
+          role="button" tabindex="0" aria-label="エネルギー・プラント分野の製品写真へジャンプ"
+        ></div>
+
+        <!-- 橙帯：機械部品 -->
+        <div class="scale-band"
+          data-scroll-to="lineup-02"
+          data-label="機械部品"
+          data-color="230,81,0"
+          style="position:absolute;left:73%;width:12.2%;top:3%;height:92.8%;cursor:pointer;border-radius:4px;border:2px solid transparent;transition:background 0.2s,border-color 0.2s;box-sizing:border-box;-webkit-tap-highlight-color:transparent;"
+          role="button" tabindex="0" aria-label="機械部品の製品写真へジャンプ"
+        ></div>
+
+        <!-- 茶帯：建設・土木用 -->
+        <div class="scale-band"
+          data-scroll-to="lineup-04"
+          data-label="建設・土木用"
+          data-color="121,85,72"
+          style="position:absolute;left:85.2%;width:14.5%;top:22.7%;height:65.3%;cursor:pointer;border-radius:4px;border:2px solid transparent;transition:background 0.2s,border-color 0.2s;box-sizing:border-box;-webkit-tap-highlight-color:transparent;"
+          role="button" tabindex="0" aria-label="建設・土木用の製品写真へジャンプ"
+        ></div>
+
+        <!-- ツールチップ（PCのみ） -->
+        <div id="scale-tooltip"
+          style="position:absolute;display:none;background:rgba(0,0,0,0.75);color:#fff;font-size:11px;font-weight:bold;padding:4px 10px;border-radius:4px;pointer-events:none;white-space:nowrap;z-index:10;"
+        ></div>
+
+      </div>
+
+      <p class="text-center mt-6 md:mt-8 text-[11px] text-gray-400 italic font-medium px-4 md:px-0">
+        ※ミリサイズ（M16〜M110）および対応するインチサイズでの製造が可能です。
+      </p>
+    </div>
+
+  </div>
+</section>
+
+<script>
+  const tooltip = document.getElementById('scale-tooltip');
+
+  function scrollToTarget(targetId: string) {
+    const target = document.getElementById(targetId);
+    if (!target) return;
+    const top = target.getBoundingClientRect().top + window.scrollY - 100;
+    window.scrollTo({ top, behavior: 'smooth' });
+  }
+
+  document.querySelectorAll<HTMLElement>('.scale-band').forEach(band => {
+    const targetId = band.dataset.scrollTo ?? '';
+    const label    = band.dataset.label ?? '';
+    const rgb      = band.dataset.color ?? '0,0,0';
+
+    // PC：ホバー
+    band.addEventListener('mouseenter', () => {
+      band.style.background  = `rgba(${rgb}, 0.18)`;
+      band.style.borderColor = `rgba(${rgb}, 0.55)`;
+      if (tooltip) {
+        tooltip.textContent   = `▶ ${label}`;
+        tooltip.style.display = 'block';
+      }
+    });
+    band.addEventListener('mousemove', (e) => {
+      if (!tooltip) return;
+      const rect = (band.parentElement as HTMLElement).getBoundingClientRect();
+      tooltip.style.left = (e.clientX - rect.left + 12) + 'px';
+      tooltip.style.top  = (e.clientY - rect.top  - 32) + 'px';
+    });
+    band.addEventListener('mouseleave', () => {
+      band.style.background  = 'transparent';
+      band.style.borderColor = 'transparent';
+      if (tooltip) tooltip.style.display = 'none';
+    });
+
+    // PC：クリック
+    band.addEventListener('click', () => scrollToTarget(targetId));
+
+    // スマホ：タッチ
+    band.addEventListener('touchstart', () => {
+      band.style.background  = `rgba(${rgb}, 0.25)`;
+      band.style.borderColor = `rgba(${rgb}, 0.6)`;
+    }, { passive: true });
+    band.addEventListener('touchend', (e) => {
+      e.preventDefault();
+      band.style.background  = 'transparent';
+      band.style.borderColor = 'transparent';
+      scrollToTarget(targetId);
+    });
+
+    // キーボード
+    band.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); scrollToTarget(targetId); }
+    });
+  });
+
+  // 凡例ボタン（スマホ・PC両方）
+  document.querySelectorAll<HTMLElement>('.scale-legend-btn').forEach(btn => {
+    btn.addEventListener('click', () => scrollToTarget(btn.dataset.scrollTo ?? ''));
+  });
+</script>
