@@ -8,17 +8,20 @@ const certs = [
   ]},
   { group: "JIS 日本産業規格表示認証書", items: [
     { title: "JIS E 1107", sub: "継目板用及びレール締結用のボルト及びナット", label: "表示認定品", code: "JQ0208022" },
+    { title: "JIS E 1107", sub: "継目板用及びレール締結用のボルト及びナット", label: "附属書", code: "JQ0208022" },
     { title: "JIS E 1109", sub: "レール用ねじくぎ", label: "表示認定品", code: "JQ0208024" },
-    { title: "JIS B 1180", sub: "六角ボルト", label: "表示認定品", code: "JQ0208021" }
+    { title: "JIS B 1180", sub: "六角ボルト", label: "表示認定品", code: "JQ0208021" },
+    { title: "JIS B 1180", sub: "六角ボルト", label: "附属書", code: "JQ0208021" }
   ]}
 ];
 
 // その他の認定・受賞：画像左・2段構成・ベースライン同期（現状維持）
 const otherCerts = [
   { era: "平成29年", month: "12月", title: "地域未来牽引企業に選出", logo: "logo_S_rgb-300x259.webp" },
-  { era: "令和6年", month: "7月", title: "女性活躍推進法に基づく<br>「えるぼし」企業認定<br>（認定段階2）", logo: "step-02.webp" },
-  { era: "令和7年", month: "1月", title: "福島県次世代育成支援<br>「働く女性応援」<br>「仕事と生活の調和」<br>推進企業認定", logo: "WLB.webp" },
-  { era: "令和6年 / 7年 / 8年", month: "3月", title: "健康経営優良法人 認定", logo: "Logo_Yuryo2024_Chusho_color_tate-3-2.webp" },
+  { era: "令和6年", month: "3月", title: "健康経営優良法人 2024 認定", logo: "Logo_Yuryo2024_Chusho_color_tate-3.webp" },
+  { era: "令和6年", month: "7月", title: "女性活躍推進法に基づく「えるぼし」企業認定（認定段階2）", logo: "step-02.webp" },
+  { era: "令和7年", month: "1月", title: "福島県次世代育成支援「働く女性応援」「仕事と生活の調和」推進企業認定", logo: "WLB.webp" },
+  { era: "令和7年", month: "3月", title: "健康経営優良法人2025認定", logo: "KIfH2025.webp" }
 ];
 ---
 
@@ -86,7 +89,9 @@ const otherCerts = [
                   </span>
                   <span class="text-ink font-sans text-[11px] font-bold">月</span>
                 </div>
-                <p class="text-[13px] text-ink font-medium leading-tight font-sans" set:html={item.title} />
+                <p class="text-[13px] text-ink font-medium leading-tight font-sans">
+                  {item.title}
+                </p>
               </div>
             </div>
           </div>
