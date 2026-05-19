@@ -1,16 +1,16 @@
 ---
 // src/components/company/SDGs.astro
 const sdgsItems = [
-  { id: 3, text: "インフルエンザ\n予防接種補助・\nAED設置" },
-  { id: 4, text: "社内外での教育推奨\nQC活動・技能向上・\n安全・資格取得講習\n技能実習生の育成" },
-  { id: 5, text: "働きやすい\n職場環境の構築\n女性、高齢者の\n活躍推進" },
-  { id: 7, text: "風力発電分野への\n参入・LED化" },
-  { id: 8, text: "処分地受入で\n雇用創出\n風力・建設・再エネ" },
-  { id: 9, text: "社会インフラへの\n貢献（鉄道軌道・\n橋梁・鉄塔）" },
-  { id: 10, text: "サステナブル調達\nTOHOKU BOLT WAY" },
-  { id: 11, text: "地域貢献活動\n清掃・地域行事への\n参加" },
-  { id: 12, text: "持続可能な\n事業運営の構築\n（BCP策定）" },
-  { id: 13, text: "CO2排出量\n削減目標2%\n最新設備の導入で\n省エネ対策(GX)" }
+  { id: 3, text:"インフルエンザ\n予防接種補助・\nAED設置" },
+  { id: 4, text:"社内外での教育推進\nQC活動・合知合力・\n安全・資格取得講習\n技能実習生の育成" },
+  { id: 5, text:"働きやすい\n職場環境の構築\n女性、高齢者の\n活躍推進" },
+  { id: 7, text:"風力発電分野への\n参入・LED化" },
+  { id: 8, text:"新分野参入で\n雇用創出\n（風力・廃炉・\n再エネ）" },
+  { id: 9, text:"社会インフラへの\n貢献（技術開発・\nねじラボ）" },
+  { id: 10, text:"サステナブル調達\nTOHOKU BOLT WAY" },
+  { id: 11, text:"地域貢献活動\n（海岸・拠点\n近隣清掃）" },
+  { id: 12, text:"持続可能な\n事業環境の構築\n（BCP策定）" },
+  { id: 13, text:"CO2排出量\n削減目標2%\n最新設備の導入で\n省エネ対策(GX)" }
 ];
 ---
 
@@ -38,9 +38,7 @@ const sdgsItems = [
               />
             </div>
             <div class="mt-5 text-left w-full max-w-[170px] pl-[10px] md:pl-4">
-              <p class="font-sans text-[11px] leading-relaxed font-medium text-gray-600 whitespace-pre-wrap">
-                {item.text}
-              </p>
+              <p class="font-sans text-[11px] leading-relaxed font-medium text-gray-600 whitespace-pre-wrap" set:text={item.text} />
             </div>
           </div>
         );
