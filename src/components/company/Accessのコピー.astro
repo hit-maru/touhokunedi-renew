@@ -11,8 +11,7 @@ const locations = [
     suffix: "㈹", 
     fax: "0246-56-4575", 
     color: "#008B9B",
-    mapQuery: "東北ネヂ製造株式会社+福島県いわき市泉町黒須野字砂利59",
-    mapLink: "https://maps.google.com/maps?q=東北ネヂ製造株式会社+福島県いわき市泉町黒須野字砂利59"
+    mapQuery: "福島県いわき市泉町黒須野字砂利59番地"
   },
   { 
     id: "access-tokyo",
@@ -24,8 +23,7 @@ const locations = [
     suffix: "",
     fax: "03-6284-7131", 
     color: "#1A1A1A",
-    mapQuery: "東北ネヂ製造株式会社+東京都台東区東上野1-26-2+オーラムビル",
-    mapLink: "https://maps.google.com/maps?q=東京都台東区東上野1-26-2+オーラムビル"
+    mapQuery: "東京都台東区東上野1丁目26-2 オーラムビル"
   },
   { 
     id: "access-sendai",
@@ -37,8 +35,7 @@ const locations = [
     suffix: "",
     fax: "022-284-2655", 
     color: "#455A64",
-    mapQuery: "東北ネヂ製造株式会社+仙台営業所+宮城県仙台市宮城野区萩野町4-4-35",
-    mapLink: "https://maps.app.goo.gl/5njpFGEjnwuutSR66"
+    mapQuery: "宮城県仙台市宮城野区萩野町4-4-35"
   },
   { 
     id: "access-koriyama",
@@ -50,8 +47,7 @@ const locations = [
     suffix: "",
     fax: "024-943-0222", 
     color: "#37474F",
-    mapQuery: "東北ネヂ製造株式会社+郡山営業所+福島県郡山市田村町金屋字新家99-1",
-    mapLink: "https://maps.app.goo.gl/UdZ8qCovjksUeo8KA"
+    mapQuery: "福島県郡山市田村町金屋字新家99-1"
   }
 ];
 ---
@@ -100,23 +96,13 @@ const locations = [
             </div>
           </div>
 
-          <div class="mt-auto aspect-video w-full bg-gray-100 border border-gray-200 overflow-hidden rounded-sm relative group">
-            <iframe
-              src={`https://maps.google.com/maps?output=embed&q=${encodeURIComponent(loc.mapQuery)}&z=16&hl=ja`}
-              class="w-full h-full border-0"
-              style="border:0"
-              allowfullscreen=""
+          <div class="mt-auto aspect-video w-full bg-gray-100 border border-gray-200 overflow-hidden rounded-sm">
+            <iframe 
+              src={`https://www.google.com/maps?output=embed&q=${encodeURIComponent(loc.mapQuery)}&z=15&t=m&hl=ja`}
+              class="w-full h-full border-0" 
+              allowfullscreen="" 
               loading="lazy"
-              referrerpolicy="no-referrer-when-downgrade"
             ></iframe>
-            <a
-              href={loc.mapLink}
-              target="_blank"
-              rel="noopener noreferrer"
-              class="absolute bottom-2 right-2 bg-white text-[#008B9B] text-[11px] font-bold px-2 py-1 shadow-md rounded-sm hover:bg-[#008B9B] hover:text-white transition-colors"
-            >
-              マップで開く ↗
-            </a>
           </div>
         </div>
       ))}

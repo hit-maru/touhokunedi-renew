@@ -18,27 +18,36 @@ import Layout from '../layouts/Layout.astro';
       
       {/* お電話 */}
       <div class="bg-[#E0F7FA] p-4 md:p-12 mb-20 border-l-8 border-[#008B9B]">
-        <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">
-          <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
-            📞
-            <span class="pl-1">
-              お電話でのお問合せ
-            </span>
-          </span>
-        </h2>
-        <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
-          在庫確認、お見積もりなど、お急ぎの場合はお電話がスムーズです。販売担当がその場で対応いたします。
-        </p>
-        <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
-          <div>
-            <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">Sales Department</p>
-            <a href="tel:0246564571" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight">
-              0246-56-4571
-            </a>
-            <p class="font-sans text-[12px] text-gray-500 mt-2 font-medium">受付時間：8:00〜17:00（土日祝除く）</p>
-          </div>
-        </div>
+  <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">
+    <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
+      📞
+      <span class="pl-1">
+        お電話でのお問合せ
+      </span>
+    </span>
+  </h2>
+  <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
+    在庫確認、お見積もりなど、お急ぎの場合はお電話がスムーズです。販売担当がその場で対応いたします。
+  </p>
+  <div class="grid grid-cols-1 md:grid-cols-2 gap-y-6 gap-x-12">
+    {[
+      { label: "いわき営業所・鉄道車両チーム", tel: "0246-56-4571" },
+      { label: "仙台営業部", tel: "022-284-2675" },
+      { label: "郡山営業所", tel: "024-943-3311" },
+    ].map((office) => (
+      <div class="flex flex-col">
+        <p class="text-[13px] font-bold text-[#008B9B] mb-1 uppercase tracking-widest font-mb101">{office.label}</p>
+        <a
+          href={`tel:${office.tel.replace(/-/g, '')}`}
+          class="text-2xl md:text-3xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight"
+        >
+          {office.tel}
+        </a>
       </div>
+    ))}
+  </div>
+</div>
+
 
       {/* メールフォーム */}
       <h2 class="text-[#008B9B] font-mb101 text-3xl font-bold mb-8">メールフォーム</h2>
