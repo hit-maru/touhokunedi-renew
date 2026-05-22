@@ -283,46 +283,146 @@ import Layout from '../layouts/Layout.astro';
       </div>
     </section>
 
-    {/* 9. お問合せ・エントリー */}
+        {/* 9. お問合せ・エントリー */}
     <section id="inquiry" class="pt-12 pb-12 bg-white">
       <div class="container mx-auto px-4 max-w-4xl">
+
+        {/* お電話 */}
         <div class="bg-[#E0F7FA] p-4 md:p-12 mb-20 border-l-8 border-[#008B9B]">
-          <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">📞 お電話でのお問合せ</h2>
-          <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">採用に関するご質問は、お電話でも承ります。</p>
-          <a href="tel:0246564751" class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B]">0246-56-4751</a>
+          <h2 class="text-xl md:text-2xl font-bold text-[#008B9B] mb-4 font-mb101">
+            <span class="flex items-center gap-3 ja-wrap whitespace-normal break-keep">
+              📞
+              <span class="pl-1">
+                お電話でのお問合せ
+              </span>
+            </span>
+          </h2>
+
+          <p class="font-sans text-[15px] text-gray-700 mb-8 leading-relaxed font-medium">
+            採用に関するご質問は、お電話でも承ります。採用担当が丁寧にご対応いたします。
+          </p>
+
+          <div class="flex flex-col md:flex-row gap-8 items-start md:items-center">
+            <div>
+              <p class="text-[11px] font-bold text-gray-500 mb-1 uppercase tracking-widest font-mb101">
+                Recruitment
+              </p>
+
+              <a
+                href="tel:0246564751"
+                class="text-3xl md:text-4xl font-serif font-bold text-gray-900 hover:text-[#008B9B] transition-colors tracking-tight"
+              >
+                0246-56-4751
+              </a>
+
+              <p class="font-sans text-[12px] text-gray-500 mt-2 font-medium">
+                受付時間：9:00〜17:00（土日祝除く）
+              </p>
+            </div>
+          </div>
         </div>
 
-        <h2 class="text-[#008B9B] font-serif text-4xl font-normal mb-4 text-center">ENTRY</h2>
-        <p class="text-center mb-12 font-sans text-gray-600">通常、3営業日以内に採用担当者よりご連絡いたします。</p>
+        <h2 class="text-[#008B9B] font-serif text-4xl font-normal mb-4 text-center">
+          ENTRY
+        </h2>
 
-        <form action="https://formspree.io/f/xvzzpqwq" method="POST" class="space-y-8">
+        <p class="text-center mb-12 font-sans text-gray-600">
+          通常、3営業日以内に採用担当者よりご連絡いたします。
+        </p>
+
+        <form
+          action="https://formspree.io/f/xvzzpqwq"
+          method="POST"
+          class="space-y-8"
+        >
           <div>
-            <label for="company" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">学校名・会社名 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
-            <input type="text" id="company" name="company" placeholder="例）○○大学" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+            <label
+              for="company"
+              class="block font-sans text-[14px] font-bold text-gray-700 mb-2"
+            >
+              学校名・会社名
+              <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+
+            <input
+              type="text"
+              id="company"
+              name="company"
+              placeholder="例）○○大学"
+              class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]"
+              required
+            />
           </div>
+
           <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
             <div>
-              <label for="name" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">お名前 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
-              <input type="text" id="name" name="name" placeholder="例）東北 太郎" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+              <label
+                for="name"
+                class="block font-sans text-[14px] font-bold text-gray-700 mb-2"
+              >
+                お名前
+                <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+
+              <input
+                type="text"
+                id="name"
+                name="name"
+                placeholder="例）東北 太郎"
+                class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]"
+                required
+              />
             </div>
+
             <div>
-              <label for="email" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">メールアドレス <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
-              <input type="email" id="email" name="email" placeholder="例）info@touhokunedi.com" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required />
+              <label
+                for="email"
+                class="block font-sans text-[14px] font-bold text-gray-700 mb-2"
+              >
+                メールアドレス
+                <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+              </label>
+
+              <input
+                type="email"
+                id="email"
+                name="email"
+                placeholder="例）info@touhokunedi.com"
+                class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]"
+                required
+              />
             </div>
           </div>
+
           <div>
-            <label for="message" class="block font-sans text-[14px] font-bold text-gray-700 mb-2">お問合せ内容 <span class="text-[#E64A19] text-[10px] ml-1">必須</span></label>
-            <textarea id="message" name="message" rows="6" placeholder="質問事項をご記入ください" class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]" required></textarea>
+            <label
+              for="message"
+              class="block font-sans text-[14px] font-bold text-gray-700 mb-2"
+            >
+              お問合せ内容
+              <span class="text-[#E64A19] text-[10px] ml-1">必須</span>
+            </label>
+
+            <textarea
+              id="message"
+              name="message"
+              rows="6"
+              placeholder="質問事項をご記入ください"
+              class="w-full bg-gray-50 border border-gray-300 p-4 font-sans text-[14px]"
+              required
+            ></textarea>
           </div>
+
           <div class="text-center pt-8">
-            <button type="submit" class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg translate-y-0 hover:translate-y-1">内容を確認して送信する</button>
+            <button
+              type="submit"
+              class="bg-[#008B9B] text-white font-bold w-full md:w-auto md:px-24 py-4 font-mb101 text-[16px] hover:bg-[#006064] transition-all shadow-lg translate-y-0 hover:translate-y-1"
+            >
+              内容を確認して送信する
+            </button>
           </div>
         </form>
       </div>
     </section>
-  </div>
-</Layout>
 
 <style>
-  .font-zen-black { font-family: "Zen Old Mincho", serif; font-weight: 900; }
-</style>
