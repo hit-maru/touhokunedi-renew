@@ -1,12 +1,15 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getNews, getNewsDetail } from '../../lib/microcms';
+import { getNewsDetail, client } from '../../lib/microcms';
 import { format } from 'date-fns';
 
-// 1. 静的書き出しのパスを設定
+// 1. 静的書き出しのパスを設定（100件制限を回避）
 export async function getStaticPaths() {
-  const response = await getNews({ fields: ["id"] });
-  return response.contents.map((content) => ({
+  const allContents = await client.getAllContents({
+    endpoint: 'news',
+    queries: { fields: 'id' }
+  });
+  return allContents.map((content: any) => ({
     params: { id: content.id },
   }));
 }
