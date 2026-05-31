@@ -178,16 +178,17 @@
         // CORSエラーは無視してリダイレクト続行
       }
 
-
       if (typeof gtag === "function") {
         gtag("event", "notebooklm_open", {
-          notebook_type: "sales"
+          notebook_type: "sales",
+          event_callback: function () {
+            window.location.href = redirect;
+          },
+          event_timeout: 1000
         });
-      }
-
-      setTimeout(() => {
+      } else {
         window.location.href = redirect;
-      }, 300);
+      }
       
     });
   </script>
