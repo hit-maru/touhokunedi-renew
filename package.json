@@ -7,12 +7,13 @@
     "build": "astro build",
     "preview": "astro preview",
     "astro": "astro",
-    "deploy": "astro-ftp-deploy",
+    "deploy": "astro build && node deploy.js",
     "deploy:test": "npm run build -- --base /test && node deploy.js",
     "images": "node scripts/images.js"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.1",
+    "@astrojs/sitemap": "^3.7.3",
     "@astrojs/tailwind": "^6.0.2",
     "@fontsource/cormorant-garamond": "^5.2.11",
     "@fontsource/eb-garamond": "^5.2.7",
