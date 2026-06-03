@@ -5,7 +5,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>近日公開｜総合案内AIチャットボット｜東北ネヂ製造</title>
+  <title>東北ネヂなんでもAI（総合案内編）</title>
   <script src="https://cdn.tailwindcss.com"></script>
 </head>
 <body class="bg-gray-50 min-h-screen px-4 py-12">
@@ -16,12 +16,7 @@
     </a>
   </div>
 
-  <div class="max-w-xl mx-auto mb-6 bg-[#008B9B] text-white rounded-sm px-6 py-6 leading-relaxed">
-    <p class="font-bold text-xl mb-3">総合案内AIチャットボットは現在準備中です。<br />近日公開予定ですので、もう少々お待ちください。</p>
-    <a href="/contact" class="text-sm underline underline-offset-2 hover:opacity-80 transition-opacity">お問合せはこちら</a>
-  </div>
-
-  <div class="max-w-xl mx-auto space-y-8" style="opacity:0.4;pointer-events:none;user-select:none;cursor:not-allowed;">
+  <div class="max-w-xl mx-auto space-y-8">
 
     {/* ヘッダー */}
     <div>
@@ -72,6 +67,7 @@
       <form id="entry-form" class="space-y-5" novalidate>
 
         <input type="hidden" name="type" value="総合案内AI" />
+        <input type="hidden" name="redirect" value="https://notebooklm.google.com/notebook/ff3df1f2-892d-411e-ba20-15ac54613034/preview" />
 
         <div>
           <label for="name" class="block text-xs font-bold text-gray-700 mb-1">お名前 <span class="text-red-500">*</span></label>
@@ -153,8 +149,53 @@
   </div>
 
   <script is:inline>
-    document.getElementById("entry-form").addEventListener("submit", (e) => {
+    const GAS_URL = "https://script.google.com/macros/s/AKfycbwazFTHka-aOckdW11dobGREBaUFdBN46g2ijyfOXQAeTQaIUwZ88RxouSBG14VPMbc/exec";
+
+    document.getElementById("entry-form").addEventListener("submit", async (e) => {
       e.preventDefault();
+
+      const form = e.target;
+      const name = form.name.value.trim();
+      const company = form.company.value.trim();
+      const email = form.email.value.trim();
+      const consent = form.consent.checked;
+      const errorMsg = document.getElementById("error-msg");
+      const btn = document.getElementById("submit-btn");
+      const redirect = form.redirect.value;
+
+      if (!name || !company || !email || !consent) {
+        errorMsg.classList.remove("hidden");
+        return;
+      }
+      errorMsg.classList.add("hidden");
+
+      btn.disabled = true;
+      btn.textContent = "送信中...";
+
+      const payload = new FormData();
+      payload.append("type", form.type.value);
+      payload.append("name", name);
+      payload.append("company", company);
+      payload.append("email", email);
+
+      try {
+        await fetch(GAS_URL, { method: "POST", body: payload, mode: "no-cors" });
+      } catch (_) {
+        // CORSエラーは無視してリダイレクト続行
+      }
+
+      if (typeof gtag === "function") {
+        gtag("event", "notebooklm_open", {
+          notebook_type: "general",
+          event_callback: function () {
+            window.location.href = redirect;
+          },
+          event_timeout: 1000
+        });
+      } else {
+        window.location.href = redirect;
+      }
+
     });
   </script>
 
