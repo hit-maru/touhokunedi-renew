@@ -14,6 +14,32 @@ import Access from '../components/company/Access.astro';
 ---
 
 <Layout title="企業情報">
+  <script type="application/ld+json" is:inline>
+  {
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "東北ネヂ製造株式会社",
+    "alternateName": "Tohoku Bolt MFG. Co., Ltd.",
+    "url": "https://touhokunedi.com",
+    "telephone": "+81-246-56-4751",
+    "faxNumber": "+81-246-56-4575",
+    "address": {
+      "@type": "PostalAddress",
+      "streetAddress": "泉町黒須野字砂利59番地",
+      "addressLocality": "いわき市",
+      "addressRegion": "福島県",
+      "postalCode": "971-8184",
+      "addressCountry": "JP"
+    },
+    "foundingDate": "1943-10-18",
+    "logo": "https://touhokunedi.com/nedzi-mark.png",
+    "description": "鉄道・建設・エネルギー分野向け特殊ボルト・ねじの製造メーカー",
+    "sameAs": [
+      "https://www.linkedin.com/company/%E6%9D%B1%E5%8C%97%E3%83%8D%E3%83%82%E8%A3%BD%E9%80%A0%EF%BC%88%E6%A0%AA%EF%BC%89/",
+      "https://www.instagram.com/tohokubolt_official/"
+    ]
+  }
+  </script>
   
   {/* ヒーローエリア：規準統一 ＋ 下余白ツメ (pt-20 pb-8) */}
   <div class="bg-gray-100 pt-[90px] pb-8 border-b border-gray-200">
