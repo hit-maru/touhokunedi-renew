@@ -34,21 +34,45 @@ jobs:
           SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
           SFTP_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
+          pip install paramiko --break-system-packages
+
           mkdir -p ~/.ssh
           echo "$SFTP_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p "$SFTP_PORT" "$SFTP_HOST" >> ~/.ssh/known_hosts
 
-          sudo apt-get install -y lftp
+          python3 << 'PYEOF'
+          import os
+          import paramiko
+          import pathlib
 
-          lftp -u "$SFTP_USERNAME", "sftp://$SFTP_HOST:$SFTP_PORT" << LFTP_COMMANDS
-          set sftp:connect-program "ssh -a -x -i $HOME/.ssh/deploy_key -p $SFTP_PORT -o StrictHostKeyChecking=no"
-          set net:max-retries 3
-          set net:timeout 30
-          mirror -R --delete \
-            --exclude='.git' \
-            --exclude='node_modules/' \
-            --exclude='fonts/' \
-            dist/ /home/xb408031/touhokunedi.com/public_html/
-          bye
-          LFTP_COMMANDS
+          host     = os.environ['SFTP_HOST']
+          port     = int(os.environ['SFTP_PORT'])
+          username = os.environ['SFTP_USERNAME']
+          key_path = os.path.expanduser('~/.ssh/deploy_key')
+          remote_base = '/home/xb408031/touhokunedi.com/public_html'
+          local_base  = 'dist'
+
+          key = paramiko.RSAKey.from_private_key_file(key_path)
+          transport = paramiko.Transport((host, port))
+          transport.connect(username=username, pkey=key)
+          sftp = paramiko.SFTPClient.from_transport(transport)
+
+          def upload_dir(local_dir, remote_dir):
+              local_path = pathlib.Path(local_dir)
+              for item in local_path.rglob('*'):
+                  if item.is_file():
+                      rel = item.relative_to(local_path)
+                      remote_file = remote_dir + '/' + str(rel).replace('\\', '/')
+                      remote_parent = '/'.join(remote_file.split('/')[:-1])
+                      try:
+                          sftp.makedirs(remote_parent)
+                      except:
+                          pass
+                      print(f'Uploading {item} -> {remote_file}')
+                      sftp.put(str(item), remote_file)
+
+          upload_dir(local_base, remote_base)
+          sftp.close()
+          transport.close()
+          print('Deploy complete!')
+          PYEOF
