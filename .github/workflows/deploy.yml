@@ -21,12 +21,20 @@ jobs:
       - name: Install dependencies
         run: npm ci
 
-      - name: Build and deploy
+      - name: Build
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
-          FTP_HOST: ${{ secrets.FTP_HOST }}
-          FTP_USER: ${{ secrets.FTP_USER }}
-          FTP_PASSWORD: ${{ secrets.FTP_PASSWORD }}
-          FTP_PATH: ${{ secrets.FTP_PATH }}
-        run: npm run deploy
+        run: npm run build
+
+      - name: Deploy via SFTP
+        uses: burnett01/rsync-deployments@7.0.1
+        with:
+          switches: -avzr --delete --exclude='.git' --exclude='node_modules' --exclude='fonts' --exclude='.DS_Store'
+          path: dist/
+          remote_path: /home/xb408031/touhokunedi.com/public_html/
+          remote_host: ${{ secrets.SFTP_HOST }}
+          remote_port: ${{ secrets.SFTP_PORT }}
+          remote_user: ${{ secrets.SFTP_USERNAME }}
+          remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          remote_key_pass: ${{ secrets.SFTP_PASSPHRASE }}

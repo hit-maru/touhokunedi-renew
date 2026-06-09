@@ -8,37 +8,34 @@ on:
 jobs:
   build-and-deploy:
     runs-on: ubuntu-latest
-    steps:
-      - name: 🚚 Checkout code
-        uses: actions/checkout@v5
 
-      - name: 🛠 Setup Node.js
-        uses: actions/setup-node@v5
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          node-version: '22'
+          node-version: '20'
           cache: 'npm'
 
-      - name: 📦 Install dependencies
-        run: npm install
+      - name: Install dependencies
+        run: npm ci
 
-      - name: 🚀 Build project
-        run: npm run build
+      - name: Build
         env:
           MICROCMS_SERVICE_DOMAIN: ${{ secrets.MICROCMS_SERVICE_DOMAIN }}
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
+        run: npm run build
 
-      - name: 📂 Deploy via FTP
-        uses: SamKirkland/FTP-Deploy-Action@v4.3.6
+      - name: Deploy via SFTP
+        uses: burnett01/rsync-deployments@7.0.1
         with:
-          server: ${{ secrets.FTP_SERVER }}
-          username: ${{ secrets.FTP_USERNAME }}
-          password: ${{ secrets.FTP_PASSWORD }}
-          local-dir: ./dist/
-          server-dir: /touhokunedi.com/public_html/
-          dangerous-clean-slate: false
-          exclude: |
-            **/.git*
-            **/.git*/**
-            **/node_modules/**
-            **/fonts/**
-            **/.DS_Store
+          switches: -avzr --delete --exclude='.git' --exclude='node_modules' --exclude='fonts' --exclude='.DS_Store'
+          path: dist/
+          remote_path: /home/xb408031/touhokunedi.com/public_html/
+          remote_host: ${{ secrets.SFTP_HOST }}
+          remote_port: ${{ secrets.SFTP_PORT }}
+          remote_user: ${{ secrets.SFTP_USERNAME }}
+          remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
+          remote_key_pass: ${{ secrets.SFTP_PASSPHRASE }}
