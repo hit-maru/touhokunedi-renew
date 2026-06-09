@@ -28,13 +28,21 @@ jobs:
         run: npm run build
 
       - name: Deploy via SFTP
-        uses: burnett01/rsync-deployments@7.0.1
-        with:
-          switches: -avzr --delete --exclude='.git' --exclude='node_modules' --exclude='fonts' --exclude='.DS_Store'
-          path: dist/
-          remote_path: /home/xb408031/touhokunedi.com/public_html/
-          remote_host: ${{ secrets.SFTP_HOST }}
-          remote_port: ${{ secrets.SFTP_PORT }}
-          remote_user: ${{ secrets.SFTP_USERNAME }}
-          remote_key: ${{ secrets.SFTP_PRIVATE_KEY }}
-          remote_key_pass: ${{ secrets.SFTP_PASSPHRASE }}
+        run: |
+          # SSHキーのセットアップ
+          mkdir -p ~/.ssh
+          echo "${{ secrets.SFTP_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          chmod 600 ~/.ssh/deploy_key
+          
+          # known_hostsに追加
+          ssh-keyscan -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+          
+          # lftp でSFTPアップロード
+          sudo apt-get install -y lftp
+          
+          lftp -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_PORT }} << LFTP_COMMANDS
+          set sftp:connect-program "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+          set net:max-retries 3
+          mirror -R --delete --exclude='.git' --exclude='node_modules/' --exclude='fonts/' dist/ /home/xb408031/touhokunedi.com/public_html/
+          bye
+          LFTP_COMMANDS
