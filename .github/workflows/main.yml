@@ -29,17 +29,27 @@ jobs:
         run: npm run build
 
       - name: Deploy via SFTP
+        env:
+          SFTP_HOST: ${{ secrets.SFTP_HOST }}
+          SFTP_PORT: ${{ secrets.SFTP_PORT }}
+          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
+          SFTP_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.SFTP_PRIVATE_KEY }}" > ~/.ssh/deploy_key
+          echo "$SFTP_PRIVATE_KEY" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          ssh-keyscan -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
-          
+          ssh-keyscan -p "$SFTP_PORT" "$SFTP_HOST" >> ~/.ssh/known_hosts
+
           sudo apt-get install -y lftp
-          
-          lftp -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_PORT }} << LFTP_COMMANDS
-          set sftp:connect-program "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+
+          lftp -u "$SFTP_USERNAME", "sftp://$SFTP_HOST:$SFTP_PORT" << LFTP_COMMANDS
+          set sftp:connect-program "ssh -a -x -i $HOME/.ssh/deploy_key -p $SFTP_PORT -o StrictHostKeyChecking=no"
           set net:max-retries 3
-          mirror -R --delete --exclude='.git' --exclude='node_modules/' --exclude='fonts/' dist/ /home/xb408031/touhokunedi.com/public_html/
+          set net:timeout 30
+          mirror -R --delete \
+            --exclude='.git' \
+            --exclude='node_modules/' \
+            --exclude='fonts/' \
+            dist/ /home/xb408031/touhokunedi.com/public_html/
           bye
           LFTP_COMMANDS
