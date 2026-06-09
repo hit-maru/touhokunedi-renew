@@ -28,23 +28,36 @@ jobs:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         run: npm run build
 
-      - name: Deploy via SFTP
+      - name: Setup SSH key
         run: |
-          # SSHキーのセットアップ
           mkdir -p ~/.ssh
           echo "${{ secrets.SFTP_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          
-          # known_hostsに追加
+          # パスフレーズ付き鍵をssh-agentに登録
+          eval $(ssh-agent -s)
+          DISPLAY=:0 SSH_ASKPASS=/bin/true ssh-add ~/.ssh/deploy_key <<< "${{ secrets.SFTP_PASSPHRASE }}" || \
+          sshpass -p "${{ secrets.SFTP_PASSPHRASE }}" ssh-add ~/.ssh/deploy_key || true
+          echo "SSH_AUTH_SOCK=$SSH_AUTH_SOCK" >> $GITHUB_ENV
+          echo "SSH_AGENT_PID=$SSH_AGENT_PID" >> $GITHUB_ENV
+          # known_hosts登録
           ssh-keyscan -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SFTP
+        run: |
+          sudo apt-get install -y lftp sshpass
           
-          # sshpassのインストール
-          sudo apt-get install -y sshpass lftp
+          # パスフレーズ付き鍵用のsshラッパーを作成
+          cat > /tmp/ssh_wrapper.sh << 'WRAPPER'
+          #!/bin/bash
+          sshpass -p "$SFTP_PASSPHRASE" ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$@"
+          WRAPPER
+          chmod +x /tmp/ssh_wrapper.sh
           
-          # lftp でSFTPアップロード
           lftp -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_PORT }} << LFTP_COMMANDS
-          set sftp:connect-program "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+          set sftp:connect-program "/tmp/ssh_wrapper.sh"
           set net:max-retries 3
           mirror -R --delete --exclude='.git' --exclude='node_modules/' --exclude='fonts/' dist/ /home/xb408031/touhokunedi.com/public_html/
           bye
           LFTP_COMMANDS
+        env:
+          SFTP_PASSPHRASE: ${{ secrets.SFTP_PASSPHRASE }}

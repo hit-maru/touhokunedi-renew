@@ -27,22 +27,28 @@ jobs:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         run: npm run build
 
-      - name: Deploy via SFTP
+      - name: Setup SSH key
         run: |
-          # SSHキーのセットアップ
           mkdir -p ~/.ssh
           echo "${{ secrets.SFTP_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
-          
-          # known_hostsに追加
           ssh-keyscan -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
+
+      - name: Deploy via SFTP
+        run: |
+          sudo apt-get install -y lftp sshpass
           
-          # lftp でSFTPアップロード
-          sudo apt-get install -y lftp
+          cat > /tmp/ssh_wrapper.sh << 'WRAPPER'
+          #!/bin/bash
+          sshpass -p "$SFTP_PASSPHRASE" ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$@"
+          WRAPPER
+          chmod +x /tmp/ssh_wrapper.sh
           
           lftp -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_PORT }} << LFTP_COMMANDS
-          set sftp:connect-program "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
+          set sftp:connect-program "/tmp/ssh_wrapper.sh"
           set net:max-retries 3
           mirror -R --delete --exclude='.git' --exclude='node_modules/' --exclude='fonts/' dist/ /home/xb408031/touhokunedi.com/public_html/
           bye
           LFTP_COMMANDS
+        env:
+          SFTP_PASSPHRASE: ${{ secrets.SFTP_PASSPHRASE }}
