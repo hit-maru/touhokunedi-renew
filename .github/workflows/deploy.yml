@@ -27,28 +27,18 @@ jobs:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         run: npm run build
 
-      - name: Setup SSH key
+      - name: Deploy via SFTP
         run: |
           mkdir -p ~/.ssh
           echo "${{ secrets.SFTP_PRIVATE_KEY }}" > ~/.ssh/deploy_key
           chmod 600 ~/.ssh/deploy_key
           ssh-keyscan -p ${{ secrets.SFTP_PORT }} ${{ secrets.SFTP_HOST }} >> ~/.ssh/known_hosts
-
-      - name: Deploy via SFTP
-        run: |
-          sudo apt-get install -y lftp sshpass
           
-          cat > /tmp/ssh_wrapper.sh << 'WRAPPER'
-          #!/bin/bash
-          sshpass -p "$SFTP_PASSPHRASE" ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no "$@"
-          WRAPPER
-          chmod +x /tmp/ssh_wrapper.sh
+          sudo apt-get install -y lftp
           
           lftp -u ${{ secrets.SFTP_USERNAME }}, sftp://${{ secrets.SFTP_HOST }}:${{ secrets.SFTP_PORT }} << LFTP_COMMANDS
-          set sftp:connect-program "/tmp/ssh_wrapper.sh"
+          set sftp:connect-program "ssh -i ~/.ssh/deploy_key -o StrictHostKeyChecking=no"
           set net:max-retries 3
           mirror -R --delete --exclude='.git' --exclude='node_modules/' --exclude='fonts/' dist/ /home/xb408031/touhokunedi.com/public_html/
           bye
           LFTP_COMMANDS
-        env:
-          SFTP_PASSPHRASE: ${{ secrets.SFTP_PASSPHRASE }}
