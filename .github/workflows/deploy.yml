@@ -27,52 +27,18 @@ jobs:
           MICROCMS_API_KEY: ${{ secrets.MICROCMS_API_KEY }}
         run: npm run build
 
-      - name: Deploy via SFTP
-        env:
-          SFTP_HOST: ${{ secrets.SFTP_HOST }}
-          SFTP_PORT: ${{ secrets.SFTP_PORT }}
-          SFTP_USERNAME: ${{ secrets.SFTP_USERNAME }}
-          SFTP_PRIVATE_KEY: ${{ secrets.SFTP_PRIVATE_KEY }}
-        run: |
-          pip install paramiko --break-system-packages
-
-          mkdir -p ~/.ssh
-          echo "$SFTP_PRIVATE_KEY" > ~/.ssh/deploy_key
-          chmod 600 ~/.ssh/deploy_key
-
-          python3 << 'PYEOF'
-          import os
-          import paramiko
-          import pathlib
-
-          host     = os.environ['SFTP_HOST']
-          port     = int(os.environ['SFTP_PORT'])
-          username = os.environ['SFTP_USERNAME']
-          key_path = os.path.expanduser('~/.ssh/deploy_key')
-          remote_base = '/home/xb408031/touhokunedi.com/public_html'
-          local_base  = 'dist'
-
-          key = paramiko.RSAKey.from_private_key_file(key_path)
-          transport = paramiko.Transport((host, port))
-          transport.connect(username=username, pkey=key)
-          sftp = paramiko.SFTPClient.from_transport(transport)
-
-          def upload_dir(local_dir, remote_dir):
-              local_path = pathlib.Path(local_dir)
-              for item in local_path.rglob('*'):
-                  if item.is_file():
-                      rel = item.relative_to(local_path)
-                      remote_file = remote_dir + '/' + str(rel).replace('\\', '/')
-                      remote_parent = '/'.join(remote_file.split('/')[:-1])
-                      try:
-                          sftp.makedirs(remote_parent)
-                      except:
-                          pass
-                      print(f'Uploading {item} -> {remote_file}')
-                      sftp.put(str(item), remote_file)
-
-          upload_dir(local_base, remote_base)
-          sftp.close()
-          transport.close()
-          print('Deploy complete!')
-          PYEOF
+      - name: Deploy via FTP
+        uses: SamKirkland/FTP-Deploy-Action@v4.3.5
+        with:
+          server: ${{ secrets.FTP_SERVER }}
+          username: ${{ secrets.FTP_USERNAME }}
+          password: ${{ secrets.FTP_PASSWORD }}
+          local-dir: ./dist/
+          server-dir: /touhokunedi.com/public_html/
+          dangerous-clean-slate: false
+          exclude: |
+            **/.git*
+            **/.git*/**
+            **/node_modules/**
+            **/fonts/**
+            **/.DS_Store
