@@ -44,3 +44,4 @@ jobs:
             **/fonts/**
             **/.DS_Store
             **/tools/**
+            **/data/spec-pdf/**
