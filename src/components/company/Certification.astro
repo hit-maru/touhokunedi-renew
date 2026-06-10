@@ -1,12 +1,12 @@
 ---
 // src/components/company/Certification.astro
 const certs = [
-  { group: "ISO 認証登録証明書", items: [
+  { group: "ISO 認証登録証明書", showLabel: false, items: [
     { title: "ISO 9001", sub: "品質マネジメントシステム", label: "認証登録番号", code: "00494" },
     { title: "ISO 14001", sub: "環境マネジメントシステム", label: "認証登録番号", code: "14966-B" },
     { title: "ISO 45001", sub: "労働安全衛生マネジメントシステム", label: "認証登録番号", code: "14966-D" }
   ]},
-  { group: "JIS 日本産業規格表示認証書", items: [
+  { group: "JIS 日本産業規格表示認証書", showLabel: true, items: [
     { title: "JIS E 1107", sub: "継目板用及びレール締結用のボルト及びナット", label: "表示認定品", code: "JQ0208022" },
     { title: "JIS E 1109", sub: "レール用ねじくぎ", label: "表示認定品", code: "JQ0208024" },
     { title: "JIS B 1180", sub: "六角ボルト", label: "表示認定品", code: "JQ0208021" }
@@ -42,7 +42,7 @@ const otherCerts = [
             <div class="bg-white border border-gray-200 p-6 shadow-sm w-full h-full flex flex-col justify-center">
               <div class="space-y-1.5 text-center">
                 <p class="text-ink font-sans text-[11px] leading-snug">
-                  日本産業規格の番号：<br />
+                  {group.showLabel && <>日本産業規格の番号：<br /></>}
                   <span class="text-primary font-serif font-bold text-[19px] tracking-tight">{cert.title}</span>
                 </p>
                 <p class="text-ink font-sans text-[11px] leading-tight">
