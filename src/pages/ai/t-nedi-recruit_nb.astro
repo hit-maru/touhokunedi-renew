@@ -64,46 +64,13 @@
     <div class="bg-white border border-gray-200 rounded-sm shadow-sm p-6">
       <h2 class="text-base font-bold text-gray-900 border-b border-gray-200 pb-2 mb-5">ご利用登録</h2>
 
-      <form id="entry-form" class="space-y-5" novalidate>
+      <form id="entry-form" novalidate>
 
-        <input type="hidden" name="type" value="採用AI" />
         <input type="hidden" name="redirect" value="https://notebooklm.google.com/notebook/54501813-7df0-461a-b6c4-22fc157cafb6/preview" />
 
-        <div>
-          <label for="name" class="block text-xs font-bold text-gray-700 mb-1">お名前 <span class="text-red-500">*</span></label>
-          <input
-            type="text"
-            id="name"
-            name="name"
-            required
-            placeholder="山田 太郎"
-            class="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-[#008B9B] focus:ring-1 focus:ring-[#008B9B] transition-colors"
-          />
-        </div>
-
-        <div>
-          <label for="company" class="block text-xs font-bold text-gray-700 mb-1">会社名 <span class="text-red-500">*</span></label>
-          <input
-            type="text"
-            id="company"
-            name="company"
-            required
-            placeholder="株式会社〇〇"
-            class="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-[#008B9B] focus:ring-1 focus:ring-[#008B9B] transition-colors"
-          />
-        </div>
-
-        <div>
-          <label for="email" class="block text-xs font-bold text-gray-700 mb-1">メールアドレス <span class="text-red-500">*</span></label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            placeholder="example@company.co.jp"
-            class="w-full border border-gray-300 rounded-sm px-3 py-2 text-sm focus:outline-none focus:border-[#008B9B] focus:ring-1 focus:ring-[#008B9B] transition-colors"
-          />
-        </div>
+        {/* 入力フィールド（非表示）
+        <div>お名前 / 会社名 / メールアドレス</div>
+        */}
 
         {/* 同意チェック＋説明文（非表示）
         <div class="space-y-3">
@@ -134,8 +101,6 @@
         </div>
         */}
 
-        <div id="error-msg" class="hidden text-xs text-red-500 text-center">全項目を入力してください。</div>
-
         <button
           type="submit"
           id="submit-btn"
@@ -150,52 +115,18 @@
   </div>
 
   <script is:inline>
-    const GAS_URL = "https://script.google.com/macros/s/AKfycbxTxAu6EVgi5Hqw1kCuTG9Qvrv3kQ5vBHUG_fMcXcDKNH3tgHIh5bSICFc7JaLUsGD7/exec";
-
-    document.getElementById("entry-form").addEventListener("submit", async (e) => {
+    document.getElementById("entry-form").addEventListener("submit", function(e) {
       e.preventDefault();
-
-      const form = e.target;
-      const name = form.name.value.trim();
-      const company = form.company.value.trim();
-      const email = form.email.value.trim();
-      const errorMsg = document.getElementById("error-msg");
-      const btn = document.getElementById("submit-btn");
-      const redirect = form.redirect.value;
-
-      if (!name || !company || !email) {
-        errorMsg.classList.remove("hidden");
-        return;
-      }
-      errorMsg.classList.add("hidden");
-
-      btn.disabled = true;
-      btn.textContent = "送信中...";
-
-      const payload = new FormData();
-      payload.append("type", form.type.value);
-      payload.append("name", name);
-      payload.append("company", company);
-      payload.append("email", email);
-
-      try {
-        await fetch(GAS_URL, { method: "POST", body: payload, mode: "no-cors" });
-      } catch (_) {
-        // CORSエラーは無視してリダイレクト続行
-      }
-
+      const redirect = e.target.redirect.value;
       if (typeof gtag === "function") {
         gtag("event", "notebooklm_open", {
           notebook_type: "recruit",
-          event_callback: function () {
-            window.location.href = redirect;
-          },
+          event_callback: function() { window.location.href = redirect; },
           event_timeout: 1000
         });
       } else {
         window.location.href = redirect;
       }
-
     });
   </script>
 
