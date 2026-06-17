@@ -126,15 +126,48 @@ import Layout from '../layouts/Layout.astro';
 
 
 <script>
-  document.querySelectorAll('.ai-chatbot-link').forEach((link) => {
-    link.addEventListener('click', () => {
-      const loc = (link as HTMLElement).getAttribute('data-ai-location') || 'unknown';
-      if (typeof (window as any).gtag === 'function') {
+  document.addEventListener('DOMContentLoaded', () => {
+    console.log('[GA4debug] DOMContentLoaded, gtag type:', typeof (window as any).gtag);
+    const links = document.querySelectorAll<HTMLAnchorElement>('.ai-chatbot-link');
+    console.log('[GA4debug] 検出したリンク数:', links.length);
+
+    links.forEach((link) => {
+      link.addEventListener('click', (event) => {
+        const loc = link.getAttribute('data-ai-location') || 'unknown';
+        const destination = link.getAttribute('href') || '';
+        console.log('[GA4debug] クリック検知:', loc, destination, 'gtag type:', typeof (window as any).gtag);
+
+        if (typeof (window as any).gtag !== 'function' || !destination) {
+          console.log('[GA4debug] gtag未定義 or destination無し → 通常遷移のみ');
+          return;
+        }
+
+        event.preventDefault();
+
+        let navigated = false;
+        const goNext = () => {
+          if (navigated) return;
+          navigated = true;
+          console.log('[GA4debug] 遷移実行:', destination);
+          window.location.href = destination;
+        };
+
+        console.log('[GA4debug] gtag送信開始');
         (window as any).gtag('event', 'contact_ai_chatbot_click', {
           button_location: loc,
-          page_path: window.location.pathname
+          page_path: window.location.pathname,
+          event_callback: () => {
+            console.log('[GA4debug] event_callback発火');
+            goNext();
+          },
+          event_timeout: 1000,
         });
-      }
+
+        setTimeout(() => {
+          console.log('[GA4debug] タイムアウト経由でgoNext');
+          goNext();
+        }, 1000);
+      });
     });
   });
 </script>
