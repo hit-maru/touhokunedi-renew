@@ -105,7 +105,7 @@
           />
         </div>
 
-        {/* 同意チェック＋説明文 */}
+        {/* 同意チェック＋説明文（非表示）
         <div class="space-y-3">
           <div class="flex items-start gap-3">
             <input
@@ -132,8 +132,9 @@
             </p>
           </div>
         </div>
+        */}
 
-        <div id="error-msg" class="hidden text-xs text-red-500 text-center">全項目の入力と同意チェックが必要です。</div>
+        <div id="error-msg" class="hidden text-xs text-red-500 text-center">全項目を入力してください。</div>
 
         <button
           type="submit"
@@ -158,12 +159,11 @@
       const name = form.name.value.trim();
       const company = form.company.value.trim();
       const email = form.email.value.trim();
-      const consent = form.consent.checked;
       const errorMsg = document.getElementById("error-msg");
       const btn = document.getElementById("submit-btn");
       const redirect = form.redirect.value;
 
-      if (!name || !company || !email || !consent) {
+      if (!name || !company || !email) {
         errorMsg.classList.remove("hidden");
         return;
       }
