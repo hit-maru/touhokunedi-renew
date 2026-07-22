@@ -3,6 +3,7 @@ import FtpDeploy from "ftp-deploy";
 import dotenv from "dotenv";
 import path from "path";
 import { fileURLToPath } from "url";
+import { validateToolsDeployment } from "./scripts/validate-tools-deploy.js";
 
 dotenv.config();
 const ftpDeploy = new FtpDeploy();
@@ -21,9 +22,20 @@ const config = {
     forcePasv: true,
 };
 
+try {
+    validateToolsDeployment();
+    console.log("✅ tools配下のデプロイ前検査に合格しました");
+} catch (err) {
+    console.error(err.message);
+    process.exit(1);
+}
+
 console.log(`🚀 ${config.remoteRoot} へアップロードを開始します...`);
 
 ftpDeploy
     .deploy(config)
     .then(() => console.log("✅ 完了！ブラウザで確認してください"))
-    .catch((err) => console.log("❌ エラー:", err));
+    .catch((err) => {
+        console.log("❌ エラー:", err);
+        process.exit(1);
+    });
