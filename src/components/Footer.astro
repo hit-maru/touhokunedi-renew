@@ -7,24 +7,28 @@ const offices = [
     label: "本社・工場・いわき営業所・鉄道車両チーム", 
     zip: "〒971-8184", 
     addr: "福島県いわき市泉町黒須野字砂利59番地",
+    tel: "0246-56-4571",
     mapQuery: "福島県いわき市泉町黒須野字砂利59番地"
   },
   { 
     label: "東京本社", 
     zip: "〒110-0015", 
     addr: "東京都台東区東上野1丁目26-2 オーラムビル4F",
+    tel: "03-6284-7130",
     mapQuery: "東京都台東区東上野1丁目26-2 オーラムビル"
   },
   { 
     label: "仙台営業部", 
     zip: "〒983-0043", 
     addr: "宮城県仙台市宮城野区萩野町4-4-35",
+    tel: "022-284-2675",
     mapQuery: "宮城県仙台市宮城野区萩野町4-4-35"
   },
   { 
     label: "郡山営業所", 
     zip: "〒963-0725", 
     addr: "福島県郡山市田村町金屋字新家99-1",
+    tel: "024-943-3311",
     mapQuery: "福島県郡山市田村町金屋字新家99-1"
   }
 ];
@@ -75,6 +79,13 @@ const offices = [
                 class="font-sans text-[13px] text-white leading-snug font-medium hover:underline underline-offset-4 block"
               >
                 {office.zip} {office.addr}
+              </a>
+              <a
+                href={`tel:${office.tel.replace(/-/g, "")}`}
+                class="mt-1 inline-flex items-center gap-1.5 font-sans text-[13px] text-white hover:text-[#008B9B] transition-colors"
+              >
+                <span class="text-[11px] text-[#008B9B]" aria-hidden="true">TEL</span>
+                <span class="font-semibold tracking-wide">{office.tel}</span>
               </a>
             </div>
           ))}
