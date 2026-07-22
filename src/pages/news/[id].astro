@@ -1,6 +1,6 @@
 ---
 import Layout from '../../layouts/Layout.astro';
-import { getNewsDetail, client } from '../../lib/microcms';
+import { getNewsBodyHtml, getNewsDetail, client } from '../../lib/microcms';
 import { format } from 'date-fns';
 
 // 1. 静的書き出しのパスを設定（100件制限を回避）
@@ -22,6 +22,13 @@ const news = await getNewsDetail(id as string);
 // IDがない、または記事が見つからない場合は一覧へ戻す
 if (!id || !news) {
   return Astro.redirect(`${import.meta.env.BASE_URL}/news`);
+}
+
+const newsBodyHtml = getNewsBodyHtml(news);
+const missingBodyWarningKey = '__touhokunediMissingNewsBodyWarningShown';
+if (!newsBodyHtml && !(globalThis as any)[missingBodyWarningKey]) {
+  console.warn(`[news] Body field is empty or not returned by microCMS. Available fields: ${Object.keys(news).join(', ')}`);
+  (globalThis as any)[missingBodyWarningKey] = true;
 }
 ---
 
@@ -64,7 +71,7 @@ if (!id || !news) {
       {/* microCMSのリッチエディタ内容を表示 */}
       <div 
         class="post-content prose prose-lg max-w-none font-sans text-gray-700"
-        set:html={news.content}
+        set:html={newsBodyHtml}
       />
     </div>
   </article>

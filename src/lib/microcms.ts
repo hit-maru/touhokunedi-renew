@@ -9,7 +9,14 @@ export type News = {
   publishedAt: string;
   revisedAt: string;
   title: string;
-  content: string;
+  content?: string;
+  body?: string;
+  text?: string;
+  html?: string;
+  main?: string;
+  article?: string;
+  bodyHtml?: string;
+  contentHtml?: string;
   date: string;
   category: string[]; // セレクト（複数選択可の場合）または string
   thumbnail?: MicroCMSImage;
@@ -38,6 +45,23 @@ export const getNewsDetail = async (contentId: string, queries?: MicroCMSQueries
   return await client.getListDetail<News>({
     endpoint: "news",
     contentId,
-    queries,
+    queries: {
+      fields: "id,createdAt,updatedAt,publishedAt,revisedAt,title,date,category,thumbnail,content,body,text,html,main,article,bodyHtml,contentHtml",
+      ...queries,
+    },
   });
+};
+
+export const getNewsBodyHtml = (news: News) => {
+  return (
+    news.content ||
+    news.body ||
+    news.text ||
+    news.html ||
+    news.main ||
+    news.article ||
+    news.bodyHtml ||
+    news.contentHtml ||
+    ""
+  );
 };
