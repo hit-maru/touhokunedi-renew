@@ -1,0 +1,879 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>記事HTMLプレビューツール｜東北ネヂ製造株式会社</title>
+  <link rel="icon" type="image/png" href="https://touhokunedi.com/nedzi-mark.png" />
+  <link rel="apple-touch-icon" href="https://touhokunedi.com/nedzi-mark.png" />
+  <style>
+    /* ===== リセット・基盤 ===== */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --teal: #008B9B;
+      --teal-dark: #006064;
+      --teal-light: #e0f5f7;
+      --gray-100: #f5f5f5;
+      --gray-200: #e8e8e8;
+      --gray-400: #aaa;
+      --gray-600: #666;
+      --gray-800: #333;
+      --ink: #1A1A1A;
+      --white: #fff;
+      --radius: 4px;
+      --font-sans: 'Noto Sans JP', sans-serif;
+      --font-mono: 'Courier New', Courier, monospace;
+    }
+
+    body {
+      font-family: var(--font-sans);
+      background: var(--gray-100);
+      color: var(--ink);
+      min-height: 100vh;
+      font-size: 14px;
+      line-height: 1.6;
+    }
+
+    /* ===== ヘッダー ===== */
+    header {
+      background: var(--white);
+      border-bottom: 3px solid var(--teal);
+      padding: 14px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 8px rgba(0,0,0,.06);
+    }
+    .logo {
+      font-size: 11px;
+      letter-spacing: .15em;
+      color: var(--teal);
+      font-weight: 700;
+      text-transform: uppercase;
+      line-height: 1.3;
+    }
+    .logo span { display: block; font-size: 15px; letter-spacing: .05em; color: var(--ink); }
+    header h1 {
+      font-size: 13px;
+      color: var(--gray-600);
+      font-weight: 400;
+      border-left: 1px solid var(--gray-200);
+      padding-left: 16px;
+    }
+
+    /* ===== レイアウト ===== */
+    .layout {
+      display: grid;
+      grid-template-columns: 220px 1fr;
+      grid-template-rows: auto 1fr;
+      min-height: calc(100vh - 57px);
+    }
+
+    /* ===== サイドバー（テンプレート選択） ===== */
+    .sidebar {
+      background: var(--white);
+      border-right: 1px solid var(--gray-200);
+      padding: 24px 0;
+      grid-row: 1 / 3;
+    }
+    .sidebar-label {
+      font-size: 10px;
+      letter-spacing: .15em;
+      color: var(--gray-400);
+      text-transform: uppercase;
+      padding: 0 20px 12px;
+      font-weight: 700;
+    }
+    .template-btn {
+      display: block;
+      width: 100%;
+      text-align: left;
+      padding: 12px 20px;
+      background: none;
+      border: none;
+      border-left: 3px solid transparent;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: var(--font-sans);
+    }
+    .template-btn:hover { background: var(--gray-100); }
+    .template-btn.active {
+      border-left-color: var(--teal);
+      background: var(--teal-light);
+    }
+    .template-btn .pattern {
+      font-size: 11px;
+      color: var(--teal);
+      font-weight: 700;
+      letter-spacing: .1em;
+      display: block;
+    }
+    .template-btn.active .pattern { color: var(--teal-dark); }
+    .template-btn .name {
+      font-size: 13px;
+      color: var(--gray-800);
+      display: block;
+      margin-top: 2px;
+    }
+    .template-btn .desc {
+      font-size: 11px;
+      color: var(--gray-400);
+      display: block;
+      margin-top: 3px;
+    }
+
+    .sidebar-divider {
+      margin: 20px 0;
+      border: none;
+      border-top: 1px solid var(--gray-200);
+    }
+
+    /* ===== ツールバー ===== */
+    .toolbar {
+      background: var(--white);
+      border-bottom: 1px solid var(--gray-200);
+      padding: 10px 24px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+    .toolbar-label {
+      font-size: 11px;
+      color: var(--gray-400);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      margin-right: 4px;
+    }
+    .mode-btn {
+      padding: 6px 14px;
+      border: 1px solid var(--gray-200);
+      background: var(--white);
+      border-radius: var(--radius);
+      font-size: 12px;
+      cursor: pointer;
+      transition: all .15s;
+      font-family: var(--font-sans);
+      color: var(--gray-600);
+    }
+    .mode-btn:hover { border-color: var(--teal); color: var(--teal); }
+    .mode-btn.active { background: var(--teal); border-color: var(--teal); color: #fff; }
+
+    .btn-apply {
+      margin-left: auto;
+      padding: 7px 18px;
+      background: var(--teal);
+      color: #fff;
+      border: none;
+      border-radius: var(--radius);
+      font-size: 13px;
+      font-weight: 700;
+      cursor: pointer;
+      font-family: var(--font-sans);
+      transition: background .15s;
+      letter-spacing: .05em;
+    }
+    .btn-apply:hover { background: var(--teal-dark); }
+
+    /* ===== メインエリア ===== */
+    .main {
+      padding: 24px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow: auto;
+    }
+
+    /* ===== 分割ビュー ===== */
+    .split-view {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      flex: 1;
+    }
+    .split-view.single { grid-template-columns: 1fr; }
+
+    .pane {
+      background: var(--white);
+      border: 1px solid var(--gray-200);
+      border-radius: var(--radius);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+    }
+    .pane-header {
+      padding: 10px 16px;
+      background: var(--gray-100);
+      border-bottom: 1px solid var(--gray-200);
+      font-size: 11px;
+      font-weight: 700;
+      color: var(--gray-600);
+      letter-spacing: .1em;
+      text-transform: uppercase;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+    .pane-header .dot {
+      width: 8px; height: 8px;
+      border-radius: 50%;
+      background: var(--gray-400);
+      display: inline-block;
+    }
+    .pane-header .dot.teal { background: var(--teal); }
+
+    /* コードエリア */
+    #code-editor {
+      flex: 1;
+      min-height: 500px;
+      padding: 16px;
+      font-family: var(--font-mono);
+      font-size: 12.5px;
+      line-height: 1.65;
+      border: none;
+      resize: none;
+      outline: none;
+      color: var(--gray-800);
+      background: #fafafa;
+    }
+    #code-editor:focus { background: var(--white); }
+
+    /* レンダリングエリア */
+    .render-wrap {
+      flex: 1;
+      overflow-y: auto;
+      padding: 24px 28px;
+    }
+
+    /* ===== post-content（実サイトCSSと同等） ===== */
+    .post-content { font-size: 15px; line-height: 1.8; color: #1A1A1A; font-family: var(--font-sans); }
+    .post-content h2 {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: #333;
+      margin-top: 2rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid #008B9B;
+      padding-left: 1rem;
+    }
+    .post-content h3 {
+      font-size: 1rem;
+      font-weight: 700;
+      color: #333;
+      margin-top: 1.4em;
+      margin-bottom: .5em;
+    }
+    .post-content p { margin-bottom: 1.5rem; line-height: 1.8; }
+    .post-content ul, .post-content ol { padding-left: 1.5em; margin: .5em 0 1.2em; }
+    .post-content li { margin: .3em 0; }
+    .post-content strong { font-weight: 700; }
+    .post-content a { color: #008B9B; }
+    .post-content img { max-width: 100%; height: auto; display: block; margin: 2rem auto; }
+
+    /* article-button */
+    .post-content .article-button {
+      display: inline-block;
+      padding: 10px 24px;
+      background-color: #008B9B;
+      color: #fff !important;
+      text-decoration: none;
+      font-size: 14px;
+      border-radius: 2px;
+      margin-top: 8px;
+      transition: background .2s;
+    }
+    .post-content .article-button:hover { background-color: #006064; }
+
+    /* article-box */
+    .post-content .article-box {
+      margin: 1.5rem 0;
+      padding: 1.25rem 1.5rem;
+      border-left: 4px solid #008B9B;
+      background: #f4fafb;
+    }
+    .post-content .article-box h3 { margin-top: 0; border-left: none; padding-left: 0; }
+
+    /* article-link-box */
+    .post-content .article-link-box {
+      margin: 1.5rem 0;
+      padding: 1rem 1.25rem;
+      border: 1px solid #d1d5db;
+      border-radius: 4px;
+      background: #f9fafb;
+    }
+    .post-content .article-link-box h3 {
+      margin-top: 0;
+      font-size: .95rem;
+      color: #008B9B;
+      border-left: none;
+      padding-left: 0;
+    }
+    .post-content .article-link-box a { color: #008B9B; }
+
+    /* ===== 注意バナー ===== */
+    .notice {
+      background: #fffbe6;
+      border: 1px solid #f0d060;
+      border-radius: var(--radius);
+      padding: 10px 16px;
+      font-size: 12px;
+      color: #7a6000;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .notice b { font-weight: 700; }
+
+    /* ===== チェック結果バナー ===== */
+    #check-result { display: none; }
+    #check-result.has-error {
+      display: block;
+      background: #fff0f0;
+      border: 1px solid #f5a0a0;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    #check-result.has-ok {
+      display: block;
+      background: #f0fff4;
+      border: 1px solid #6fcf8a;
+      border-radius: var(--radius);
+      padding: 14px 16px;
+    }
+    .check-title {
+      font-size: 13px;
+      font-weight: 700;
+      margin-bottom: 8px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .check-title.error { color: #c0392b; }
+    .check-title.ok    { color: #27ae60; }
+    .check-list {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .check-list li {
+      font-size: 12px;
+      color: #c0392b;
+      padding: 4px 10px;
+      background: #ffe8e8;
+      border-radius: 3px;
+      display: flex;
+      gap: 8px;
+      align-items: flex-start;
+    }
+    .check-list li .tag {
+      font-family: var(--font-mono);
+      font-size: 11px;
+      background: #f5a0a0;
+      color: #7b0000;
+      padding: 1px 6px;
+      border-radius: 3px;
+      white-space: nowrap;
+      flex-shrink: 0;
+    }
+    .check-list li .msg { line-height: 1.5; }
+
+    /* ===== フッター ===== */
+    footer {
+      grid-column: 1 / 3;
+      padding: 14px 24px;
+      font-size: 11px;
+      color: var(--gray-400);
+      border-top: 1px solid var(--gray-200);
+      background: var(--white);
+      text-align: right;
+    }
+
+    @media (max-width: 900px) {
+      .layout { grid-template-columns: 1fr; }
+      .sidebar { grid-row: auto; border-right: none; border-bottom: 1px solid var(--gray-200); display: flex; flex-wrap: wrap; gap: 4px; padding: 12px; }
+      .sidebar-label { display: none; }
+      .template-btn { width: auto; border: 1px solid var(--gray-200); border-left: 3px solid transparent; border-radius: var(--radius); }
+      .template-btn.active { border-left-color: var(--teal); }
+      .split-view { grid-template-columns: 1fr; }
+      footer { grid-column: 1; }
+    }
+  </style>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    Tohoku Nedzi
+    <span>東北ネヂ製造株式会社</span>
+  </div>
+  <h1>microCMS 記事HTMLプレビューツール</h1>
+</header>
+
+<div class="layout">
+
+  <!-- サイドバー -->
+  <aside class="sidebar">
+    <p class="sidebar-label">テンプレート選択</p>
+    <button class="template-btn active" data-idx="0">
+      <span class="pattern">A パターン</span>
+      <span class="name">通常のお知らせ</span>
+      <span class="desc">休業・移転・更新など</span>
+    </button>
+    <button class="template-btn" data-idx="1">
+      <span class="pattern">B パターン</span>
+      <span class="name">詳しい説明記事</span>
+      <span class="desc">技術・事業・取り組み紹介</span>
+    </button>
+    <button class="template-btn" data-idx="2">
+      <span class="pattern">C パターン</span>
+      <span class="name">問い合わせ誘導</span>
+      <span class="desc">製造・販売・採用への誘導</span>
+    </button>
+    <button class="template-btn" data-idx="3">
+      <span class="pattern">D パターン</span>
+      <span class="name">採用・会社紹介</span>
+      <span class="desc">求職者向け記事</span>
+    </button>
+    <button class="template-btn" data-idx="4">
+      <span class="pattern">E パターン</span>
+      <span class="name">技術紹介</span>
+      <span class="desc">特注品・加工・仕様対応</span>
+    </button>
+    <hr class="sidebar-divider">
+    <button class="template-btn" data-idx="5">
+      <span class="pattern" style="color:#888">カスタム</span>
+      <span class="name">自由入力</span>
+      <span class="desc">AIが生成したHTMLを貼る</span>
+    </button>
+  </aside>
+
+  <!-- ツールバー -->
+  <div class="toolbar">
+    <span class="toolbar-label">表示モード</span>
+    <button class="mode-btn active" id="mode-split">左右分割</button>
+    <button class="mode-btn" id="mode-code">コードのみ</button>
+    <button class="mode-btn" id="mode-preview">プレビューのみ</button>
+    <button class="btn-apply" id="btn-apply">▶ プレビュー更新</button>
+  </div>
+
+  <!-- メイン -->
+  <main class="main">
+    <div class="notice">
+      <b>使い方：</b>左のテンプレートを選ぶか、AIが生成したHTMLを左のコード欄に貼り付けて「プレビュー更新」を押してください。右側に実際のサイトと同じスタイルで表示されます。
+    </div>
+
+    <div id="check-result"></div>
+
+    <div class="split-view" id="split-view">
+      <div class="pane">
+        <div class="pane-header">
+          <span class="dot"></span>
+          HTMLコード
+        </div>
+        <textarea id="code-editor" spellcheck="false"></textarea>
+      </div>
+      <div class="pane">
+        <div class="pane-header">
+          <span class="dot teal"></span>
+          レンダリング結果（実サイトCSS適用）
+          <span id="edit-badge" style="margin-left:auto;font-size:10px;background:#008B9B;color:#fff;padding:2px 8px;border-radius:10px;display:none;">編集中</span>
+        </div>
+        <div class="render-wrap">
+          <div class="post-content" id="render-out" contenteditable="true" spellcheck="false" style="outline:none;min-height:40px;"></div>
+        </div>
+        <div style="padding:6px 14px;border-top:1px solid var(--gray-200);background:var(--gray-100);font-size:11px;color:var(--gray-600);">✏ プレビュー上で直接テキストを編集できます。編集内容は左のHTMLコードに自動反映されます。</div>
+      </div>
+    </div>
+  </main>
+
+  <footer>東北ネヂ製造株式会社 内部ツール｜このページは外部公開しないでください</footer>
+
+</div>
+
+<script>
+  /* ===== テンプレートデータ ===== */
+  const templates = [
+    `<section class="article-section">
+
+  <p>
+    平素より格別のご愛顧を賜り、誠にありがとうございます。
+  </p>
+
+  <p>
+    このたび、〇〇についてお知らせいたします。
+  </p>
+
+  <h2>お知らせ内容</h2>
+
+  <p>
+    ここにお知らせの本文を入力します。日時、場所、対象、変更内容などを
+    わかりやすく記載します。
+  </p>
+
+  <h3>詳細</h3>
+
+  <ul>
+    <li>項目1：〇〇〇〇</li>
+    <li>項目2：〇〇〇〇</li>
+    <li>項目3：〇〇〇〇</li>
+  </ul>
+
+  <p>
+    今後とも東北ネヂ製造株式会社をよろしくお願い申し上げます。
+  </p>
+
+</section>`,
+
+    `<section class="article-section">
+
+  <p>
+    この記事では、〇〇についてご紹介します。
+  </p>
+
+  <h2>〇〇とは</h2>
+
+  <p>
+    ここに概要説明を入力します。読み手が最初に全体像を理解できるよう、
+    専門用語を使いすぎずに説明します。
+  </p>
+
+  <h2>主なポイント</h2>
+
+  <ul>
+    <li><strong>ポイント1：</strong>〇〇〇〇</li>
+    <li><strong>ポイント2：</strong>〇〇〇〇</li>
+    <li><strong>ポイント3：</strong>〇〇〇〇</li>
+  </ul>
+
+  <h2>東北ネヂの対応</h2>
+
+  <p>
+    東北ネヂ製造株式会社では、〇〇に関するご相談に対応しています。
+    具体的な内容や条件については、お問い合わせください。
+  </p>
+
+  <p>
+    <a class="article-button" href="/contact/">
+      お問い合わせはこちら
+    </a>
+  </p>
+
+</section>`,
+
+    `<section class="article-section">
+
+  <p>
+    〇〇についてお困りの方へ、東北ネヂ製造株式会社の対応内容をご案内します。
+  </p>
+
+  <h2>このようなご相談に対応しています</h2>
+
+  <ul>
+    <li>〇〇に関するご相談</li>
+    <li>〇〇の確認</li>
+    <li>〇〇についてのご質問</li>
+  </ul>
+
+  <h2>ご相談前に確認いただきたいこと</h2>
+
+  <ul>
+    <li>製品名、サイズ、材質など</li>
+    <li>数量や納期の目安</li>
+    <li>図面や仕様書の有無</li>
+  </ul>
+
+  <div class="article-link-box">
+    <h3>関連ページ</h3>
+    <ul>
+      <li><a href="/manufacture/">特注品・加工・技術相談について</a></li>
+      <li><a href="/contact/">お問い合わせはこちら</a></li>
+    </ul>
+  </div>
+
+  <p>
+    内容がまだ具体的に決まっていない段階でも、お気軽にご相談ください。
+  </p>
+
+</section>`,
+
+    `<section class="article-section">
+
+  <p>
+    東北ネヂ製造株式会社の仕事や職場についてご紹介します。
+  </p>
+
+  <h2>東北ネヂの仕事</h2>
+
+  <p>
+    ここに会社の仕事や役割について説明します。
+    求職者にも伝わるよう、専門的になりすぎない表現にします。
+  </p>
+
+  <h2>このような方を歓迎します</h2>
+
+  <ul>
+    <li>ものづくりに関心のある方</li>
+    <li>技術を身につけて長く働きたい方</li>
+    <li>チームで協力して仕事を進められる方</li>
+  </ul>
+
+  <h2>関連ページ</h2>
+
+  <p>
+    採用に関する情報は、以下のページをご覧ください。
+  </p>
+
+  <p>
+    <a class="article-button" href="/recruit/">
+      採用情報を見る
+    </a>
+  </p>
+
+</section>`,
+
+    `<section class="article-section">
+
+  <p>
+    東北ネヂ製造株式会社では、ねじ・締結部品に関する各種ご相談に対応しています。
+  </p>
+
+  <h2>対応内容</h2>
+
+  <ul>
+    <li>特注品に関するご相談</li>
+    <li>加工品に関するご相談</li>
+    <li>材質・サイズ・仕様に関する確認</li>
+    <li>図面や現物をもとにしたご相談</li>
+  </ul>
+
+  <h2>ご相談時にあるとよい情報</h2>
+
+  <ul>
+    <li>製品名または用途</li>
+    <li>サイズ、材質、数量</li>
+    <li>図面、写真、現物情報</li>
+    <li>希望納期</li>
+  </ul>
+
+  <h2>まずはお気軽にご相談ください</h2>
+
+  <p>
+    仕様が完全に決まっていない段階でも、確認できる範囲からご相談いただけます。
+  </p>
+
+  <p>
+    <a class="article-button" href="/manufacture/">
+      特注品・加工・技術相談について
+    </a>
+  </p>
+
+</section>`,
+
+    `<!-- AIが生成したHTMLをここに貼り付けてください -->\n`
+  ];
+
+  /* ===== 状態 ===== */
+  let currentIdx = 0;
+
+  const editor = document.getElementById('code-editor');
+  const renderOut = document.getElementById('render-out');
+  const splitView = document.getElementById('split-view');
+  const btnApply = document.getElementById('btn-apply');
+  const templateBtns = document.querySelectorAll('.template-btn');
+
+  /* ===== テンプレート選択 ===== */
+  templateBtns.forEach(btn => {
+    btn.addEventListener('click', () => {
+      const idx = parseInt(btn.dataset.idx);
+      currentIdx = idx;
+      templateBtns.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      editor.value = templates[idx];
+      applyPreview();
+    });
+  });
+
+  /* ===== マニュアル準拠チェック ===== */
+  const RULES = [
+    {
+      id: 'script',
+      tag: '<script>',
+      pattern: /<script[\s>]/i,
+      msg: 'JavaScriptは記事本文に含めないでください。動きのある表現はサイト側で実装します。'
+    },
+    {
+      id: 'style-tag',
+      tag: '<style>',
+      pattern: /<style[\s>]/i,
+      msg: 'styleタグは使用禁止です。デザインはサイト側CSSで管理します。'
+    },
+    {
+      id: 'iframe',
+      tag: '<iframe>',
+      pattern: /<iframe[\s>]/i,
+      msg: 'iframeは使用禁止です。動画埋め込みはmicroCMSのリッチエディタ機能を使ってください。'
+    },
+    {
+      id: 'form',
+      tag: '<form>',
+      pattern: /<form[\s>]/i,
+      msg: 'formタグは使用禁止です。お問い合わせへの誘導はリンクで行ってください。'
+    },
+    {
+      id: 'input',
+      tag: '<input>',
+      pattern: /<input[\s>\/]/i,
+      msg: 'inputタグは使用禁止です。'
+    },
+    {
+      id: 'button',
+      tag: '<button>',
+      pattern: /<button[\s>]/i,
+      msg: 'buttonタグは使用禁止です。ボタン風リンクは <a class="article-button"> を使ってください。'
+    },
+    {
+      id: 'canvas',
+      tag: '<canvas>',
+      pattern: /<canvas[\s>]/i,
+      msg: 'canvasタグは使用禁止です。'
+    },
+    {
+      id: 'svg',
+      tag: '<svg>',
+      pattern: /<svg[\s>]/i,
+      msg: 'svgタグは使用禁止です。'
+    },
+    {
+      id: 'doctype',
+      tag: '<!DOCTYPE> / <html> / <head> / <body>',
+      pattern: /<!doctype|<html[\s>]|<head[\s>]|<body[\s>]/i,
+      msg: 'ページ全体の構造タグは不要です。記事本文の中身だけを貼り付けてください。'
+    },
+    {
+      id: 'h1',
+      tag: '<h1>',
+      pattern: /<h1[\s>]/i,
+      msg: 'h1はサイト側でタイトルとして使用します。本文内ではh2・h3を使ってください。'
+    },
+    {
+      id: 'style-attr',
+      tag: 'style="..."',
+      pattern: /\sstyle\s*=/i,
+      msg: 'style属性（インラインCSS）は使用禁止です。デザインはサイト側CSSで管理します。'
+    },
+    {
+      id: 'event-attr',
+      tag: 'onclick / onload など',
+      pattern: /\son[a-z]+\s*=/i,
+      msg: 'イベント属性（onclick・onloadなど）は使用禁止です。'
+    },
+    {
+      id: 'id-attr',
+      tag: 'id="..."',
+      pattern: /\sid\s*=/i,
+      msg: 'id属性はサイト全体への影響があるため使用しないでください。'
+    }
+  ];
+
+  const checkResult = document.getElementById('check-result');
+
+  function runCheck(html) {
+    const errors = RULES.filter(r => r.pattern.test(html));
+    checkResult.className = '';
+    checkResult.innerHTML = '';
+
+    if (errors.length === 0) {
+      checkResult.className = 'has-ok';
+      checkResult.innerHTML =
+        '<p class="check-title ok">✓ チェック通過：マニュアルの禁止事項は検出されませんでした。microCMSに貼り付けて公開できます。</p>';
+    } else {
+      checkResult.className = 'has-error';
+      const items = errors.map(e =>
+        `<li><span class="tag">${e.tag}</span><span class="msg">${e.msg}</span></li>`
+      ).join('');
+      checkResult.innerHTML =
+        `<p class="check-title error">⚠ ${errors.length}件の問題が検出されました。修正してから再確認してください。</p>` +
+        `<ul class="check-list">${items}</ul>`;
+    }
+  }
+
+  /* ===== プレビュー更新（コード→プレビュー方向） ===== */
+  function applyPreview() {
+    const html = editor.value;
+    runCheck(html);
+    renderOut.innerHTML = html;
+  }
+
+  btnApply.addEventListener('click', applyPreview);
+
+  /* Ctrl+Enter でも更新 */
+  editor.addEventListener('keydown', e => {
+    if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') applyPreview();
+  });
+
+  /* ===== プレビュー編集→コード自動反映（プレビュー→コード方向） ===== */
+  const editBadge = document.getElementById('edit-badge');
+  let syncTimer = null;
+
+  renderOut.addEventListener('input', () => {
+    editBadge.style.display = 'inline';
+    clearTimeout(syncTimer);
+    syncTimer = setTimeout(() => {
+      editor.value = renderOut.innerHTML;
+      editBadge.style.display = 'none';
+    }, 800);
+  });
+
+  renderOut.addEventListener('focus', () => {
+    editBadge.style.display = 'inline';
+  });
+
+  renderOut.addEventListener('blur', () => {
+    clearTimeout(syncTimer);
+    editor.value = renderOut.innerHTML;
+    editBadge.style.display = 'none';
+  });
+
+  /* ===== 表示モード切替 ===== */
+  const modeSplit = document.getElementById('mode-split');
+  const modeCode  = document.getElementById('mode-code');
+  const modePrev  = document.getElementById('mode-preview');
+  const panes     = splitView.querySelectorAll('.pane');
+
+  function setMode(mode) {
+    [modeSplit, modeCode, modePrev].forEach(b => b.classList.remove('active'));
+    if (mode === 'split') {
+      modeSplit.classList.add('active');
+      splitView.classList.remove('single');
+      panes[0].style.display = '';
+      panes[1].style.display = '';
+    } else if (mode === 'code') {
+      modeCode.classList.add('active');
+      splitView.classList.add('single');
+      panes[0].style.display = '';
+      panes[1].style.display = 'none';
+    } else {
+      modePrev.classList.add('active');
+      splitView.classList.add('single');
+      panes[0].style.display = 'none';
+      panes[1].style.display = '';
+    }
+  }
+
+  modeSplit.addEventListener('click', () => setMode('split'));
+  modeCode.addEventListener('click',  () => setMode('code'));
+  modePrev.addEventListener('click',  () => { setMode('preview'); applyPreview(); });
+
+  /* ===== 初期表示 ===== */
+  editor.value = templates[0];
+  applyPreview();
+</script>
+
+</body>
+</html>
