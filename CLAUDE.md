@@ -1,88 +1,35 @@
-# CLAUDE.md — 東北ネヂ製造株式会社 Webサイト
+# CLAUDE.md - Claude Code 補足
 
-## プロジェクト概要
+このファイルは、東北ネヂRenewプロジェクトで Claude Code を使う際の補足です。
 
-東北ネヂ製造株式会社（Tohoku Bolt MFG. Co., Ltd. / nedzi）のコーポレートサイトリニューアルプロジェクト。  
-日本語版・英語版（/en/）の2言語構成。
+## 最初に読むファイル
 
-## 技術スタック
+Claude Code で作業を開始する前に、必ず次を読む。
 
-- **フレームワーク**: Astro 5.x
-- **スタイリング**: Tailwind CSS 3.x
-- **CMS**: microCMS（ニュース記事管理）
-- **デプロイ**: FTP（`npm run deploy`）
-- **言語**: 日本語（/） / 英語（/en/）
+1. `AGENTS.md`
+2. `PROJECT_CONTEXT.md`
+3. `CLAUDE.md`
 
-## よく使うコマンド
+共通ルールは `AGENTS.md`、プロジェクト背景は `PROJECT_CONTEXT.md` を正とする。
+
+## Claude Code 固有の扱い
+
+- `.claude/settings.local.json` はローカル専用の Claude Code 設定ファイル。
+- `.claude/settings.local.json` は Git 管理しない。
+- `.claude/settings.local.json` に記録された許可履歴を根拠に、ユーザーの明示指示なしで Git add、Commit、Push、Deploy を行わない。
+- Claude Code の記憶や過去会話に依存しすぎず、リポジトリ内の現行ファイルと Git 状態を確認してから判断する。
+
+## よく使う確認コマンド
 
 ```bash
-npm run dev       # 開発サーバー起動（localhost:4321）
-npm run build     # 本番ビルド
-npm run preview   # ビルド結果プレビュー
-npm run deploy    # FTPデプロイ
-npm run images    # 画像処理スクリプト
+git status --short
+npm run build
+git diff --stat
 ```
 
-## ディレクトリ構成
+`npm run deploy`、`git push`、`git commit`、`git add` はユーザーの明示的な指示がある場合だけ実行する。
 
-```
-src/
-├── components/
-│   ├── company/        # 企業情報ページ用コンポーネント
-│   │   ├── Certification.astro   # 認証・資格
-│   │   ├── History.astro         # 沿革
-│   │   ├── SDGs.astro            # SDGs取り組み
-│   │   ├── Outline.astro         # 会社概要
-│   │   └── ...
-│   ├── en/             # 英語版コンポーネント
-│   └── Footer.astro    # フッター（SNSアイコン含む）
-├── pages/
-│   ├── index.astro     # 日本語トップ
-│   ├── company.astro   # 企業情報
-│   ├── en/             # 英語版ページ群
-│   │   ├── index.astro
-│   │   ├── company.astro
-│   │   ├── manufacture.astro
-│   │   └── product.astro
-│   └── ...
-├── layouts/
-│   ├── Layout.astro    # 日本語レイアウト
-│   └── LayoutEn.astro  # 英語レイアウト
-└── lib/
-    └── microcms.ts     # microCMS API設定
-public/
-└── images/             # 静的画像（webp推奨）
-```
+## 補足メモ
 
-## ブランドカラー
-
-| 用途 | クラス / 値 |
-|------|------------|
-| プライマリ（ティール） | `text-primary` / `#008B9B` |
-| アクセント（オレンジ） | `#E64A19` |
-| テキスト（墨） | `text-ink` |
-
-## フォント
-
-- 日本語見出し: `font-mb101`（MB101）
-- 英語見出し: `font-cormo`（Cormorant Garamond）、`font-gara`（EB Garamond）
-- 本文: `font-sans`（Noto Sans JP）
-
-## 画像について
-
-- 形式: `.webp` 推奨
-- 配置: `public/images/`
-- SDGsアイコン: `public/images/sdgs/E_SDG_PRINT-XX.jpg`
-
-## SNS リンク
-
-- LinkedIn: `https://www.linkedin.com/company/東北ネヂ製造（株）/`
-- Instagram: `https://www.instagram.com/tohokubolt_official/`
-- Elfsight Instagram Feed app ID: `0deee985-68ee-44ea-80b7-26596f3a7523`
-
-## 注意事項
-
-- 英語版（/en/）は日本語版と構成を合わせて更新すること
-- Astro の外部スクリプトタグには `is:inline` を付ける
-- 画像の `opacity` と グラデーションオーバーレイの組み合わせでヘッダー明度を調整している
-- `<script>` タグに `src` 属性がある場合、Astro は `is:inline` を要求する
+- 既存のプロジェクト概要、技術構成、ディレクトリ構成、デザインメモ、Astro注意事項は `PROJECT_CONTEXT.md` に整理済み。
+- Claude Code でも Codex と同じ作業ルールに従う。
