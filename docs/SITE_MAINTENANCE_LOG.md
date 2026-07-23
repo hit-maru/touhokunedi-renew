@@ -334,9 +334,11 @@ Build / 表示確認:
 - `npm run build`: 成功
 - `dist/news/tonzkg82_b/index.html` に正式タイトルと本文HTMLが出力されたことを確認済み。
 - ローカルpreviewで正式タイトルと本文表示を確認済み。
-- 本番URL `https://touhokunedi.com/news/tonzkg82_b/`: HTTP 200だが、静的HTMLは旧タイトル・本文なしのまま。
-- 通常deploy: 未実施。
-- deploy未実施理由: 今回の指示で通常deployは禁止。Astro静的サイトのため、本番HTMLへ反映するには別途 `npm run deploy` が必要。
+- 通常deploy: 実施済み。
+- deploy実施日時: 2026-07-23 09:30 JST
+- 本番URL `https://touhokunedi.com/news/tonzkg82_b/`: HTTP 200確認済み。
+- 本番HTMLで正式タイトル表示を確認済み。
+- 本番HTMLで本文表示を確認済み。
 
 関連スクリプト:
 
@@ -390,7 +392,7 @@ Build / 表示確認:
 
 - 2026-07-23に個別修復済み。
 - 詳細は「2026-07-23 `tonzkg82_b` 個別修復」を参照。
-- 本番HTML反映には通常deployが必要。今回の作業ではdeploy未実施。
+- 本番HTML反映済み。
 
 ### ニュース4分類
 
