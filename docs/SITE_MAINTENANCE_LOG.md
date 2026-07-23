@@ -400,6 +400,24 @@ Build / 表示確認:
 - スマホローカルpreviewで、配置、余白、見出し崩れがないことを確認。
 - スマホ幅でLinkedIn見出し右側の補助文言が非表示になることを確認。
 
+本番反映:
+
+- commit: `0fd3aac` - `feat: move social embeds to news page`
+- push: `origin/main` へ成功
+- `npm run deploy`: 成功
+- deploy実施日時: 2026-07-24 08:14 JST
+
+本番確認:
+
+- 本番トップページ `https://touhokunedi.com/`: HTTP 200確認済み。
+- 本番ニュース一覧ページ `https://touhokunedi.com/news/1/`: HTTP 200確認済み。
+- 本番トップページHTMLで、LinkedIn・Instagram埋め込みブロックが存在しないことを確認済み。
+- 本番ニュース一覧ページHTMLで、ニュース一覧・ページネーション後、フッター前にSNS埋め込みが存在することを確認済み。
+- 本番ニュース一覧ページHTMLで、スマホ幅用にLinkedIn見出し右側の補助文言へ `hidden sm:inline` が付与されていることを確認済み。
+- 本番PC幅表示で、ページネーション後、フッター前にLinkedIn・Instagram埋め込みが表示され、配置、余白、見出し崩れがないことを確認済み。
+- 本番スマホ幅表示で、ページネーション後、フッター前にLinkedIn埋め込みが表示され、配置、余白、見出し崩れがないことを確認済み。
+- 本番スマホ幅表示で、LinkedIn見出し右側の補助文言が非表示になっていることを確認済み。
+
 ## 4. 現在の仕様
 
 ### ニュース
