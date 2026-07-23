@@ -368,6 +368,38 @@ Build / 表示確認:
 
 - `26cbc03` - `fix: restore remaining WordPress news article`
 
+### 2026-07-24 SNS埋め込み表示位置変更
+
+目的:
+
+- トップページ下部にあったLinkedIn・Instagram埋め込みを、お知らせ一覧ページ下部へ移動する。
+
+修正:
+
+- `src/pages/index.astro` からSNS埋め込みブロックを削除。
+- `src/pages/news/[page].astro` のニュース一覧・ページネーション直後、フッター直前へLinkedIn・Instagram埋め込みを配置。
+- スマホ幅ではLinkedIn見出し右側の補助文言を非表示にし、見出しの幅不足を防止。
+
+保守開始チェック:
+
+- `npm run maintenance:start`: 成功
+- 前回件数: 168
+- 現在件数: 168
+- 新規投稿: 0
+- 更新: 0
+- 削除・非公開候補: 0
+- カテゴリ変化: 0
+
+確認:
+
+- `npm run build`: 成功
+- `git diff --check`: 成功
+- PCローカルpreviewで、ニュース一覧・ページネーション後、フッター前にSNS埋め込みが表示されることを確認。
+- PCローカルpreviewで、配置、余白、見出し崩れがないことを確認。
+- スマホローカルpreviewで、ニュース一覧・ページネーション後、フッター前にSNS埋め込みが表示されることを確認。
+- スマホローカルpreviewで、配置、余白、見出し崩れがないことを確認。
+- スマホ幅でLinkedIn見出し右側の補助文言が非表示になることを確認。
+
 ## 4. 現在の仕様
 
 ### ニュース
