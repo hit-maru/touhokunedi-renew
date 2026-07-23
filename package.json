@@ -9,7 +9,10 @@
     "astro": "astro",
     "deploy": "astro build && node deploy.js",
     "deploy:test": "npm run build -- --base /test && node deploy.js",
-    "images": "node scripts/images.js"
+    "images": "node scripts/images.js",
+    "maintenance:start": "node scripts/ensure-maintenance-start.mjs",
+    "maintenance:check-news": "node scripts/maintenance-check-news.mjs",
+    "maintenance:apply-news": "node scripts/maintenance-apply-news.mjs"
   },
   "dependencies": {
     "@astrojs/node": "^9.5.1",
