@@ -344,7 +344,7 @@ Build / 表示確認:
 
 関連commit:
 
-- `a220986` - `fix: restore remaining WordPress news article`
+- `26cbc03` - `fix: restore remaining WordPress news article`
 
 ## 4. 現在の仕様
 
