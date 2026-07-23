@@ -70,12 +70,12 @@
 - 本番deploy成功
 - 本番代表記事で本文表示確認済み
 
-保留:
+当初保留:
 
 - Content ID: `tonzkg82_b`
 - タイトル: `&lt;会社見学>東日本旅客鉄道株式会社　盛岡保線設備技術センター様`
 - 理由: microCMS側タイトルの `&lt;` とWordPress XML側タイトルの `<` の差により、自動照合対象外とした。
-- 状態: 本文未復旧
+- 状態: 2026-07-23に個別修復済み。詳細は「2026-07-23 `tonzkg82_b` 個別修復」を参照。
 
 関連スクリプト:
 
@@ -291,6 +291,61 @@
 - 翌日初回実行ではsnapshot比較が行われる。
 - 同日2回目はチェックをスキップする。
 
+### 2026-07-23 `tonzkg82_b` 個別修復
+
+対象:
+
+- Content ID: `tonzkg82_b`
+- 修正前タイトル: `&lt;会社見学>東日本旅客鉄道株式会社　盛岡保線設備技術センター様`
+- 正式タイトル: `〈会社見学〉東日本旅客鉄道株式会社　盛岡保線設備技術センター様`
+
+修正理由:
+
+- タイトル先頭の半角 `<` がHTMLエンティティとして残り、WordPress XMLとの自動照合対象外になっていた。
+- WordPress XMLには元記事本文が存在していたため、Content IDを明示して個別復旧した。
+
+照合:
+
+- WordPress XML: `/Users/maruokahitoshimacbookpro/Downloads/WordPress.2026-05-29.xml`
+- XML側タイトル: `<会社見学>東日本旅客鉄道株式会社　盛岡保線設備技術センター様`
+- WordPress post ID: `5183`
+- XML本文文字数: 942
+- 対象microCMS Content ID: `tonzkg82_b`
+
+更新内容:
+
+- microCMS PATCH実行: 成功
+- HTTP Status: 200
+- 更新フィールド: `title`、`content` のみ
+- 変更していないフィールド: `thumbnail`、`category`、`date`、公開状態、Content ID、その他フィールド
+- `thumbnail` 変更: なし
+- `category` 変更: なし
+- `date` 変更: なし
+
+復旧結果:
+
+- Content APIで正式タイトルを確認済み。
+- Content APIで `content` が存在し、空でないことを確認済み。
+- 復旧後contentLength: 942
+- `data/microcms-news-snapshot.json` は復旧後のmicroCMS状態で更新済み。
+
+Build / 表示確認:
+
+- `npm run build`: 成功
+- `dist/news/tonzkg82_b/index.html` に正式タイトルと本文HTMLが出力されたことを確認済み。
+- ローカルpreviewで正式タイトルと本文表示を確認済み。
+- 本番URL `https://touhokunedi.com/news/tonzkg82_b/`: HTTP 200だが、静的HTMLは旧タイトル・本文なしのまま。
+- 通常deploy: 未実施。
+- deploy未実施理由: 今回の指示で通常deployは禁止。Astro静的サイトのため、本番HTMLへ反映するには別途 `npm run deploy` が必要。
+
+関連スクリプト:
+
+- [`scripts/repair-wp-import-news.mjs`](../scripts/repair-wp-import-news.mjs) - 既存の本文復旧スクリプト。今回の1件はタイトル差分があるため、Content IDとXMLタイトルを明示して個別PATCHした。
+
+関連commit:
+
+- `a220986` - `fix: restore remaining WordPress news article`
+
 ## 4. 現在の仕様
 
 ### ニュース
@@ -333,10 +388,9 @@
 
 ### `tonzkg82_b`
 
-- タイトル: `&lt;会社見学>東日本旅客鉄道株式会社　盛岡保線設備技術センター様`
-- 状態: 本文未復旧
-- 理由: microCMS側タイトルの `&lt;` とWordPress XML側タイトルの `<` のタイトル差により、自動本文復旧対象外とした。
-- 現在の扱い: 既知の保留事項。自動処理では復旧しない。
+- 2026-07-23に個別修復済み。
+- 詳細は「2026-07-23 `tonzkg82_b` 個別修復」を参照。
+- 本番HTML反映には通常deployが必要。今回の作業ではdeploy未実施。
 
 ### ニュース4分類
 
