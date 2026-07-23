@@ -340,6 +340,26 @@ Build / 表示確認:
 - 本番HTMLで正式タイトル表示を確認済み。
 - 本番HTMLで本文表示を確認済み。
 
+日付修正:
+
+- 実施日時: 2026-07-23 09:45 JST
+- 誤っていた本番表示日: 2026年05月29日
+- WordPress XMLの元投稿日:
+  - `wp:post_date`: `2025-08-28 08:51:03`
+  - `wp:post_date_gmt`: `2025-08-27 23:51:03`
+  - `pubDate`: `Wed, 27 Aug 2025 23:51:03 +0000`
+- 修正後の表示日: 2025年08月28日
+- microCMS PATCH実行: 成功
+- 更新フィールド: `date` のみ
+- 変更していないフィールド: `title`、`content`、`thumbnail`、`category`、公開状態、Content ID、その他フィールド
+- 詳細ページテンプレートが `publishedAt` を表示していたため、`date` を優先して表示するように修正した。
+- `data/microcms-news-snapshot.json` はPATCH後のmicroCMS状態で更新済み。
+- `npm run build`: 成功
+- `dist/news/tonzkg82_b/index.html` に `2025年08月28日`、正式タイトル、本文HTMLが出力されたことを確認済み。
+- `npm run deploy`: 成功
+- 本番URL `https://touhokunedi.com/news/tonzkg82_b/`: HTTP 200確認済み。
+- 本番HTMLで `2025年08月28日`、正式タイトル、本文表示を確認済み。
+
 関連スクリプト:
 
 - [`scripts/repair-wp-import-news.mjs`](../scripts/repair-wp-import-news.mjs) - 既存の本文復旧スクリプト。今回の1件はタイトル差分があるため、Content IDとXMLタイトルを明示して個別PATCHした。

@@ -25,6 +25,7 @@ if (!id || !news) {
 }
 
 const newsBodyHtml = getNewsBodyHtml(news);
+const displayDate = news.date || news.publishedAt;
 const missingBodyWarningKey = '__touhokunediMissingNewsBodyWarningShown';
 if (!newsBodyHtml && !(globalThis as any)[missingBodyWarningKey]) {
   console.warn(`[news] Body field is empty or not returned by microCMS. Available fields: ${Object.keys(news).join(', ')}`);
@@ -48,8 +49,8 @@ if (!newsBodyHtml && !(globalThis as any)[missingBodyWarningKey]) {
     <div class="container mx-auto px-6 max-w-3xl">
       
       <div class="flex items-center gap-4 mb-8 pb-6 border-b border-gray-200">
-        <time datetime={news.publishedAt} class="text-gray-400 font-serif text-sm">
-          {format(new Date(news.publishedAt), 'yyyy年MM月dd日')}
+        <time datetime={displayDate} class="text-gray-400 font-serif text-sm">
+          {format(new Date(displayDate), 'yyyy年MM月dd日')}
         </time>
         {news.category && news.category.length > 0 && (
           <span class="text-[10px] font-bold px-3 py-1.5 bg-[#008B9B] text-white rounded-sm uppercase tracking-widest">

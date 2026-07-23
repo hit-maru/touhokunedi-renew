@@ -1,5 +1,5 @@
 {
-  "snapshotCreatedAt": "2026-07-23T00:23:44.532Z",
+  "snapshotCreatedAt": "2026-07-23T00:44:07.376Z",
   "endpoint": "news",
   "fields": "id,title,date,category,createdAt,updatedAt,publishedAt,revisedAt",
   "totalCount": 168,
@@ -141,9 +141,9 @@
       "title": "〈会社見学〉東日本旅客鉄道株式会社　盛岡保線設備技術センター様",
       "date": "2025-08-27T23:51:03.000Z",
       "createdAt": "2026-05-29T04:08:29.223Z",
-      "updatedAt": "2026-07-23T00:23:25.906Z",
+      "updatedAt": "2026-07-23T00:43:54.078Z",
       "publishedAt": "2026-05-29T04:08:29.223Z",
-      "revisedAt": "2026-07-23T00:23:25.906Z",
+      "revisedAt": "2026-07-23T00:43:54.078Z",
       "category": [
         "ニュース"
       ]
