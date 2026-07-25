@@ -1,6 +1,7 @@
 {
   "requiredFiles": [
     "Article-editor-TN.html",
+    "ai-proxy-TN.php",
     "uploader-TN.php",
     "ai-demo-TN.html",
     "preview-TN.html"

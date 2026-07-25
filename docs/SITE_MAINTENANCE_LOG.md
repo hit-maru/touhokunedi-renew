@@ -418,6 +418,40 @@ Build / 表示確認:
 - 本番スマホ幅表示で、ページネーション後、フッター前にLinkedIn埋め込みが表示され、配置、余白、見出し崩れがないことを確認済み。
 - 本番スマホ幅表示で、LinkedIn見出し右側の補助文言が非表示になっていることを確認済み。
 
+### 2026-07-25 投稿エディタAI生成復旧（OpenAI一本化・互換維持）
+
+背景:
+
+- 投稿エディタで「エラーが発生しました。もう一度お試しください。」が発生。
+- Network Responseで `not_found_error` と `model: claude-sonnet-4-20250514` を確認。
+- 現在のAPIキーはOpenAIのため、Claudeモデル指定が不整合だった。
+
+対応:
+
+- `public/tools/ai-proxy-TN.php` の許可モデルをOpenAI系に更新。
+- `public/tools/ai-shared-config-TN.js` を追加し、モデル名を1箇所で管理。
+- `public/tools/Article-editor-TN.html` と `public/tools/ai-demo-TN.html` は共通設定モデルを参照する形へ統一。
+- フロント側のレスポンス参照形式（`content[0].text`）は変更しない方針を維持。
+
+確認:
+
+- 本番 `tools` 配下へ対象ファイルを部分反映済み。
+- GASソースは本リポジトリ内に存在しないことを確認。
+- GAS側のOpenAI互換変換修正完了後、記事生成の動作確認はOK（ユーザー確認）。
+
+本番反映ファイル:
+
+- `public/tools/Article-editor-TN.html`
+- `public/tools/ai-demo-TN.html`
+- `public/tools/ai-proxy-TN.php`
+- `public/tools/ai-shared-config-TN.js`
+
+注意:
+
+- 画像アップロード機能は未変更。
+- APIキーやトークンなど秘密情報の露出は行っていない。
+- commit / push は明示指示後に実施する。
+
 ## 4. 現在の仕様
 
 ### ニュース

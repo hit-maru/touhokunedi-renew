@@ -1,237 +1,840 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ja">
-<head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>microCMS AI生成デモ｜東北ネヂ</title>
-<link rel="icon" type="image/png" href="https://touhokunedi.com/nedzi-mark.png">
-<link rel="apple-touch-icon" href="https://touhokunedi.com/nedzi-mark.png">
-<style>
-* { box-sizing: border-box; margin: 0; padding: 0; }
-:root {
-  --teal: #008B9B;
-  --teal-dark: #006064;
-  --teal-light: #e0f5f7;
-  --gray-50: #fafafa;
-  --gray-100: #f5f5f5;
-  --gray-200: #e8e8e8;
-  --gray-400: #aaa;
-  --gray-600: #666;
-  --gray-800: #333;
-  --ink: #1A1A1A;
-  --white: #fff;
-  --radius: 6px;
-  --font: 'Noto Sans JP', sans-serif;
-  --mono: 'Courier New', monospace;
-}
-body { font-family: var(--font); background: var(--gray-100); color: var(--ink); height: 100vh; overflow: hidden; font-size: 14px; }
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>microCMS AI生成デモ｜東北ネヂ</title>
+    <link
+      rel="icon"
+      type="image/png"
+      href="https://touhokunedi.com/nedzi-mark.png"
+    />
+    <link
+      rel="apple-touch-icon"
+      href="https://touhokunedi.com/nedzi-mark.png"
+    />
+    <style>
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+      :root {
+        --teal: #008b9b;
+        --teal-dark: #006064;
+        --teal-light: #e0f5f7;
+        --gray-50: #fafafa;
+        --gray-100: #f5f5f5;
+        --gray-200: #e8e8e8;
+        --gray-400: #aaa;
+        --gray-600: #666;
+        --gray-800: #333;
+        --ink: #1a1a1a;
+        --white: #fff;
+        --radius: 6px;
+        --font: "Noto Sans JP", sans-serif;
+        --mono: "Courier New", monospace;
+      }
+      body {
+        font-family: var(--font);
+        background: var(--gray-100);
+        color: var(--ink);
+        height: 100vh;
+        overflow: hidden;
+        font-size: 14px;
+      }
 
-.app { display: grid; grid-template-rows: 48px 1fr; height: 100vh; }
+      .app {
+        display: grid;
+        grid-template-rows: 48px 1fr;
+        height: 100vh;
+      }
 
-/* topbar */
-.topbar { background: var(--teal); display: flex; align-items: center; gap: 14px; padding: 0 20px; }
-.logo { font-size: 10px; color: rgba(255,255,255,.7); letter-spacing: .12em; line-height: 1.2; }
-.logo b { display: block; font-size: 14px; color: #fff; font-weight: 500; letter-spacing: .04em; }
-.topbar-title { font-size: 12px; color: rgba(255,255,255,.8); border-left: 1px solid rgba(255,255,255,.3); padding-left: 14px; }
-.badge { margin-left: auto; font-size: 10px; background: rgba(255,255,255,.2); color: #fff; padding: 3px 10px; border-radius: 20px; letter-spacing: .06em; }
+      /* topbar */
+      .topbar {
+        background: var(--teal);
+        display: flex;
+        align-items: center;
+        gap: 14px;
+        padding: 0 20px;
+      }
+      .logo {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.7);
+        letter-spacing: 0.12em;
+        line-height: 1.2;
+      }
+      .logo b {
+        display: block;
+        font-size: 14px;
+        color: #fff;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+      }
+      .topbar-title {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.8);
+        border-left: 1px solid rgba(255, 255, 255, 0.3);
+        padding-left: 14px;
+      }
+      .badge {
+        margin-left: auto;
+        font-size: 10px;
+        background: rgba(255, 255, 255, 0.2);
+        color: #fff;
+        padding: 3px 10px;
+        border-radius: 20px;
+        letter-spacing: 0.06em;
+      }
 
-/* body */
-.body { display: grid; grid-template-columns: 1fr 1fr; overflow: hidden; }
+      /* body */
+      .body {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        overflow: hidden;
+      }
 
-/* left */
-.left { border-right: 1px solid var(--gray-200); display: flex; flex-direction: column; background: var(--white); }
-.panel-hd { padding: 10px 14px; font-size: 11px; font-weight: 700; color: var(--gray-600); background: var(--gray-50); border-bottom: 1px solid var(--gray-200); letter-spacing: .08em; text-transform: uppercase; display: flex; align-items: center; gap: 6px; }
+      /* left */
+      .left {
+        border-right: 1px solid var(--gray-200);
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+      }
+      .panel-hd {
+        padding: 10px 14px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-600);
+        background: var(--gray-50);
+        border-bottom: 1px solid var(--gray-200);
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        display: flex;
+        align-items: center;
+        gap: 6px;
+      }
 
-.pattern-bar { display: flex; gap: 4px; padding: 8px 12px; border-bottom: 1px solid var(--gray-200); flex-wrap: wrap; }
-.pat { font-size: 11px; padding: 4px 10px; border: 1px solid var(--gray-200); border-radius: var(--radius); background: var(--white); color: var(--gray-600); cursor: pointer; transition: all .12s; font-family: var(--font); }
-.pat:hover { border-color: var(--teal); color: var(--teal); }
-.pat.active { background: var(--teal); color: #fff; border-color: var(--teal); }
+      .pattern-bar {
+        display: flex;
+        gap: 4px;
+        padding: 8px 12px;
+        border-bottom: 1px solid var(--gray-200);
+        flex-wrap: wrap;
+      }
+      .pat {
+        font-size: 11px;
+        padding: 4px 10px;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        background: var(--white);
+        color: var(--gray-600);
+        cursor: pointer;
+        transition: all 0.12s;
+        font-family: var(--font);
+      }
+      .pat:hover {
+        border-color: var(--teal);
+        color: var(--teal);
+      }
+      .pat.active {
+        background: var(--teal);
+        color: #fff;
+        border-color: var(--teal);
+      }
 
-.messages { flex: 1; overflow-y: auto; padding: 14px 12px; display: flex; flex-direction: column; gap: 8px; }
-.msg { font-size: 13px; line-height: 1.6; padding: 10px 12px; border-radius: var(--radius); max-width: 90%; }
-.msg.system { background: var(--gray-100); color: var(--gray-600); font-size: 12px; }
-.msg.user { background: var(--teal); color: #fff; align-self: flex-end; }
-.msg.ai { background: var(--gray-50); color: var(--ink); border: 1px solid var(--gray-200); }
-.typing { display: flex; gap: 4px; align-items: center; padding: 10px 12px; }
-.dot { width: 6px; height: 6px; border-radius: 50%; background: var(--teal); animation: blink 1.2s infinite; }
-.dot:nth-child(2) { animation-delay: .2s; }
-.dot:nth-child(3) { animation-delay: .4s; }
-@keyframes blink { 0%,80%,100%{opacity:.2} 40%{opacity:1} }
+      .messages {
+        flex: 1;
+        overflow-y: auto;
+        padding: 14px 12px;
+        display: flex;
+        flex-direction: column;
+        gap: 8px;
+      }
+      .msg {
+        font-size: 13px;
+        line-height: 1.6;
+        padding: 10px 12px;
+        border-radius: var(--radius);
+        max-width: 90%;
+      }
+      .msg.system {
+        background: var(--gray-100);
+        color: var(--gray-600);
+        font-size: 12px;
+      }
+      .msg.user {
+        background: var(--teal);
+        color: #fff;
+        align-self: flex-end;
+      }
+      .msg.ai {
+        background: var(--gray-50);
+        color: var(--ink);
+        border: 1px solid var(--gray-200);
+      }
+      .typing {
+        display: flex;
+        gap: 4px;
+        align-items: center;
+        padding: 10px 12px;
+      }
+      .dot {
+        width: 6px;
+        height: 6px;
+        border-radius: 50%;
+        background: var(--teal);
+        animation: blink 1.2s infinite;
+      }
+      .dot:nth-child(2) {
+        animation-delay: 0.2s;
+      }
+      .dot:nth-child(3) {
+        animation-delay: 0.4s;
+      }
+      @keyframes blink {
+        0%,
+        80%,
+        100% {
+          opacity: 0.2;
+        }
+        40% {
+          opacity: 1;
+        }
+      }
 
-.input-row { padding: 10px 12px; border-top: 1px solid var(--gray-200); display: flex; gap: 8px; align-items: stretch; }
-textarea { flex: 1; font-size: 13px; padding: 8px 10px; border: 1px solid var(--gray-200); border-radius: var(--radius); resize: none; height: 80px; font-family: var(--font); line-height: 1.5; outline: none; color: var(--ink); background: var(--white); transition: border .15s; }
-textarea:focus { border-color: var(--teal); }
-.send { padding: 0 20px; background: var(--teal); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-weight: 700; cursor: pointer; transition: background .15s; font-family: var(--font); white-space: nowrap; }
-.send:hover { background: var(--teal-dark); }
-.send:disabled { background: var(--gray-200); color: var(--gray-400); cursor: not-allowed; }
+      .input-row {
+        padding: 10px 12px;
+        border-top: 1px solid var(--gray-200);
+        display: flex;
+        gap: 8px;
+        align-items: stretch;
+      }
+      textarea {
+        flex: 1;
+        font-size: 13px;
+        padding: 8px 10px;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        resize: none;
+        height: 80px;
+        font-family: var(--font);
+        line-height: 1.5;
+        outline: none;
+        color: var(--ink);
+        background: var(--white);
+        transition: border 0.15s;
+      }
+      textarea:focus {
+        border-color: var(--teal);
+      }
+      .send {
+        padding: 0 20px;
+        background: var(--teal);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: background 0.15s;
+        font-family: var(--font);
+        white-space: nowrap;
+      }
+      .send:hover {
+        background: var(--teal-dark);
+      }
+      .send:disabled {
+        background: var(--gray-200);
+        color: var(--gray-400);
+        cursor: not-allowed;
+      }
 
-/* right */
-.right { display: flex; flex-direction: column; background: var(--white); }
-.tabs { display: flex; border-bottom: 1px solid var(--gray-200); background: var(--gray-50); }
-.tab { padding: 10px 18px; font-size: 11px; font-weight: 700; color: var(--gray-600); cursor: pointer; border-bottom: 2px solid transparent; letter-spacing: .08em; text-transform: uppercase; transition: all .12s; }
-.tab.active { color: var(--teal); border-bottom-color: var(--teal); background: var(--white); }
+      /* right */
+      .right {
+        display: flex;
+        flex-direction: column;
+        background: var(--white);
+      }
+      .tabs {
+        display: flex;
+        border-bottom: 1px solid var(--gray-200);
+        background: var(--gray-50);
+      }
+      .tab {
+        padding: 10px 18px;
+        font-size: 11px;
+        font-weight: 700;
+        color: var(--gray-600);
+        cursor: pointer;
+        border-bottom: 2px solid transparent;
+        letter-spacing: 0.08em;
+        text-transform: uppercase;
+        transition: all 0.12s;
+      }
+      .tab.active {
+        color: var(--teal);
+        border-bottom-color: var(--teal);
+        background: var(--white);
+      }
 
-.right-body { flex: 1; overflow: hidden; display: flex; flex-direction: column; }
-.preview-wrap { padding: 24px 28px; overflow-y: auto; }
-.code-wrap { padding: 16px; font-family: var(--mono); font-size: 12px; line-height: 1.7; color: var(--gray-800); white-space: pre-wrap; word-break: break-all; }
-.placeholder { display: flex; flex-direction: column; align-items: center; justify-content: center; height: 300px; color: var(--gray-400); font-size: 13px; gap: 10px; }
-.placeholder svg { opacity: .25; }
+      .right-body {
+        flex: 1;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+      }
+      .preview-wrap {
+        padding: 24px 28px;
+        overflow-y: auto;
+      }
+      .code-wrap {
+        padding: 16px;
+        font-family: var(--mono);
+        font-size: 12px;
+        line-height: 1.7;
+        color: var(--gray-800);
+        white-space: pre-wrap;
+        word-break: break-all;
+      }
+      .placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 300px;
+        color: var(--gray-400);
+        font-size: 13px;
+        gap: 10px;
+      }
+      .placeholder svg {
+        opacity: 0.25;
+      }
 
-/* post-content */
-.post-content { font-size: 15px; line-height: 1.8; color: #1A1A1A; font-family: var(--font); }
-.post-content h2 { font-size: 1.2rem; font-weight: 700; color: #333; margin: 1.6rem 0 .8rem; border-left: 4px solid #008B9B; padding-left: .9rem; }
-.post-content h3 { font-size: 1rem; font-weight: 700; color: #333; margin: 1.2em 0 .4em; }
-.post-content p { margin-bottom: 1.3rem; line-height: 1.8; }
-.post-content ul, .post-content ol { padding-left: 1.5em; margin: .4em 0 1.1rem; }
-.post-content li { margin: .3em 0; }
-.post-content strong { font-weight: 700; }
-.post-content a { color: #008B9B; }
-.post-content .article-button { display: inline-block; padding: 10px 22px; background: #008B9B; color: #fff !important; text-decoration: none; font-size: 14px; border-radius: 2px; margin-top: 8px; }
-  .post-content table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; font-size: 14px; }
-  .post-content th { background: #f4fafb; color: #333; font-weight: 700; padding: 10px 14px; border: 1px solid #d1d5db; text-align: left; }
-  .post-content td { padding: 10px 14px; border: 1px solid #d1d5db; color: #333; }
-.post-content .article-link-box { margin: 1.3rem 0; padding: 1rem 1.2rem; border: 1px solid #d1d5db; border-radius: 4px; background: #f9fafb; }
-.post-content .article-link-box h3 { margin-top: 0; color: #008B9B; border-left: none; padding-left: 0; font-size: .9rem; }
-.post-content .article-link-box a { color: #008B9B; }
-.post-content .article-box { margin: 1.3rem 0; padding: 1rem 1.2rem; border-left: 4px solid #008B9B; background: #f4fafb; }
+      /* post-content */
+      .post-content {
+        font-size: 15px;
+        line-height: 1.8;
+        color: #1a1a1a;
+        font-family: var(--font);
+      }
+      .post-content h2 {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #333;
+        margin: 1.6rem 0 0.8rem;
+        border-left: 4px solid #008b9b;
+        padding-left: 0.9rem;
+      }
+      .post-content h3 {
+        font-size: 1rem;
+        font-weight: 700;
+        color: #333;
+        margin: 1.2em 0 0.4em;
+      }
+      .post-content p {
+        margin-bottom: 1.3rem;
+        line-height: 1.8;
+      }
+      .post-content ul,
+      .post-content ol {
+        padding-left: 1.5em;
+        margin: 0.4em 0 1.1rem;
+      }
+      .post-content li {
+        margin: 0.3em 0;
+      }
+      .post-content strong {
+        font-weight: 700;
+      }
+      .post-content a {
+        color: #008b9b;
+      }
+      .post-content .article-button {
+        display: inline-block;
+        padding: 10px 22px;
+        background: #008b9b;
+        color: #fff !important;
+        text-decoration: none;
+        font-size: 14px;
+        border-radius: 2px;
+        margin-top: 8px;
+      }
+      .post-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin: 1.2rem 0;
+        font-size: 14px;
+      }
+      .post-content th {
+        background: #f4fafb;
+        color: #333;
+        font-weight: 700;
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        text-align: left;
+      }
+      .post-content td {
+        padding: 10px 14px;
+        border: 1px solid #d1d5db;
+        color: #333;
+      }
+      .post-content .article-link-box {
+        margin: 1.3rem 0;
+        padding: 1rem 1.2rem;
+        border: 1px solid #d1d5db;
+        border-radius: 4px;
+        background: #f9fafb;
+      }
+      .post-content .article-link-box h3 {
+        margin-top: 0;
+        color: #008b9b;
+        border-left: none;
+        padding-left: 0;
+        font-size: 0.9rem;
+      }
+      .post-content .article-link-box a {
+        color: #008b9b;
+      }
+      .post-content .article-box {
+        margin: 1.3rem 0;
+        padding: 1rem 1.2rem;
+        border-left: 4px solid #008b9b;
+        background: #f4fafb;
+      }
 
-/* SNSパネル */
-.sns-panel { border-top: 1px solid var(--gray-200); background: var(--gray-50); padding: 10px 14px; display: none; }
-.sns-panel.visible { display: block; }
-.sns-label { font-size: 10px; font-weight: 700; color: var(--gray-400); letter-spacing: .1em; text-transform: uppercase; margin-bottom: 8px; }
-.sns-btns { display: flex; gap: 8px; }
-.sns-btn { display: flex; align-items: center; gap: 6px; padding: 7px 14px; border: 1px solid var(--gray-200); border-radius: var(--radius); font-size: 12px; font-weight: 700; cursor: pointer; transition: all .15s; font-family: var(--font); background: var(--white); }
-.sns-btn:hover { transform: translateY(-1px); box-shadow: 0 2px 8px rgba(0,0,0,.1); }
-.sns-btn.li    { color: #0077b5; border-color: #0077b5; }
-.sns-btn.li:hover { background: #0077b5; color: #fff; }
-.sns-btn.fb    { color: #1877f2; border-color: #1877f2; }
-.sns-btn.fb:hover { background: #1877f2; color: #fff; }
-.sns-btn.ig    { color: #e1306c; border-color: #e1306c; }
-.sns-btn.ig:hover { background: #e1306c; color: #fff; }
-.sns-btn svg { width: 14px; height: 14px; fill: currentColor; flex-shrink: 0; }
+      /* SNSパネル */
+      .sns-panel {
+        border-top: 1px solid var(--gray-200);
+        background: var(--gray-50);
+        padding: 10px 14px;
+        display: none;
+      }
+      .sns-panel.visible {
+        display: block;
+      }
+      .sns-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--gray-400);
+        letter-spacing: 0.1em;
+        text-transform: uppercase;
+        margin-bottom: 8px;
+      }
+      .sns-btns {
+        display: flex;
+        gap: 8px;
+      }
+      .sns-btn {
+        display: flex;
+        align-items: center;
+        gap: 6px;
+        padding: 7px 14px;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        font-size: 12px;
+        font-weight: 700;
+        cursor: pointer;
+        transition: all 0.15s;
+        font-family: var(--font);
+        background: var(--white);
+      }
+      .sns-btn:hover {
+        transform: translateY(-1px);
+        box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+      }
+      .sns-btn.li {
+        color: #0077b5;
+        border-color: #0077b5;
+      }
+      .sns-btn.li:hover {
+        background: #0077b5;
+        color: #fff;
+      }
+      .sns-btn.fb {
+        color: #1877f2;
+        border-color: #1877f2;
+      }
+      .sns-btn.fb:hover {
+        background: #1877f2;
+        color: #fff;
+      }
+      .sns-btn.ig {
+        color: #e1306c;
+        border-color: #e1306c;
+      }
+      .sns-btn.ig:hover {
+        background: #e1306c;
+        color: #fff;
+      }
+      .sns-btn svg {
+        width: 14px;
+        height: 14px;
+        fill: currentColor;
+        flex-shrink: 0;
+      }
 
-/* SNSモーダル */
-.modal-overlay { position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 200; display: flex; align-items: center; justify-content: center; }
-.modal { background: var(--white); border-radius: 10px; width: 480px; max-width: 95vw; box-shadow: 0 8px 32px rgba(0,0,0,.2); overflow: hidden; }
-.modal-hd { padding: 14px 18px; display: flex; align-items: center; gap: 10px; border-bottom: 1px solid var(--gray-200); }
-.modal-hd .icon { width: 28px; height: 28px; border-radius: 6px; display: flex; align-items: center; justify-content: center; }
-.modal-hd .icon svg { width: 16px; height: 16px; fill: #fff; }
-.modal-title { font-size: 13px; font-weight: 700; }
-.modal-close { margin-left: auto; background: none; border: none; font-size: 18px; cursor: pointer; color: var(--gray-400); line-height: 1; }
-.modal-body { padding: 16px 18px; }
-.char-count { font-size: 11px; color: var(--gray-400); margin-bottom: 6px; text-align: right; }
-.char-count.over { color: #e53e3e; font-weight: 700; }
-.modal-textarea { width: 100%; height: 180px; font-size: 13px; line-height: 1.7; padding: 10px 12px; border: 1px solid var(--gray-200); border-radius: var(--radius); resize: none; font-family: var(--font); outline: none; color: var(--ink); }
-.modal-textarea:focus { border-color: var(--teal); }
-.modal-ft { padding: 12px 18px; border-top: 1px solid var(--gray-200); display: flex; align-items: center; gap: 8px; justify-content: flex-end; }
-.btn-copy { padding: 8px 20px; background: var(--teal); color: #fff; border: none; border-radius: var(--radius); font-size: 13px; font-weight: 700; cursor: pointer; font-family: var(--font); transition: background .15s; }
-.btn-copy:hover { background: var(--teal-dark); }
-.btn-copy.copied { background: #27ae60; }
-.btn-cancel { padding: 8px 16px; background: none; border: 1px solid var(--gray-200); border-radius: var(--radius); font-size: 13px; cursor: pointer; font-family: var(--font); color: var(--gray-600); }
-.instagram-note { font-size: 11px; color: #e1306c; background: #fff0f5; padding: 6px 10px; border-radius: 4px; margin-bottom: 8px; }
-</style>
-<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap" rel="stylesheet">
-</head>
-<body>
-<div class="app">
-  <div class="topbar">
-    <div class="logo">Tohoku Nedzi <b>東北ネヂ製造株式会社</b></div>
-    <div class="topbar-title">microCMS 記事AI生成デモ</div>
-    <div class="badge">DEMO</div>
-  </div>
-
-  <div class="body">
-    <div class="left">
-      <div class="panel-hd">
-        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/></svg>
-        AIアシスタント
+      /* SNSモーダル */
+      .modal-overlay {
+        position: fixed;
+        inset: 0;
+        background: rgba(0, 0, 0, 0.5);
+        z-index: 200;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal {
+        background: var(--white);
+        border-radius: 10px;
+        width: 480px;
+        max-width: 95vw;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.2);
+        overflow: hidden;
+      }
+      .modal-hd {
+        padding: 14px 18px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        border-bottom: 1px solid var(--gray-200);
+      }
+      .modal-hd .icon {
+        width: 28px;
+        height: 28px;
+        border-radius: 6px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+      .modal-hd .icon svg {
+        width: 16px;
+        height: 16px;
+        fill: #fff;
+      }
+      .modal-title {
+        font-size: 13px;
+        font-weight: 700;
+      }
+      .modal-close {
+        margin-left: auto;
+        background: none;
+        border: none;
+        font-size: 18px;
+        cursor: pointer;
+        color: var(--gray-400);
+        line-height: 1;
+      }
+      .modal-body {
+        padding: 16px 18px;
+      }
+      .char-count {
+        font-size: 11px;
+        color: var(--gray-400);
+        margin-bottom: 6px;
+        text-align: right;
+      }
+      .char-count.over {
+        color: #e53e3e;
+        font-weight: 700;
+      }
+      .modal-textarea {
+        width: 100%;
+        height: 180px;
+        font-size: 13px;
+        line-height: 1.7;
+        padding: 10px 12px;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        resize: none;
+        font-family: var(--font);
+        outline: none;
+        color: var(--ink);
+      }
+      .modal-textarea:focus {
+        border-color: var(--teal);
+      }
+      .modal-ft {
+        padding: 12px 18px;
+        border-top: 1px solid var(--gray-200);
+        display: flex;
+        align-items: center;
+        gap: 8px;
+        justify-content: flex-end;
+      }
+      .btn-copy {
+        padding: 8px 20px;
+        background: var(--teal);
+        color: #fff;
+        border: none;
+        border-radius: var(--radius);
+        font-size: 13px;
+        font-weight: 700;
+        cursor: pointer;
+        font-family: var(--font);
+        transition: background 0.15s;
+      }
+      .btn-copy:hover {
+        background: var(--teal-dark);
+      }
+      .btn-copy.copied {
+        background: #27ae60;
+      }
+      .btn-cancel {
+        padding: 8px 16px;
+        background: none;
+        border: 1px solid var(--gray-200);
+        border-radius: var(--radius);
+        font-size: 13px;
+        cursor: pointer;
+        font-family: var(--font);
+        color: var(--gray-600);
+      }
+      .instagram-note {
+        font-size: 11px;
+        color: #e1306c;
+        background: #fff0f5;
+        padding: 6px 10px;
+        border-radius: 4px;
+        margin-bottom: 8px;
+      }
+    </style>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Noto+Sans+JP:wght@400;700&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="app">
+      <div class="topbar">
+        <div class="logo">Tohoku Nedzi <b>東北ネヂ製造株式会社</b></div>
+        <div class="topbar-title">microCMS 記事AI生成デモ</div>
+        <div class="badge">DEMO</div>
       </div>
-      <div class="pattern-bar">
-        <button class="pat active" data-p="A">A 通常のお知らせ</button>
-        <button class="pat" data-p="B">B 詳しい説明</button>
-        <button class="pat" data-p="C">C 問い合わせ誘導</button>
-        <button class="pat" data-p="D">D 採用・会社紹介</button>
-        <button class="pat" data-p="E">E 技術紹介</button>
-      </div>
-      <div class="messages" id="messages">
-        <div class="msg system">テンプレートを選んで、記事の内容を日本語で入力してください。AIがHTMLを生成します。</div>
-      </div>
-      <div class="input-row">
-        <textarea id="inp" placeholder="例：年末年始休業のお知らせ。12月28日〜1月5日まで休業します。&#10;修正指示も続けて入力できます。例：3段落目を柔らかい表現にしてください。"></textarea>
-        <div style="display:flex;flex-direction:column;gap:6px;min-width:88px;">
-          <button class="send" id="send" style="flex:1;">生成 →</button>
-          <button class="send" id="reset-btn" style="flex:0 0 auto;background:#f5f5f5;color:#888;font-size:11px;padding:8px 10px;border:1px solid #e0e0e0;height:auto;">🔄 新しい記事</button>
+
+      <div class="body">
+        <div class="left">
+          <div class="panel-hd">
+            <svg
+              width="14"
+              height="14"
+              viewBox="0 0 24 24"
+              fill="none"
+              stroke="currentColor"
+              stroke-width="2"
+            >
+              <path
+                d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"
+              />
+            </svg>
+            AIアシスタント
+          </div>
+          <div class="pattern-bar">
+            <button class="pat active" data-p="A">A 通常のお知らせ</button>
+            <button class="pat" data-p="B">B 詳しい説明</button>
+            <button class="pat" data-p="C">C 問い合わせ誘導</button>
+            <button class="pat" data-p="D">D 採用・会社紹介</button>
+            <button class="pat" data-p="E">E 技術紹介</button>
+          </div>
+          <div class="messages" id="messages">
+            <div class="msg system">
+              テンプレートを選んで、記事の内容を日本語で入力してください。AIがHTMLを生成します。
+            </div>
+          </div>
+          <div class="input-row">
+            <textarea
+              id="inp"
+              placeholder="例：年末年始休業のお知らせ。12月28日〜1月5日まで休業します。&#10;修正指示も続けて入力できます。例：3段落目を柔らかい表現にしてください。"
+            ></textarea>
+            <div
+              style="
+                display: flex;
+                flex-direction: column;
+                gap: 6px;
+                min-width: 88px;
+              "
+            >
+              <button class="send" id="send" style="flex: 1">生成 →</button>
+              <button
+                class="send"
+                id="reset-btn"
+                style="
+                  flex: 0 0 auto;
+                  background: #f5f5f5;
+                  color: #888;
+                  font-size: 11px;
+                  padding: 8px 10px;
+                  border: 1px solid #e0e0e0;
+                  height: auto;
+                "
+              >
+                🔄 新しい記事
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <div class="right">
+          <div class="tabs">
+            <div class="tab active" data-tab="preview">プレビュー</div>
+            <div class="tab" data-tab="code">HTMLコード</div>
+            <button
+              id="copy-code-btn"
+              style="
+                display: none;
+                margin-left: auto;
+                margin-right: 12px;
+                padding: 5px 14px;
+                background: #008b9b;
+                color: #fff;
+                border: none;
+                border-radius: 4px;
+                font-size: 12px;
+                font-weight: 700;
+                cursor: pointer;
+                font-family: var(--font);
+                transition: background 0.15s;
+              "
+              onclick="copyCodeBtn()"
+            >
+              📋 コピー
+            </button>
+            <span
+              id="edit-badge"
+              style="
+                margin-left: auto;
+                align-self: center;
+                margin-right: 12px;
+                font-size: 10px;
+                background: #008b9b;
+                color: #fff;
+                padding: 2px 9px;
+                border-radius: 10px;
+                display: none;
+              "
+              >編集中</span
+            >
+          </div>
+          <div class="right-body" id="right-body">
+            <div class="placeholder" id="placeholder">
+              <svg
+                width="40"
+                height="40"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                stroke-width="1.5"
+              >
+                <path
+                  d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"
+                />
+                <polyline points="14 2 14 8 20 8" />
+                <line x1="16" y1="13" x2="8" y2="13" />
+                <line x1="16" y1="17" x2="8" y2="17" />
+                <polyline points="10 9 9 9 8 9" />
+              </svg>
+              生成されたHTMLがここに表示されます
+            </div>
+            <div
+              class="preview-wrap"
+              id="preview-wrap"
+              style="display: none; flex: 1; overflow-y: auto"
+            >
+              <div
+                class="post-content"
+                id="preview-content"
+                contenteditable="true"
+                spellcheck="false"
+                style="outline: none; min-height: 40px"
+              ></div>
+            </div>
+            <div
+              class="code-wrap"
+              id="code-wrap"
+              style="display: none; flex: 1; overflow-y: auto"
+            ></div>
+          </div>
+          <div
+            id="edit-hint"
+            style="
+              display: none;
+              padding: 6px 14px;
+              border-top: 1px solid var(--gray-200);
+              background: var(--gray-50);
+              font-size: 11px;
+              color: var(--gray-600);
+            "
+          >
+            ✏
+            プレビュー上で直接テキストを編集できます。編集内容はHTMLコードタブに反映されます。
+          </div>
+          <div class="sns-panel" id="sns-panel">
+            <div class="sns-label">SNSに展開する</div>
+            <div class="sns-btns">
+              <button class="sns-btn li" data-sns="li">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"
+                  />
+                </svg>
+                LinkedIn
+              </button>
+              <button class="sns-btn fb" data-sns="fb">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"
+                  />
+                </svg>
+                Facebook
+              </button>
+              <button class="sns-btn ig" data-sns="ig">
+                <svg viewBox="0 0 24 24">
+                  <path
+                    d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"
+                  />
+                </svg>
+                Instagram
+              </button>
+            </div>
+          </div>
         </div>
       </div>
     </div>
 
-    <div class="right">
-      <div class="tabs">
-        <div class="tab active" data-tab="preview">プレビュー</div>
-        <div class="tab" data-tab="code">HTMLコード</div>
-        <button id="copy-code-btn" style="display:none;margin-left:auto;margin-right:12px;padding:5px 14px;background:#008B9B;color:#fff;border:none;border-radius:4px;font-size:12px;font-weight:700;cursor:pointer;font-family:var(--font);transition:background .15s;" onclick="copyCodeBtn()">📋 コピー</button>
-        <span id="edit-badge" style="margin-left:auto;align-self:center;margin-right:12px;font-size:10px;background:#008B9B;color:#fff;padding:2px 9px;border-radius:10px;display:none;">編集中</span>
-      </div>
-      <div class="right-body" id="right-body">
-        <div class="placeholder" id="placeholder">
-          <svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/><polyline points="10 9 9 9 8 9"/></svg>
-          生成されたHTMLがここに表示されます
+    <!-- SNSモーダル -->
+    <div class="modal-overlay" id="modal-overlay" style="display: none">
+      <div class="modal">
+        <div class="modal-hd">
+          <div class="icon" id="modal-icon"></div>
+          <div class="modal-title" id="modal-title"></div>
+          <button class="modal-close" id="modal-close">×</button>
         </div>
-        <div class="preview-wrap" id="preview-wrap" style="display:none;flex:1;overflow-y:auto;">
-          <div class="post-content" id="preview-content" contenteditable="true" spellcheck="false" style="outline:none;min-height:40px;"></div>
+        <div class="modal-body">
+          <div class="instagram-note" id="ig-note" style="display: none">
+            ⚠
+            Instagramはリンクを本文に含められません。プロフィールURLへの誘導文を含めています。
+          </div>
+          <div class="char-count" id="char-count"></div>
+          <textarea class="modal-textarea" id="modal-textarea"></textarea>
         </div>
-        <div class="code-wrap" id="code-wrap" style="display:none;flex:1;overflow-y:auto;"></div>
-      </div>
-      <div id="edit-hint" style="display:none;padding:6px 14px;border-top:1px solid var(--gray-200);background:var(--gray-50);font-size:11px;color:var(--gray-600);">✏ プレビュー上で直接テキストを編集できます。編集内容はHTMLコードタブに反映されます。</div>
-      <div class="sns-panel" id="sns-panel">
-        <div class="sns-label">SNSに展開する</div>
-        <div class="sns-btns">
-          <button class="sns-btn li" data-sns="li">
-            <svg viewBox="0 0 24 24"><path d="M20.447 20.452h-3.554v-5.569c0-1.328-.027-3.037-1.852-3.037-1.853 0-2.136 1.445-2.136 2.939v5.667H9.351V9h3.414v1.561h.046c.477-.9 1.637-1.85 3.37-1.85 3.601 0 4.267 2.37 4.267 5.455v6.286zM5.337 7.433a2.062 2.062 0 01-2.063-2.065 2.064 2.064 0 112.063 2.065zm1.782 13.019H3.555V9h3.564v11.452zM22.225 0H1.771C.792 0 0 .774 0 1.729v20.542C0 23.227.792 24 1.771 24h20.451C23.2 24 24 23.227 24 22.271V1.729C24 .774 23.2 0 22.222 0h.003z"/></svg>
-            LinkedIn
-          </button>
-          <button class="sns-btn fb" data-sns="fb">
-            <svg viewBox="0 0 24 24"><path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/></svg>
-            Facebook
-          </button>
-          <button class="sns-btn ig" data-sns="ig">
-            <svg viewBox="0 0 24 24"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            Instagram
-          </button>
+        <div class="modal-ft">
+          <button class="btn-cancel" id="modal-cancel">閉じる</button>
+          <button class="btn-copy" id="btn-copy">📋 コピーする</button>
         </div>
       </div>
     </div>
-  </div>
-</div>
 
-<!-- SNSモーダル -->
-<div class="modal-overlay" id="modal-overlay" style="display:none;">
-  <div class="modal">
-    <div class="modal-hd">
-      <div class="icon" id="modal-icon"></div>
-      <div class="modal-title" id="modal-title"></div>
-      <button class="modal-close" id="modal-close">×</button>
-    </div>
-    <div class="modal-body">
-      <div class="instagram-note" id="ig-note" style="display:none;">⚠ Instagramはリンクを本文に含められません。プロフィールURLへの誘導文を含めています。</div>
-      <div class="char-count" id="char-count"></div>
-      <textarea class="modal-textarea" id="modal-textarea"></textarea>
-    </div>
-    <div class="modal-ft">
-      <button class="btn-cancel" id="modal-cancel">閉じる</button>
-      <button class="btn-copy" id="btn-copy">📋 コピーする</button>
-    </div>
-  </div>
-</div>
+    <script src="/tools/ai-shared-config-TN.js"></script>
+    <script>
+      // ============================================================
+      // GASプロキシURL（デプロイ後にここを書き換える）
+      // ============================================================
+      const GAS_PROXY_URL = "/tools/ai-proxy-TN.php";
+      const AI_MODEL =
+        window.TN_AI_SHARED_CONFIG?.model?.trim() || "gpt-4.1-mini";
 
-<script>
-// ============================================================
-// GASプロキシURL（デプロイ後にここを書き換える）
-// ============================================================
-const GAS_PROXY_URL = 'https://script.google.com/macros/s/AKfycbyZ-BqvSGrnDqeXuXLzPjyASneHNFiUT6wCJrRri678TXSfMMJyPVYvr_QkL7vqQhgn/exec';
-
-const PATTERNS = {
-  A:`<section class="article-section">
+      const PATTERNS = {
+        A: `<section class="article-section">
   <p>平素より格別のご愛顧を賜り、誠にありがとうございます。</p>
   <p>このたび、〇〇についてお知らせいたします。</p>
   <h2>お知らせ内容</h2>
@@ -244,7 +847,7 @@ const PATTERNS = {
   <p>ご不明な点がございましたら、お気軽にお問い合わせください。</p>
   <p>今後とも東北ネヂ製造株式会社をよろしくお願い申し上げます。</p>
 </section>`,
-  B:`<section class="article-section">
+        B: `<section class="article-section">
   <p>〇〇についてご紹介します。</p>
   <h2>〇〇とは</h2>
   <p>概要説明をここに入力します。</p>
@@ -260,7 +863,7 @@ const PATTERNS = {
   <p>東北ネヂ製造株式会社では、〇〇に関するご相談に対応しています。</p>
   <p><a class="article-button" href="/contact/">お問い合わせはこちら</a></p>
 </section>`,
-  C:`<section class="article-section">
+        C: `<section class="article-section">
   <p>〇〇についてお困りの方へ、東北ネヂ製造株式会社の対応内容をご案内します。</p>
   <h2>このようなご相談に対応しています</h2>
   <ul>
@@ -284,7 +887,7 @@ const PATTERNS = {
   </div>
   <p>内容がまだ決まっていない段階でも、お気軽にご相談ください。</p>
 </section>`,
-  D:`<section class="article-section">
+        D: `<section class="article-section">
   <p>東北ネヂ製造株式会社では、一緒に働く仲間を募集しています。</p>
   <h2>東北ネヂで働くということ</h2>
   <p>私たちは福島県いわき市を拠点に、熱間鍛造によるボルト・ナットを製造しています。社会インフラを支える締結部品づくりに、ぜひあなたの力を貸してください。</p>
@@ -302,7 +905,7 @@ const PATTERNS = {
   </ul>
   <p><a class="article-button" href="/recruit/">採用情報・応募はこちら</a></p>
 </section>`,
-  E:`<section class="article-section">
+        E: `<section class="article-section">
   <p>東北ネヂ製造株式会社では、〇〇に関する特注品・加工品の製造に対応しています。</p>
   <h2>対応内容</h2>
   <table>
@@ -325,10 +928,10 @@ const PATTERNS = {
   </ul>
   <p>仕様が決まっていない段階でもご相談いただけます。</p>
   <p><a class="article-button" href="/manufacture/">特注品・加工・技術相談について</a></p>
-</section>`
-};
+</section>`,
+      };
 
-const SYS = `あなたは東北ネヂ製造株式会社（福島県いわき市の熱間鍛造ボルト・ナットメーカー）の公式サイト用ニュース記事HTMLを生成するアシスタントです。
+      const SYS = `あなたは東北ネヂ製造株式会社（福島県いわき市の熱間鍛造ボルト・ナットメーカー）の公式サイト用ニュース記事HTMLを生成するアシスタントです。
 
 ルール：
 - 指定テンプレートのHTML構造・class名・レイアウトを必ず維持し、文章のみを内容に合わせて差し替える
@@ -347,23 +950,25 @@ const SYS = `あなたは東北ネヂ製造株式会社（福島県いわき市�
 - Dパターン：✓ マークの箇条書きリストを必ず含める
 - Eパターン：tableタグの仕様表を必ず使用する`;
 
-let pat = 'A', html = '', tab = 'preview';
+      let pat = "A",
+        html = "",
+        tab = "preview";
 
-const msgs = document.getElementById('messages');
-const inp = document.getElementById('inp');
-const send = document.getElementById('send');
-const rightBody = document.getElementById('right-body');
+      const msgs = document.getElementById("messages");
+      const inp = document.getElementById("inp");
+      const send = document.getElementById("send");
+      const rightBody = document.getElementById("right-body");
 
-const SAMPLE_LABELS = {
-  A: '通常のお知らせ（サンプル表示）',
-  B: '詳しい説明記事（サンプル表示）',
-  C: '問い合わせ誘導（サンプル表示）',
-  D: '採用・会社紹介（サンプル表示）',
-  E: '技術紹介（サンプル表示）'
-};
+      const SAMPLE_LABELS = {
+        A: "通常のお知らせ（サンプル表示）",
+        B: "詳しい説明記事（サンプル表示）",
+        C: "問い合わせ誘導（サンプル表示）",
+        D: "採用・会社紹介（サンプル表示）",
+        E: "技術紹介（サンプル表示）",
+      };
 
-const SAMPLES = {
-  A:`<section class="article-section">
+      const SAMPLES = {
+        A: `<section class="article-section">
   <p>平素より格別のご愛顧を賜り、誠にありがとうございます。</p>
   <p>このたび、<strong>年末年始休業</strong>についてお知らせいたします。</p>
   <h2>休業期間</h2>
@@ -374,7 +979,7 @@ const SAMPLES = {
   <p>休業期間中にいただいたお問い合わせは、営業再開日以降に順次対応いたします。</p>
   <p>今後とも東北ネヂ製造株式会社をよろしくお願い申し上げます。</p>
 </section>`,
-  B:`<section class="article-section">
+        B: `<section class="article-section">
   <p>この記事では、熱間鍛造（ホットフォージング）についてご紹介します。</p>
   <h2>熱間鍛造とは</h2>
   <p>熱間鍛造は、金属を高温に加熱した状態でプレス・成形する製造技術です。常温加工と比べて材料が変形しやすくなるため、複雑な形状の部品も高精度に製造できます。</p>
@@ -390,7 +995,7 @@ const SAMPLES = {
   <p>熱間鍛造によるボルト・ナットの特注製造に対応しています。図面・仕様書をお持ちの場合はお気軽にご相談ください。</p>
   <p><a class="article-button" href="/contact/">お問い合わせはこちら</a></p>
 </section>`,
-  C:`<section class="article-section">
+        C: `<section class="article-section">
   <p>特注ボルト・ナットの製作をご検討の方へ、東北ネヂ製造株式会社の対応内容をご案内します。</p>
   <h2>このようなご相談に対応しています</h2>
   <ul>
@@ -413,7 +1018,7 @@ const SAMPLES = {
   </div>
   <p>内容がまだ具体的に決まっていない段階でも、お気軽にご相談ください。</p>
 </section>`,
-  D:`<section class="article-section">
+        D: `<section class="article-section">
   <p>東北ネヂ製造株式会社では、一緒に働く仲間を募集しています。</p>
   <h2>東北ネヂで働くということ</h2>
   <p>私たちは福島県いわき市を拠点に、熱間鍛造によるボルト・ナットを製造しています。社会インフラを支える締結部品づくりに、ぜひあなたの力を貸してください。</p>
@@ -431,7 +1036,7 @@ const SAMPLES = {
   </ul>
   <p><a class="article-button" href="/recruit/">採用情報・応募はこちら</a></p>
 </section>`,
-  E:`<section class="article-section">
+        E: `<section class="article-section">
   <p>東北ネヂ製造株式会社では、ねじ・締結部品に関する特注品・加工品の製造に対応しています。</p>
   <h2>対応仕様一覧</h2>
   <table>
@@ -454,293 +1059,347 @@ const SAMPLES = {
   </ul>
   <p>仕様が決まっていない段階でもご相談いただけます。</p>
   <p><a class="article-button" href="/manufacture/">特注品・加工・技術相談について</a></p>
-</section>`
-};
+</section>`,
+      };
 
-function showSample(p) {
-  html = '';
-  placeholder.style.display = 'none';
-  editHint.style.display = '';
-  codeWrap.style.display = 'none';
-  previewWrap.style.display = '';
-  previewContent.innerHTML =
-    '<div style="font-size:11px;color:#aaa;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed #e0e0e0;">▼ ' + SAMPLE_LABELS[p] + ' ▼</div>' +
-    SAMPLES[p];
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelector('[data-tab="preview"]').classList.add('active');
-  tab = 'preview';
-}
+      function showSample(p) {
+        html = "";
+        placeholder.style.display = "none";
+        editHint.style.display = "";
+        codeWrap.style.display = "none";
+        previewWrap.style.display = "";
+        previewContent.innerHTML =
+          '<div style="font-size:11px;color:#aaa;margin-bottom:12px;padding-bottom:10px;border-bottom:1px dashed #e0e0e0;">▼ ' +
+          SAMPLE_LABELS[p] +
+          " ▼</div>" +
+          SAMPLES[p];
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.querySelector('[data-tab="preview"]').classList.add("active");
+        tab = "preview";
+      }
 
-document.querySelectorAll('.pat').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.pat').forEach(x => x.classList.remove('active'));
-  b.classList.add('active');
-  pat = b.dataset.p;
-  showSample(pat);
-}));
-
-document.querySelectorAll('.tab').forEach(b => b.addEventListener('click', () => {
-  document.querySelectorAll('.tab').forEach(x => x.classList.remove('active'));
-  b.classList.add('active');
-  tab = b.dataset.tab;
-  renderRight();
-}));
-
-function addMsg(cls, text) {
-  const d = document.createElement('div');
-  d.className = 'msg ' + cls;
-  d.textContent = text;
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-}
-
-function showTyping() {
-  const d = document.createElement('div');
-  d.className = 'typing';
-  d.innerHTML = '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
-  msgs.appendChild(d);
-  msgs.scrollTop = msgs.scrollHeight;
-  return d;
-}
-
-const placeholder = document.getElementById('placeholder');
-const previewWrap = document.getElementById('preview-wrap');
-const previewContent = document.getElementById('preview-content');
-const codeWrap = document.getElementById('code-wrap');
-const editBadge = document.getElementById('edit-badge');
-const editHint = document.getElementById('edit-hint');
-let syncTimer = null;
-
-function renderRight() {
-  if (!html) return;
-  placeholder.style.display = 'none';
-  editHint.style.display = '';
-  if (tab === 'preview') {
-    previewWrap.style.display = '';
-    codeWrap.style.display = 'none';
-    previewContent.innerHTML = html;
-  } else {
-    previewWrap.style.display = 'none';
-    codeWrap.style.display = '';
-    codeWrap.textContent = html;
-    editBadge.style.display = 'none';
-    const _cb = document.getElementById('copy-code-btn');
-    if (_cb) _cb.style.display = html ? 'block' : 'none';
-  }
-  if (document.getElementById('sns-panel')) {
-    document.getElementById('sns-panel').classList.add('visible');
-  }
-}
-
-previewContent.addEventListener('focus', () => {
-  editBadge.style.display = 'inline';
-});
-
-previewContent.addEventListener('input', () => {
-  editBadge.style.display = 'inline';
-  clearTimeout(syncTimer);
-  syncTimer = setTimeout(() => {
-    html = previewContent.innerHTML;
-  }, 600);
-});
-
-previewContent.addEventListener('blur', () => {
-  clearTimeout(syncTimer);
-  html = previewContent.innerHTML;
-  editBadge.style.display = 'none';
-});
-
-// ===== 会話履歴 =====
-let chatHistory = [];
-
-send.addEventListener('click', async () => {
-  const text = inp.value.trim();
-  if (!text) return;
-  addMsg('user', text);
-  inp.value = '';
-  send.disabled = true;
-
-  const typing = showTyping();
-
-  // 初回は記事生成、2回目以降は修正指示として扱う
-  let userContent;
-  if (chatHistory.length === 0) {
-    userContent = `以下の内容でHTML記事を生成してください。\nパターン：${pat}パターン\n内容：${text}\n\nテンプレート：\n${PATTERNS[pat]}`;
-  } else {
-    // 現在のHTMLも含めて修正指示を送る
-    const currentHtml = previewContent.innerHTML || html;
-    userContent = `現在のHTML：\n${currentHtml}\n\n修正指示：${text}\n\n修正したHTMLのみを出力してください。説明文は不要です。`;
-  }
-
-  // 履歴に追加
-  chatHistory.push({ role: 'user', content: userContent });
-
-  try {
-    const payload = JSON.stringify({
-      model: 'claude-sonnet-4-20250514',
-      max_tokens: 2000,
-      system: SYS,
-      messages: chatHistory
-    });
-    const res = await fetch(GAS_PROXY_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-      body: payload,
-    });
-    const data = await res.json();
-    typing.remove();
-    const resultHtml = data.content?.[0]?.text?.trim() || '';
-    if (resultHtml) {
-      html = resultHtml;
-      // AIの返答も履歴に追加
-      chatHistory.push({ role: 'assistant', content: resultHtml });
-      renderRight();
-      const isFirst = chatHistory.length <= 2;
-      addMsg('ai', isFirst
-        ? 'HTMLを生成しました。続けて修正指示を入力できます。完成したら「HTMLコード」タブからコピーしてmicroCMSに貼り付けてください。'
-        : '修正しました。さらに修正が必要であれば続けて指示してください。'
+      document.querySelectorAll(".pat").forEach((b) =>
+        b.addEventListener("click", () => {
+          document
+            .querySelectorAll(".pat")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          pat = b.dataset.p;
+          showSample(pat);
+        }),
       );
-    } else {
-      chatHistory.pop(); // 失敗したら履歴から除去
-      addMsg('ai', 'エラーが発生しました。もう一度お試しください。');
-    }
-  } catch(e) {
-    typing.remove();
-    chatHistory.pop();
-    addMsg('ai', 'エラーが発生しました。もう一度お試しください。');
-  }
-  send.disabled = false;
-  inp.focus();
-});
 
-inp.addEventListener('keydown', e => { if ((e.ctrlKey || e.metaKey) && e.key === 'Enter') send.click(); });
+      document.querySelectorAll(".tab").forEach((b) =>
+        b.addEventListener("click", () => {
+          document
+            .querySelectorAll(".tab")
+            .forEach((x) => x.classList.remove("active"));
+          b.classList.add("active");
+          tab = b.dataset.tab;
+          renderRight();
+        }),
+      );
 
-// ===== リセット =====
-document.getElementById('reset-btn').addEventListener('click', () => {
-  if (chatHistory.length === 0) return;
-  if (!confirm('現在の記事と会話履歴をリセットして新しい記事を作成しますか？')) return;
+      function addMsg(cls, text) {
+        const d = document.createElement("div");
+        d.className = "msg " + cls;
+        d.textContent = text;
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+      }
 
-  // 履歴・HTML・プレビューをクリア
-  chatHistory = [];
-  html = '';
+      function showTyping() {
+        const d = document.createElement("div");
+        d.className = "typing";
+        d.innerHTML =
+          '<div class="dot"></div><div class="dot"></div><div class="dot"></div>';
+        msgs.appendChild(d);
+        msgs.scrollTop = msgs.scrollHeight;
+        return d;
+      }
 
-  // メッセージエリアをリセット
-  const msgs = document.getElementById('messages');
-  msgs.innerHTML = '<div class="msg system">テンプレートを選んで、記事の内容を日本語で入力してください。AIがHTMLを生成します。</div>';
+      const placeholder = document.getElementById("placeholder");
+      const previewWrap = document.getElementById("preview-wrap");
+      const previewContent = document.getElementById("preview-content");
+      const codeWrap = document.getElementById("code-wrap");
+      const editBadge = document.getElementById("edit-badge");
+      const editHint = document.getElementById("edit-hint");
+      let syncTimer = null;
 
-  // 右パネルをリセット
-  placeholder.style.display = 'flex';
-  previewWrap.style.display = 'none';
-  codeWrap.style.display = 'none';
-  editHint.style.display = 'none';
-  snsPanel.classList.remove('visible');
-  previewContent.innerHTML = '';
+      function renderRight() {
+        if (!html) return;
+        placeholder.style.display = "none";
+        editHint.style.display = "";
+        if (tab === "preview") {
+          previewWrap.style.display = "";
+          codeWrap.style.display = "none";
+          previewContent.innerHTML = html;
+        } else {
+          previewWrap.style.display = "none";
+          codeWrap.style.display = "";
+          codeWrap.textContent = html;
+          editBadge.style.display = "none";
+          const _cb = document.getElementById("copy-code-btn");
+          if (_cb) _cb.style.display = html ? "block" : "none";
+        }
+        if (document.getElementById("sns-panel")) {
+          document.getElementById("sns-panel").classList.add("visible");
+        }
+      }
 
-  // タブをプレビューに戻す
-  document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
-  document.querySelector('[data-tab="preview"]').classList.add('active');
-  tab = 'preview';
-
-  // パターンをAに戻す
-  document.querySelectorAll('.pat').forEach(b => b.classList.remove('active'));
-  document.querySelector('[data-p="A"]').classList.add('active');
-  pat = 'A';
-  showSample('A');
-
-// ===== HTMLコードタブのコピーボタン =====
-function copyCodeBtn() {
-  const btn = document.getElementById('copy-code-btn');
-  const text = codeWrap.textContent;
-  const orig = btn.textContent;
-  try {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = '✓ コピーしました';
-        btn.style.background = '#27ae60';
-        setTimeout(() => { btn.textContent = orig; btn.style.background = '#008B9B'; }, 2000);
+      previewContent.addEventListener("focus", () => {
+        editBadge.style.display = "inline";
       });
-    } else {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      btn.textContent = '✓ コピーしました';
-      btn.style.background = '#27ae60';
-      setTimeout(() => { btn.textContent = orig; btn.style.background = '#008B9B'; }, 2000);
-    }
-  } catch(e) {
-    codeWrap.focus();
-    document.execCommand('selectAll');
-  }
-}
 
-// タブ切り替え時にコピーボタンの表示制御
-document.querySelectorAll('.tab').forEach(t => {
-  t.addEventListener('click', () => {
-    const copyBtn = document.getElementById('copy-code-btn');
-    if (copyBtn) copyBtn.style.display = t.dataset.tab === 'code' && html ? 'block' : 'none';
-  });
-});
-
-  inp.focus();
-});
-
-showSample('A');
-
-// ===== HTMLコードタブのコピーボタン =====
-function copyCodeBtn() {
-  const btn = document.getElementById('copy-code-btn');
-  const text = codeWrap.textContent;
-  const orig = btn.textContent;
-  try {
-    if (navigator.clipboard) {
-      navigator.clipboard.writeText(text).then(() => {
-        btn.textContent = '✓ コピーしました';
-        btn.style.background = '#27ae60';
-        setTimeout(() => { btn.textContent = orig; btn.style.background = '#008B9B'; }, 2000);
+      previewContent.addEventListener("input", () => {
+        editBadge.style.display = "inline";
+        clearTimeout(syncTimer);
+        syncTimer = setTimeout(() => {
+          html = previewContent.innerHTML;
+        }, 600);
       });
-    } else {
-      const ta = document.createElement('textarea');
-      ta.value = text; document.body.appendChild(ta); ta.select();
-      document.execCommand('copy'); document.body.removeChild(ta);
-      btn.textContent = '✓ コピーしました';
-      btn.style.background = '#27ae60';
-      setTimeout(() => { btn.textContent = orig; btn.style.background = '#008B9B'; }, 2000);
-    }
-  } catch(e) {
-    codeWrap.focus();
-    document.execCommand('selectAll');
-  }
-}
 
-// タブ切り替え時にコピーボタンの表示制御
-document.querySelectorAll('.tab').forEach(t => {
-  t.addEventListener('click', () => {
-    const copyBtn = document.getElementById('copy-code-btn');
-    if (copyBtn) copyBtn.style.display = t.dataset.tab === 'code' && html ? 'block' : 'none';
-  });
-});
+      previewContent.addEventListener("blur", () => {
+        clearTimeout(syncTimer);
+        html = previewContent.innerHTML;
+        editBadge.style.display = "none";
+      });
 
-/* ===== SNS展開 ===== */
-const snsPanel    = document.getElementById('sns-panel');
-const modalOverlay= document.getElementById('modal-overlay');
-const modalIcon   = document.getElementById('modal-icon');
-const modalTitle  = document.getElementById('modal-title');
-const modalTA     = document.getElementById('modal-textarea');
-const charCount   = document.getElementById('char-count');
-const igNote      = document.getElementById('ig-note');
-const btnCopy     = document.getElementById('btn-copy');
+      // ===== 会話履歴 =====
+      let chatHistory = [];
 
-const SNS_META = {
-  li: { label:'LinkedIn',    limit:3000,color:'#0077b5', bg:'#0077b5' },
-  fb: { label:'Facebook',    limit:null,color:'#1877f2', bg:'#1877f2' },
-  ig: { label:'Instagram',   limit:2200,color:'#e1306c', bg:'#e1306c' }
-};
+      send.addEventListener("click", async () => {
+        const text = inp.value.trim();
+        if (!text) return;
+        addMsg("user", text);
+        inp.value = "";
+        send.disabled = true;
 
-const SNS_SYSTEM = `あなたは東北ネヂ製造株式会社のSNS担当アシスタントです。
+        const typing = showTyping();
+
+        // 初回は記事生成、2回目以降は修正指示として扱う
+        let userContent;
+        if (chatHistory.length === 0) {
+          userContent = `以下の内容でHTML記事を生成してください。\nパターン：${pat}パターン\n内容：${text}\n\nテンプレート：\n${PATTERNS[pat]}`;
+        } else {
+          // 現在のHTMLも含めて修正指示を送る
+          const currentHtml = previewContent.innerHTML || html;
+          userContent = `現在のHTML：\n${currentHtml}\n\n修正指示：${text}\n\n修正したHTMLのみを出力してください。説明文は不要です。`;
+        }
+
+        // 履歴に追加
+        chatHistory.push({ role: "user", content: userContent });
+
+        try {
+          const payload = JSON.stringify({
+            model: AI_MODEL,
+            max_tokens: 2000,
+            system: SYS,
+            messages: chatHistory,
+          });
+          const res = await fetch(GAS_PROXY_URL, {
+            method: "POST",
+            headers: { "Content-Type": "text/plain;charset=utf-8" },
+            body: payload,
+          });
+          const data = await res.json();
+          typing.remove();
+          const resultHtml = data.content?.[0]?.text?.trim() || "";
+          if (resultHtml) {
+            html = resultHtml;
+            // AIの返答も履歴に追加
+            chatHistory.push({ role: "assistant", content: resultHtml });
+            renderRight();
+            const isFirst = chatHistory.length <= 2;
+            addMsg(
+              "ai",
+              isFirst
+                ? "HTMLを生成しました。続けて修正指示を入力できます。完成したら「HTMLコード」タブからコピーしてmicroCMSに貼り付けてください。"
+                : "修正しました。さらに修正が必要であれば続けて指示してください。",
+            );
+          } else {
+            chatHistory.pop(); // 失敗したら履歴から除去
+            addMsg("ai", "エラーが発生しました。もう一度お試しください。");
+          }
+        } catch (e) {
+          typing.remove();
+          chatHistory.pop();
+          addMsg("ai", "エラーが発生しました。もう一度お試しください。");
+        }
+        send.disabled = false;
+        inp.focus();
+      });
+
+      inp.addEventListener("keydown", (e) => {
+        if ((e.ctrlKey || e.metaKey) && e.key === "Enter") send.click();
+      });
+
+      // ===== リセット =====
+      document.getElementById("reset-btn").addEventListener("click", () => {
+        if (chatHistory.length === 0) return;
+        if (
+          !confirm(
+            "現在の記事と会話履歴をリセットして新しい記事を作成しますか？",
+          )
+        )
+          return;
+
+        // 履歴・HTML・プレビューをクリア
+        chatHistory = [];
+        html = "";
+
+        // メッセージエリアをリセット
+        const msgs = document.getElementById("messages");
+        msgs.innerHTML =
+          '<div class="msg system">テンプレートを選んで、記事の内容を日本語で入力してください。AIがHTMLを生成します。</div>';
+
+        // 右パネルをリセット
+        placeholder.style.display = "flex";
+        previewWrap.style.display = "none";
+        codeWrap.style.display = "none";
+        editHint.style.display = "none";
+        snsPanel.classList.remove("visible");
+        previewContent.innerHTML = "";
+
+        // タブをプレビューに戻す
+        document
+          .querySelectorAll(".tab")
+          .forEach((t) => t.classList.remove("active"));
+        document.querySelector('[data-tab="preview"]').classList.add("active");
+        tab = "preview";
+
+        // パターンをAに戻す
+        document
+          .querySelectorAll(".pat")
+          .forEach((b) => b.classList.remove("active"));
+        document.querySelector('[data-p="A"]').classList.add("active");
+        pat = "A";
+        showSample("A");
+
+        // ===== HTMLコードタブのコピーボタン =====
+        function copyCodeBtn() {
+          const btn = document.getElementById("copy-code-btn");
+          const text = codeWrap.textContent;
+          const orig = btn.textContent;
+          try {
+            if (navigator.clipboard) {
+              navigator.clipboard.writeText(text).then(() => {
+                btn.textContent = "✓ コピーしました";
+                btn.style.background = "#27ae60";
+                setTimeout(() => {
+                  btn.textContent = orig;
+                  btn.style.background = "#008B9B";
+                }, 2000);
+              });
+            } else {
+              const ta = document.createElement("textarea");
+              ta.value = text;
+              document.body.appendChild(ta);
+              ta.select();
+              document.execCommand("copy");
+              document.body.removeChild(ta);
+              btn.textContent = "✓ コピーしました";
+              btn.style.background = "#27ae60";
+              setTimeout(() => {
+                btn.textContent = orig;
+                btn.style.background = "#008B9B";
+              }, 2000);
+            }
+          } catch (e) {
+            codeWrap.focus();
+            document.execCommand("selectAll");
+          }
+        }
+
+        // タブ切り替え時にコピーボタンの表示制御
+        document.querySelectorAll(".tab").forEach((t) => {
+          t.addEventListener("click", () => {
+            const copyBtn = document.getElementById("copy-code-btn");
+            if (copyBtn)
+              copyBtn.style.display =
+                t.dataset.tab === "code" && html ? "block" : "none";
+          });
+        });
+
+        inp.focus();
+      });
+
+      showSample("A");
+
+      // ===== HTMLコードタブのコピーボタン =====
+      function copyCodeBtn() {
+        const btn = document.getElementById("copy-code-btn");
+        const text = codeWrap.textContent;
+        const orig = btn.textContent;
+        try {
+          if (navigator.clipboard) {
+            navigator.clipboard.writeText(text).then(() => {
+              btn.textContent = "✓ コピーしました";
+              btn.style.background = "#27ae60";
+              setTimeout(() => {
+                btn.textContent = orig;
+                btn.style.background = "#008B9B";
+              }, 2000);
+            });
+          } else {
+            const ta = document.createElement("textarea");
+            ta.value = text;
+            document.body.appendChild(ta);
+            ta.select();
+            document.execCommand("copy");
+            document.body.removeChild(ta);
+            btn.textContent = "✓ コピーしました";
+            btn.style.background = "#27ae60";
+            setTimeout(() => {
+              btn.textContent = orig;
+              btn.style.background = "#008B9B";
+            }, 2000);
+          }
+        } catch (e) {
+          codeWrap.focus();
+          document.execCommand("selectAll");
+        }
+      }
+
+      // タブ切り替え時にコピーボタンの表示制御
+      document.querySelectorAll(".tab").forEach((t) => {
+        t.addEventListener("click", () => {
+          const copyBtn = document.getElementById("copy-code-btn");
+          if (copyBtn)
+            copyBtn.style.display =
+              t.dataset.tab === "code" && html ? "block" : "none";
+        });
+      });
+
+      /* ===== SNS展開 ===== */
+      const snsPanel = document.getElementById("sns-panel");
+      const modalOverlay = document.getElementById("modal-overlay");
+      const modalIcon = document.getElementById("modal-icon");
+      const modalTitle = document.getElementById("modal-title");
+      const modalTA = document.getElementById("modal-textarea");
+      const charCount = document.getElementById("char-count");
+      const igNote = document.getElementById("ig-note");
+      const btnCopy = document.getElementById("btn-copy");
+
+      const SNS_META = {
+        li: { label: "LinkedIn", limit: 3000, color: "#0077b5", bg: "#0077b5" },
+        fb: { label: "Facebook", limit: null, color: "#1877f2", bg: "#1877f2" },
+        ig: {
+          label: "Instagram",
+          limit: 2200,
+          color: "#e1306c",
+          bg: "#e1306c",
+        },
+      };
+
+      const SNS_SYSTEM = `あなたは東北ネヂ製造株式会社のSNS担当アシスタントです。
 与えられた記事HTMLをSNS投稿テキストに変換してください。
 出力はテキストのみ。HTMLタグ・マークダウン・説明文は含めないでください。`;
 
-const SNS_PROMPT = {
-  li: (text) => `以下の記事をLinkedIn投稿文に変換してください。
+      const SNS_PROMPT = {
+        li: (text) => `以下の記事をLinkedIn投稿文に変換してください。
 条件：
 - 400〜800文字程度
 - ビジネス向けの丁寧でプロフェッショナルな文体
@@ -752,7 +1411,7 @@ const SNS_PROMPT = {
 記事内容：
 ${text}`,
 
-  fb: (text) => `以下の記事をFacebook投稿文に変換してください。
+        fb: (text) => `以下の記事をFacebook投稿文に変換してください。
 条件：
 - 400〜600文字程度
 - 冒頭に絵文字1〜2つ
@@ -763,7 +1422,7 @@ ${text}`,
 記事内容：
 ${text}`,
 
-  ig: (text) => `以下の記事をInstagram投稿文に変換してください。
+        ig: (text) => `以下の記事をInstagram投稿文に変換してください。
 条件：
 - 300〜500文字程度
 - 絵文字を適度に使い視覚的に読みやすく
@@ -772,121 +1431,134 @@ ${text}`,
 - 親しみやすい文体
 
 記事内容：
-${text}`
-};
+${text}`,
+      };
 
-function htmlToPlainText(h) {
-  const d = document.createElement('div');
-  d.innerHTML = h;
-  return d.innerText || d.textContent || '';
-}
+      function htmlToPlainText(h) {
+        const d = document.createElement("div");
+        d.innerHTML = h;
+        return d.innerText || d.textContent || "";
+      }
 
-function updateCharCount(sns) {
-  const meta = SNS_META[sns];
-  const len = modalTA.value.length;
-  if (meta.limit) {
-    charCount.textContent = `${len} / ${meta.limit}文字`;
-    charCount.className = 'char-count' + (len > meta.limit ? ' over' : '');
-  } else {
-    charCount.textContent = `${len}文字`;
-    charCount.className = 'char-count';
-  }
-}
+      function updateCharCount(sns) {
+        const meta = SNS_META[sns];
+        const len = modalTA.value.length;
+        if (meta.limit) {
+          charCount.textContent = `${len} / ${meta.limit}文字`;
+          charCount.className =
+            "char-count" + (len > meta.limit ? " over" : "");
+        } else {
+          charCount.textContent = `${len}文字`;
+          charCount.className = "char-count";
+        }
+      }
 
-let currentSns = '';
+      let currentSns = "";
 
-document.querySelectorAll('.sns-btn').forEach(btn => {
-  btn.addEventListener('click', async () => {
-    const sns = btn.dataset.sns;
-    currentSns = sns;
-    const meta = SNS_META[sns];
+      document.querySelectorAll(".sns-btn").forEach((btn) => {
+        btn.addEventListener("click", async () => {
+          const sns = btn.dataset.sns;
+          currentSns = sns;
+          const meta = SNS_META[sns];
 
-    modalIcon.style.background = meta.bg;
-    modalIcon.innerHTML = btn.querySelector('svg').outerHTML;
-    modalTitle.textContent = meta.label + ' 投稿文を生成中...';
-    igNote.style.display = sns === 'ig' ? '' : 'none';
-    modalTA.value = '';
-    charCount.textContent = '';
-    btnCopy.textContent = '📋 コピーする';
-    btnCopy.className = 'btn-copy';
-    modalOverlay.style.display = 'flex';
+          modalIcon.style.background = meta.bg;
+          modalIcon.innerHTML = btn.querySelector("svg").outerHTML;
+          modalTitle.textContent = meta.label + " 投稿文を生成中...";
+          igNote.style.display = sns === "ig" ? "" : "none";
+          modalTA.value = "";
+          charCount.textContent = "";
+          btnCopy.textContent = "📋 コピーする";
+          btnCopy.className = "btn-copy";
+          modalOverlay.style.display = "flex";
 
-    const plainText = htmlToPlainText(previewContent.innerHTML);
-    const prompt = SNS_PROMPT[sns](plainText);
+          const plainText = htmlToPlainText(previewContent.innerHTML);
+          const prompt = SNS_PROMPT[sns](plainText);
 
-    try {
-      const res = await fetch(GAS_PROXY_URL, {
-        method: 'POST',
-        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
-        body: JSON.stringify({
-          model: 'claude-sonnet-4-20250514',
-          max_tokens: 2000,
-          system: SNS_SYSTEM,
-          messages: [{ role: 'user', content: prompt }]
-        }),
+          try {
+            const res = await fetch(GAS_PROXY_URL, {
+              method: "POST",
+              headers: { "Content-Type": "text/plain;charset=utf-8" },
+              body: JSON.stringify({
+                model: AI_MODEL,
+                max_tokens: 2000,
+                system: SNS_SYSTEM,
+                messages: [{ role: "user", content: prompt }],
+              }),
+            });
+            const data = await res.json();
+            const result =
+              data.content?.[0]?.text?.trim() || "エラーが発生しました。";
+            modalTitle.textContent = meta.label + " 投稿文";
+            modalTA.value = result;
+            updateCharCount(sns);
+          } catch (e) {
+            modalTitle.textContent = meta.label + " 投稿文";
+            modalTA.value = "エラーが発生しました。もう一度お試しください。";
+          }
+        });
       });
-      const data = await res.json();
-      const result = data.content?.[0]?.text?.trim() || 'エラーが発生しました。';
-      modalTitle.textContent = meta.label + ' 投稿文';
-      modalTA.value = result;
-      updateCharCount(sns);
-    } catch(e) {
-      modalTitle.textContent = meta.label + ' 投稿文';
-      modalTA.value = 'エラーが発生しました。もう一度お試しください。';
-    }
-  });
-});
 
-modalTA.addEventListener('input', () => updateCharCount(currentSns));
+      modalTA.addEventListener("input", () => updateCharCount(currentSns));
 
-btnCopy.addEventListener('click', () => {
-  const text = modalTA.value;
-  let copied = false;
+      btnCopy.addEventListener("click", () => {
+        const text = modalTA.value;
+        let copied = false;
 
-  // 方法1: Clipboard API
-  if (navigator.clipboard && navigator.clipboard.writeText) {
-    navigator.clipboard.writeText(text).then(() => {
-      showCopied();
-    }).catch(() => {
-      fallbackCopy(text);
-    });
-  } else {
-    fallbackCopy(text);
-  }
-});
+        // 方法1: Clipboard API
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard
+            .writeText(text)
+            .then(() => {
+              showCopied();
+            })
+            .catch(() => {
+              fallbackCopy(text);
+            });
+        } else {
+          fallbackCopy(text);
+        }
+      });
 
-function fallbackCopy(text) {
-  modalTA.select();
-  modalTA.setSelectionRange(0, 99999);
-  try {
-    document.execCommand('copy');
-    showCopied();
-  } catch(e) {
-    // 両方失敗した場合は選択状態のままにして手動コピーを促す
-    btnCopy.textContent = '⌘C / Ctrl+C でコピー';
-    setTimeout(() => {
-      btnCopy.textContent = '📋 コピーする';
-      btnCopy.className = 'btn-copy';
-    }, 3000);
-  }
-}
+      function fallbackCopy(text) {
+        modalTA.select();
+        modalTA.setSelectionRange(0, 99999);
+        try {
+          document.execCommand("copy");
+          showCopied();
+        } catch (e) {
+          // 両方失敗した場合は選択状態のままにして手動コピーを促す
+          btnCopy.textContent = "⌘C / Ctrl+C でコピー";
+          setTimeout(() => {
+            btnCopy.textContent = "📋 コピーする";
+            btnCopy.className = "btn-copy";
+          }, 3000);
+        }
+      }
 
-function showCopied() {
-  btnCopy.textContent = '✓ コピーしました';
-  btnCopy.className = 'btn-copy copied';
-  setTimeout(() => {
-    btnCopy.textContent = '📋 コピーする';
-    btnCopy.className = 'btn-copy';
-  }, 2000);
-}
+      function showCopied() {
+        btnCopy.textContent = "✓ コピーしました";
+        btnCopy.className = "btn-copy copied";
+        setTimeout(() => {
+          btnCopy.textContent = "📋 コピーする";
+          btnCopy.className = "btn-copy";
+        }, 2000);
+      }
 
-document.getElementById('modal-close').addEventListener('click', () => { modalOverlay.style.display = 'none'; });
-document.getElementById('modal-cancel').addEventListener('click', () => { modalOverlay.style.display = 'none'; });
-modalOverlay.addEventListener('click', e => { if (e.target === modalOverlay) modalOverlay.style.display = 'none'; });
+      document.getElementById("modal-close").addEventListener("click", () => {
+        modalOverlay.style.display = "none";
+      });
+      document.getElementById("modal-cancel").addEventListener("click", () => {
+        modalOverlay.style.display = "none";
+      });
+      modalOverlay.addEventListener("click", (e) => {
+        if (e.target === modalOverlay) modalOverlay.style.display = "none";
+      });
 
-/* SNSパネルはHTML生成後に表示 */
-const _origRenderRight = renderRight;
-function showSnsPanel() { snsPanel.classList.add('visible'); }
-</script>
-</body>
+      /* SNSパネルはHTML生成後に表示 */
+      const _origRenderRight = renderRight;
+      function showSnsPanel() {
+        snsPanel.classList.add("visible");
+      }
+    </script>
+  </body>
 </html>
