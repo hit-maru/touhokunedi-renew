@@ -127,27 +127,31 @@ const pageNumbers = getPageNumbers(currentPage, totalPages);
                 data-year={String(new Date(post.date).getFullYear())}
               >
                 <a href={`/news/${post.id}`} class="block py-6 group transition-colors hover:bg-gray-50 px-4">
-                  <div class="flex flex-col md:flex-row md:items-center gap-4">
-                    {post.thumbnail && (
-                      <div class="w-full md:w-32 h-20 shrink-0 overflow-hidden rounded-sm bg-gray-100">
+                  <div class="grid grid-cols-[6.5rem_minmax(0,1fr)] md:grid-cols-[4.75rem_4.75rem_7.56rem_minmax(0,1fr)_1rem] items-center gap-x-3 md:gap-x-0 gap-y-4">
+                    <time datetime={post.date} class="text-gray-400 font-serif text-sm tracking-tighter">
+                        {format(new Date(post.date), 'yyyy.MM.dd')}
+                    </time>
+                    <div class="min-w-0">
+                      {post.category && post.category.length > 0 ? (
+                        <span class="inline-flex max-w-full items-center px-2 py-1 bg-gray-100 text-[#008B9B] rounded-sm text-[10px] font-bold uppercase tracking-widest">
+                          <span class="truncate">{post.category[0]}</span>
+                        </span>
+                      ) : (
+                        <span class="block h-6" aria-hidden="true"></span>
+                      )}
+                    </div>
+                    <div class="col-start-1 row-start-2 md:col-start-auto md:row-start-auto h-20 md:h-[5.4rem] overflow-hidden rounded-sm">
+                      {post.thumbnail ? (
                         <img
                           src={post.thumbnail.url}
                           alt={post.title}
                           class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                         />
-                      </div>
-                    )}
-                    <div class="flex items-center gap-4 w-48 shrink-0">
-                      <time datetime={post.date} class="text-gray-400 font-serif text-sm tracking-tighter">
-                        {format(new Date(post.date), 'yyyy.MM.dd')}
-                      </time>
-                      {post.category && post.category.length > 0 && (
-                        <span class="text-[10px] font-bold px-2 py-1 bg-gray-100 text-[#008B9B] rounded-sm uppercase tracking-widest">
-                          {post.category[0]}
-                        </span>
+                      ) : (
+                        <div class="hidden md:block w-full h-full"></div>
                       )}
                     </div>
-                    <h3 class="text-gray-800 font-sans text-[15px] md:text-[16px] font-bold leading-relaxed group-hover:text-[#E64A19] transition-colors flex-grow">
+                    <h3 class="col-start-2 row-start-2 md:col-start-auto md:row-start-auto md:pl-4 text-gray-800 font-sans text-[15px] md:text-[16px] font-bold leading-relaxed group-hover:text-[#E64A19] transition-colors">
                       {post.title}
                     </h3>
                     <div class="hidden md:block text-gray-300 group-hover:text-[#E64A19] transform group-hover:translate-x-1 transition-all">
@@ -341,40 +345,52 @@ const pageNumbers = getPageNumbers(currentPage, totalPages);
     link.className = 'block py-6 group transition-colors hover:bg-gray-50 px-4';
 
     const row = document.createElement('div');
-    row.className = 'flex flex-col md:flex-row md:items-center gap-4';
-
-    if (post.thumbnail?.url) {
-      const thumbWrap = document.createElement('div');
-      thumbWrap.className = 'w-full md:w-32 h-20 shrink-0 overflow-hidden rounded-sm bg-gray-100';
-
-      const img = document.createElement('img');
-      img.src = post.thumbnail.url;
-      img.alt = post.title || '';
-      img.className = 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300';
-      thumbWrap.appendChild(img);
-      row.appendChild(thumbWrap);
-    }
-
-    const meta = document.createElement('div');
-    meta.className = 'flex items-center gap-4 w-48 shrink-0';
+    row.className = 'grid grid-cols-[6.5rem_minmax(0,1fr)] md:grid-cols-[4.75rem_4.75rem_7.56rem_minmax(0,1fr)_1rem] items-center gap-x-3 md:gap-x-0 gap-y-4';
 
     const time = document.createElement('time');
     time.dateTime = post.date;
     time.className = 'text-gray-400 font-serif text-sm tracking-tighter';
     time.textContent = formatDate(post.date);
-    meta.appendChild(time);
+    row.appendChild(time);
+
+    const categoryWrap = document.createElement('div');
+    categoryWrap.className = 'min-w-0';
 
     const firstCategory = Array.isArray(post.category) ? post.category[0] : '';
     if (firstCategory) {
       const category = document.createElement('span');
-      category.className = 'text-[10px] font-bold px-2 py-1 bg-gray-100 text-[#008B9B] rounded-sm uppercase tracking-widest';
-      category.textContent = firstCategory;
-      meta.appendChild(category);
+      category.className = 'inline-flex max-w-full items-center px-2 py-1 bg-gray-100 text-[#008B9B] rounded-sm text-[10px] font-bold uppercase tracking-widest';
+      const categoryText = document.createElement('span');
+      categoryText.className = 'truncate';
+      categoryText.textContent = firstCategory;
+      category.appendChild(categoryText);
+      categoryWrap.appendChild(category);
+    } else {
+      const placeholder = document.createElement('span');
+      placeholder.className = 'block h-6';
+      placeholder.setAttribute('aria-hidden', 'true');
+      categoryWrap.appendChild(placeholder);
     }
-    row.appendChild(meta);
+    row.appendChild(categoryWrap);
+
+    const thumbWrap = document.createElement('div');
+    thumbWrap.className = 'col-start-1 row-start-2 md:col-start-auto md:row-start-auto h-20 md:h-[5.4rem] overflow-hidden rounded-sm';
+
+    if (post.thumbnail?.url) {
+      const img = document.createElement('img');
+      img.src = post.thumbnail.url;
+      img.alt = post.title || '';
+      img.className = 'w-full h-full object-cover group-hover:scale-105 transition-transform duration-300';
+      thumbWrap.appendChild(img);
+    } else {
+      const placeholder = document.createElement('div');
+      placeholder.className = 'hidden md:block w-full h-full';
+      thumbWrap.appendChild(placeholder);
+    }
+    row.appendChild(thumbWrap);
 
     const title = document.createElement('h3');
-    title.className = 'text-gray-800 font-sans text-[15px] md:text-[16px] font-bold leading-relaxed group-hover:text-[#E64A19] transition-colors flex-grow';
+    title.className = 'col-start-2 row-start-2 md:col-start-auto md:row-start-auto md:pl-4 text-gray-800 font-sans text-[15px] md:text-[16px] font-bold leading-relaxed group-hover:text-[#E64A19] transition-colors';
     title.textContent = post.title || '';
     row.appendChild(title);
 
