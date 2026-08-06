@@ -497,7 +497,7 @@ Build / 表示確認:
 
 関連commit:
 
-- `TBD` - `fix: restore image-assisted article editor`
+- `bc1390e` - `fix: restore image-assisted article editor`
 
 ## 4. 現在の仕様
 
