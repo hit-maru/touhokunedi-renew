@@ -452,6 +452,53 @@ Build / 表示確認:
 - APIキーやトークンなど秘密情報の露出は行っていない。
 - commit / push は明示指示後に実施する。
 
+### 2026-08-06 AI投稿エディタ復旧・改善
+
+内容:
+
+- AI投稿エディタの画像アップロードとAI生成を復旧。
+- 画像アップロード未認証時は、ログイン画面HTMLをJSONとして解析せず、認証エラーとして扱うよう修正。
+- AI投稿エディタ側に画像アップローダーへのログイン導線を追加。
+- 画像アップロード処理の重複したclick handlerを解消。
+- 画像1枚レイアウトでアップロード成功後に「満席です。」が誤表示される問題を解消。
+- GASへのcURL待機時間を20秒から90秒へ延長し、PHP実行時間上限として `set_time_limit(100)` を追加。
+- 左カラムを独立した縦スクロール領域に変更。
+- 右カラムのプレビュー領域とHTMLコード領域を独立した縦スクロール領域に変更。
+- スマートフォン表示では、ページ全体で自然にスクロールできる構成を維持。
+
+原因:
+
+- 未認証時に `uploader-TN.php` が返すHTML応答を、AI投稿エディタ側でJSONとして解析していた。
+- `Article-editor-TN.html` 内で画像アップロードclick handlerが重複登録されていた。
+- GASへのcURL待機時間が20秒で、OpenAI応答前に504となっていた。
+
+修正内容:
+
+- `uploader-TN.php` でAPIリクエスト未認証時に `401 Unauthorized` とJSONエラーを返すよう修正。
+- `Article-editor-TN.html` で画像アップロード応答をHTTPステータス、Content-Type、JSONの `ok`、`AUTH_REQUIRED` の順に判定するよう修正。
+- `Article-editor-TN.html` で非JSON応答本文を画面へ表示せず、ログイン案内を表示するよう修正。
+- `Article-editor-TN.html` で古い画像アップロード初期化ブロックを削除し、認証エラー処理を含む実装だけを残した。
+- `Article-editor-TN.html` で画像枠上限到達時はアップロードボタンを無効化し、状態を「完了」と表示するよう修正。
+- `ai-proxy-TN.php` で `CURLOPT_CONNECTTIMEOUT => 5`、`CURLOPT_TIMEOUT => 90`、`set_time_limit(100)` を維持。
+- 原因調査のために追加したGAS応答診断用 `error_log` は削除。
+
+本番確認結果:
+
+- 単数画像レイアウトで、画像アップロードとHTML生成が成功することを確認済み。
+- 複数画像レイアウトで、画像アップロードとHTML生成が成功することを確認済み。
+- 左カラムと右カラムの独立スクロール用CSSを反映し、本番 `/tools/Article-editor-TN.html` へFTP反映済み。
+- 通常deployは行わず、`/tools/` の対象ファイルだけFTP反映。
+
+対象ファイル:
+
+- `public/tools/Article-editor-TN.html`
+- `public/tools/uploader-TN.php`
+- `public/tools/ai-proxy-TN.php`
+
+関連commit:
+
+- `TBD` - `fix: restore image-assisted article editor`
+
 ## 4. 現在の仕様
 
 ### ニュース

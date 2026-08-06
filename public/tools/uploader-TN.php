@@ -33,6 +33,29 @@ if (isset($_POST['action']) && $_POST['action'] === 'logout') {
 }
 $authed = !empty($_SESSION['authed']);
 
+function isApiRequest() {
+    if ($_SERVER['REQUEST_METHOD'] !== 'POST') return false;
+    $action = $_POST['action'] ?? '';
+    if ($action === 'login' || $action === 'logout') return false;
+    if (in_array($action, ['mkdir', 'upload'], true)) return true;
+    return !empty($_SERVER['HTTP_X_REQUESTED_WITH']);
+}
+
+function jsonResponse(array $body, int $status = 200) {
+    http_response_code($status);
+    header('Content-Type: application/json; charset=utf-8');
+    echo json_encode($body, JSON_UNESCAPED_UNICODE);
+    exit;
+}
+
+if (!$authed && isApiRequest()) {
+    jsonResponse([
+        'ok' => false,
+        'error' => 'ログインが必要です',
+        'code' => 'AUTH_REQUIRED',
+    ], 401);
+}
+
 function uploadDebugContext($path = '') {
     $target = $path !== '' ? $path : UPLOAD_BASE;
     $parent = dirname(rtrim($target, '/'));
@@ -207,9 +230,7 @@ function resizeImage($path, $ext, $targetW, $targetH) {
 }
 
 if ($api_response !== null && !empty($_SERVER['HTTP_X_REQUESTED_WITH'])) {
-    header('Content-Type: application/json');
-    echo json_encode($api_response, JSON_UNESCAPED_UNICODE);
-    exit;
+    jsonResponse($api_response);
 }
 ?>
 <!DOCTYPE html>

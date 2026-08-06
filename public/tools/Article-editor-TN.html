@@ -35,6 +35,10 @@
         --font: "Noto Sans JP", sans-serif;
         --mono: "Courier New", monospace;
       }
+      html {
+        height: 100%;
+        overflow: hidden;
+      }
       body {
         font-family: var(--font);
         background: var(--gray-100);
@@ -48,6 +52,8 @@
         display: grid;
         grid-template-rows: 48px 1fr;
         height: 100vh;
+        min-height: 0;
+        overflow: hidden;
       }
 
       /* topbar */
@@ -91,6 +97,8 @@
       .body {
         display: grid;
         grid-template-columns: 1fr 1fr;
+        height: calc(100vh - 48px);
+        min-height: 0;
         overflow: hidden;
       }
 
@@ -100,6 +108,9 @@
         display: flex;
         flex-direction: column;
         background: var(--white);
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
       }
       .panel-hd {
         padding: 10px 14px;
@@ -254,8 +265,11 @@
       .left-scroll {
         display: flex;
         flex-direction: column;
-        height: 100%;
+        flex: 1;
+        min-height: 0;
         overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
       }
       .step-block {
         padding: 14px 14px 10px;
@@ -581,6 +595,9 @@
         display: flex;
         flex-direction: column;
         background: var(--white);
+        min-width: 0;
+        min-height: 0;
+        overflow: hidden;
       }
       .tabs {
         display: flex;
@@ -606,15 +623,22 @@
 
       .right-body {
         flex: 1;
+        min-height: 0;
         overflow: hidden;
         display: flex;
         flex-direction: column;
       }
       .preview-wrap {
+        flex: 1;
+        min-height: 0;
         padding: 24px 28px;
         overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
       }
       .code-wrap {
+        flex: 1;
+        min-height: 0;
         padding: 16px;
         font-family: var(--mono);
         font-size: 12px;
@@ -622,6 +646,9 @@
         color: var(--gray-800);
         white-space: pre-wrap;
         word-break: break-all;
+        overflow-y: auto;
+        overflow-x: hidden;
+        -webkit-overflow-scrolling: touch;
       }
       .placeholder {
         display: flex;
@@ -923,6 +950,40 @@
         padding: 6px 10px;
         border-radius: 4px;
         margin-bottom: 8px;
+      }
+
+      @media (max-width: 768px) {
+        html,
+        body {
+          height: auto;
+          min-height: 100vh;
+          overflow: auto;
+        }
+        .app {
+          height: auto;
+          min-height: 100vh;
+          grid-template-rows: 48px auto;
+          overflow: visible;
+        }
+        .body {
+          grid-template-columns: 1fr;
+          height: auto;
+          overflow: visible;
+        }
+        .left,
+        .right,
+        .left-scroll,
+        .right-body,
+        .preview-wrap,
+        .code-wrap {
+          min-height: 0;
+          max-height: none;
+          overflow: visible;
+        }
+        .left {
+          border-right: none;
+          border-bottom: 1px solid var(--gray-200);
+        }
       }
     </style>
     <link
@@ -1383,6 +1444,78 @@
       const GAS_PROXY_URL = "/tools/ai-proxy-TN.php";
       const AI_MODEL =
         window.TN_AI_SHARED_CONFIG?.model?.trim() || "gpt-4.1-mini";
+      const UPLOADER_LOGIN_URL =
+        "https://touhokunedi.com/tools/uploader-TN.php";
+
+      async function readUploaderJsonResponse(res) {
+        const contentType = (res.headers.get("Content-Type") || "").toLowerCase();
+        if (res.status === 401) {
+          const error = new Error("画像アップロードにはログインが必要です。");
+          error.code = "AUTH_REQUIRED";
+          if (contentType.includes("application/json")) {
+            try {
+              error.data = await res.json();
+            } catch (_) {}
+          }
+          throw error;
+        }
+        if (!contentType.includes("application/json")) {
+          const error = new Error(
+            "画像アップローダーの認証を確認できませんでした。アップローダーにログインしてから、もう一度お試しください。",
+          );
+          error.code = "NON_JSON_RESPONSE";
+          throw error;
+        }
+
+        const data = await res.json();
+        if (data?.code === "AUTH_REQUIRED") {
+          const error = new Error("画像アップロードにはログインが必要です。");
+          error.code = "AUTH_REQUIRED";
+          error.data = data;
+          throw error;
+        }
+        if (!res.ok) {
+          const error = new Error(data?.msg || data?.error || "画像アップロード処理でエラーが発生しました。");
+          error.code = "HTTP_ERROR";
+          error.data = data;
+          throw error;
+        }
+        return data;
+      }
+
+      function addUploaderLoginLog(message) {
+        const log = document.getElementById("img-log");
+        if (!log) return;
+        const d = document.createElement("div");
+        d.className = "img-log-item err";
+        const text = document.createElement("span");
+        text.textContent = "✗ " + message + " ";
+        const link = document.createElement("a");
+        link.href = UPLOADER_LOGIN_URL;
+        link.target = "_blank";
+        link.rel = "noopener noreferrer";
+        link.textContent = "画像アップローダーを開く";
+        d.appendChild(text);
+        d.appendChild(link);
+        log.prepend(d);
+      }
+
+      function addUploaderErrorLog(error) {
+        if (error?.code === "AUTH_REQUIRED") {
+          addUploaderLoginLog("画像アップロードにはログインが必要です。");
+          return;
+        }
+        if (error?.code === "NON_JSON_RESPONSE") {
+          addUploaderLoginLog(
+            "画像アップローダーの認証を確認できませんでした。アップローダーにログインしてから、もう一度お試しください。",
+          );
+          return;
+        }
+        addImgLog(
+          false,
+          "画像アップローダーへ接続できませんでした。通信状態とログイン状態を確認してください。",
+        );
+      }
 
       const PATTERNS = {
         A: `<section class="article-section">
@@ -1834,307 +1967,7 @@
         document.querySelector('[data-p="A"]').classList.add("active");
         pat = "A";
         showSample("A");
-
-        // ============================================================
-        // 画像アップロード統合機能
-        // ============================================================
-        const UPLOADER_URL = "https://touhokunedi.com/tools/uploader-TN.php";
-        const IMG_BLOCK_DEFS = {
-          image1: { count: 1, w: 1200, h: 630 },
-          image2: { count: 2, w: 600, h: 400 },
-          image3: { count: 3, w: 400, h: 300 },
-          image4: { count: 4, w: 600, h: 400 },
-          image6: { count: 6, w: 400, h: 300 },
-        };
-        const IMG_LAYOUT_DESC = {
-          image1: "横幅いっぱいの1枚画像として",
-          image2: "横に2枚並べて",
-          image3: "横に3枚並べて",
-          image4: "2行2列のグリッドで4枚",
-          image6: "2行3列のギャラリーで6枚",
-        };
-
-        let imgBlock = "image1",
-          imgDate = "",
-          imgFile = null;
-        const imgUploadedUrls = {};
-        let imgPromptAddedToArticle = false;
-        const IMG_PROMPT_MISSING_MESSAGE =
-          "画像URLが記事内容欄に追加されていません。先に『画像URLを記事内容欄に追加する』を押してください。";
-
-        function isImagePromptMissing() {
-          return imgBlock !== "image0" && !imgPromptAddedToArticle;
-        }
-
-        // 今日の日付をセット
-        const todayStr = new Date().toISOString().split("T")[0];
-        const imgDateEl = document.getElementById("img-date");
-        if (imgDateEl) imgDateEl.value = todayStr;
-        imgDate = todayStr;
-
-        // toggleImgSection は新UIでは不使用
-
-        // 縦長サムネイルカード選択
-        document
-          .getElementById("img-layout-row")
-          ?.querySelectorAll(".img-layout-card")
-          .forEach((card) => {
-            card.addEventListener("click", () => {
-              document
-                .querySelectorAll(".img-layout-card")
-                .forEach((c) => c.classList.remove("active"));
-              card.classList.add("active");
-              imgBlock = card.dataset.type;
-              const uploadArea = document.getElementById("img-upload-area");
-              if (uploadArea)
-                uploadArea.style.display =
-                  imgBlock === "image0" ? "none" : "block";
-              // 新しいブロック選択時はアップロード済みURLをリセット
-              Object.keys(imgUploadedUrls).forEach(
-                (k) => delete imgUploadedUrls[k],
-              );
-              imgPromptAddedToArticle = imgBlock === "image0";
-              buildImgSeats();
-              updateImgPrompt();
-            });
-          });
-
-        function buildImgSeats() {
-          const def = IMG_BLOCK_DEFS[imgBlock];
-          const el = document.getElementById("img-seats");
-          if (!el) return;
-          el.innerHTML = "";
-          let nextSet = false;
-          for (let i = 1; i <= def.count; i++) {
-            const d = document.createElement("div");
-            const up = !!imgUploadedUrls[i];
-            const isNext = !up && !nextSet;
-            if (isNext) nextSet = true;
-            d.className = "sdot" + (up ? " up" : isNext ? " next" : "");
-            d.textContent = String(i).padStart(2, "0");
-            el.appendChild(d);
-          }
-          const uploaded = Object.keys(imgUploadedUrls).filter(
-            (k) => parseInt(k) <= def.count,
-          ).length;
-          const remain = def.count - uploaded;
-          const lbl = document.createElement("span");
-          lbl.textContent = remain > 0 ? `残り${remain}枚` : "完了";
-          lbl.style.color = remain > 0 ? "var(--gray-600)" : "#27ae60";
-          el.appendChild(lbl);
-          const upBtn = document.getElementById("img-upload");
-          if (upBtn) upBtn.disabled = !imgFile || remain <= 0;
-        }
-
-        // 日付変更
-        document
-          .getElementById("img-date")
-          ?.addEventListener("change", function () {
-            imgDate = this.value;
-          });
-
-        // フォルダ作成
-        document
-          .getElementById("img-mkdir")
-          ?.addEventListener("click", async () => {
-            imgDate = document.getElementById("img-date").value;
-            if (!imgDate) {
-              alert("日付を選択してください。");
-              return;
-            }
-            try {
-              const fd = new FormData();
-              fd.append("action", "mkdir");
-              fd.append("date", imgDate);
-              const res = await fetch(UPLOADER_URL, {
-                method: "POST",
-                headers: { "X-Requested-With": "XMLHttpRequest" },
-                body: fd,
-              });
-              const data = await res.json();
-              addImgLog(data.ok, data.msg);
-            } catch (e) {
-              addImgLog(false, "フォルダ作成に失敗しました。");
-            }
-          });
-
-        // ドロップゾーン
-        const imgDrop = document.getElementById("img-drop");
-        const imgFileInput = document.getElementById("img-file");
-        function setImgFile(file) {
-          imgFile = file;
-          imgDrop?.classList.add("has-file");
-          if (imgDrop)
-            imgDrop.childNodes[1] &&
-              (imgDrop.lastChild.textContent = file.name);
-          buildImgSeats();
-        }
-        imgFileInput?.addEventListener("change", () => {
-          if (imgFileInput.files[0]) setImgFile(imgFileInput.files[0]);
-        });
-        imgDrop?.addEventListener("dragover", (e) => {
-          e.preventDefault();
-          imgDrop.classList.add("dragover");
-        });
-        imgDrop?.addEventListener("dragleave", () =>
-          imgDrop?.classList.remove("dragover"),
-        );
-        imgDrop?.addEventListener("drop", (e) => {
-          e.preventDefault();
-          imgDrop.classList.remove("dragover");
-          if (e.dataTransfer.files[0]) setImgFile(e.dataTransfer.files[0]);
-        });
-
-        // アップロード
-        document
-          .getElementById("img-upload")
-          ?.addEventListener("click", async () => {
-            if (!imgFile) {
-              alert("画像を選択してください。");
-              return;
-            }
-            if (!imgDate) {
-              alert("日付を選択してください。");
-              return;
-            }
-            const def = IMG_BLOCK_DEFS[imgBlock];
-            let nextSeq = 1;
-            while (imgUploadedUrls[nextSeq] && nextSeq <= def.count) nextSeq++;
-            if (nextSeq > def.count) {
-              alert("満席です。");
-              return;
-            }
-            const upBtn = document.getElementById("img-upload");
-            upBtn.disabled = true;
-            upBtn.textContent = "アップロード中...";
-            try {
-              const fd = new FormData();
-              fd.append("action", "upload");
-              fd.append("date", imgDate);
-              fd.append("seq", nextSeq);
-              fd.append("block_type", imgBlock);
-              fd.append("image", imgFile);
-              const res = await fetch(UPLOADER_URL, {
-                method: "POST",
-                headers: { "X-Requested-With": "XMLHttpRequest" },
-                body: fd,
-              });
-              const data = await res.json();
-              addImgLog(data.ok, data.msg);
-              if (data.ok) {
-                imgUploadedUrls[data.seq] = data.url;
-                imgPromptAddedToArticle = false;
-                imgFile = null;
-                if (imgFileInput) imgFileInput.value = "";
-                imgDrop?.classList.remove("has-file");
-                buildImgSeats();
-                updateImgPrompt();
-              }
-            } catch (e) {
-              addImgLog(false, "アップロードに失敗しました。");
-            }
-            upBtn.disabled = false;
-            upBtn.textContent = "アップロード";
-          });
-
-        // プロンプト生成・入力欄に追加
-        function updateImgPrompt() {
-          const def = IMG_BLOCK_DEFS[imgBlock];
-          const seqs = Object.keys(imgUploadedUrls)
-            .map(Number)
-            .filter((n) => n <= def.count)
-            .sort((a, b) => a - b);
-          const btn = document.getElementById("img-use-prompt");
-          if (btn) btn.disabled = seqs.length === 0;
-        }
-
-        document
-          .getElementById("img-use-prompt")
-          ?.addEventListener("click", () => {
-            const def = IMG_BLOCK_DEFS[imgBlock];
-            const seqs = Object.keys(imgUploadedUrls)
-              .map(Number)
-              .filter((n) => n <= def.count)
-              .sort((a, b) => a - b);
-            if (seqs.length === 0) return;
-            const desc = IMG_LAYOUT_DESC[imgBlock];
-            const promptLines = seqs
-              .map((s) => `${s}枚目:\n${imgUploadedUrls[s]}`)
-              .join("\n\n");
-            const prompt = `\n\n---\n本文中に画像を${seqs.length}点、${desc}配置してください。\n画像URLは以下の通りです。それぞれ適切なalt属性を入れてください。\n\n${promptLines}`;
-            const inp = document.getElementById("inp");
-            if (inp) {
-              inp.value += prompt;
-              imgPromptAddedToArticle = true;
-              inp.focus();
-              // セクションを閉じる
-              const body = document.getElementById("img-section-body");
-              const arrow = document.getElementById("img-section-arrow");
-              if (body) {
-                body.classList.remove("open");
-                arrow.textContent = "▼";
-              }
-            }
-          });
-
-        function addImgLog(ok, msg) {
-          const log = document.getElementById("img-log");
-          if (!log) return;
-          const d = document.createElement("div");
-          d.className = "img-log-item " + (ok ? "ok" : "err");
-          d.textContent = (ok ? "✓ " : "✗ ") + msg;
-          log.prepend(d);
-        }
-
-        // 初期化
-        buildImgSeats();
-        updateImgPrompt();
-
-        // ===== HTMLコードタブのコピーボタン =====
-        function copyCodeBtn() {
-          const btn = document.getElementById("copy-code-btn");
-          const text = codeWrap.textContent;
-          const orig = btn.textContent;
-          try {
-            if (navigator.clipboard) {
-              navigator.clipboard.writeText(text).then(() => {
-                btn.textContent = "✓ コピーしました";
-                btn.style.background = "#27ae60";
-                setTimeout(() => {
-                  btn.textContent = orig;
-                  btn.style.background = "#008B9B";
-                }, 2000);
-              });
-            } else {
-              const ta = document.createElement("textarea");
-              ta.value = text;
-              document.body.appendChild(ta);
-              ta.select();
-              document.execCommand("copy");
-              document.body.removeChild(ta);
-              btn.textContent = "✓ コピーしました";
-              btn.style.background = "#27ae60";
-              setTimeout(() => {
-                btn.textContent = orig;
-                btn.style.background = "#008B9B";
-              }, 2000);
-            }
-          } catch (e) {
-            codeWrap.focus();
-            document.execCommand("selectAll");
-          }
-        }
-
-        // タブ切り替え時にコピーボタンの表示制御
-        document.querySelectorAll(".tab").forEach((t) => {
-          t.addEventListener("click", () => {
-            const copyBtn = document.getElementById("copy-code-btn");
-            if (copyBtn)
-              copyBtn.style.display =
-                t.dataset.tab === "code" && html ? "block" : "none";
-          });
-        });
-
+        resetImageUploadState();
         inp.focus();
       });
 
@@ -2170,6 +2003,24 @@
 
       function isImagePromptMissing() {
         return imgBlock !== "image0" && !imgPromptAddedToArticle;
+      }
+
+      function resetImageUploadState() {
+        imgBlock = "image0";
+        imgFile = null;
+        Object.keys(imgUploadedUrls).forEach((k) => delete imgUploadedUrls[k]);
+        imgPromptAddedToArticle = true;
+        document
+          .querySelectorAll(".img-layout-card")
+          .forEach((card) => card.classList.toggle("active", card.dataset.type === "image0"));
+        const uploadArea = document.getElementById("img-upload-area");
+        if (uploadArea) uploadArea.style.display = "none";
+        const imgFileInput = document.getElementById("img-file");
+        if (imgFileInput) imgFileInput.value = "";
+        const imgDrop = document.getElementById("img-drop");
+        imgDrop?.classList.remove("has-file", "dragover");
+        buildImgSeats();
+        updateImgPrompt();
       }
 
       // 今日の日付をセット
@@ -2257,10 +2108,10 @@
               headers: { "X-Requested-With": "XMLHttpRequest" },
               body: fd,
             });
-            const data = await res.json();
+            const data = await readUploaderJsonResponse(res);
             addImgLog(data.ok, data.msg);
           } catch (e) {
-            addImgLog(false, "フォルダ作成に失敗しました。");
+            addUploaderErrorLog(e);
           }
         });
 
@@ -2306,7 +2157,8 @@
           let nextSeq = 1;
           while (imgUploadedUrls[nextSeq] && nextSeq <= def.count) nextSeq++;
           if (nextSeq > def.count) {
-            alert("満席です。");
+            buildImgSeats();
+            updateImgPrompt();
             return;
           }
           const upBtn = document.getElementById("img-upload");
@@ -2324,7 +2176,7 @@
               headers: { "X-Requested-With": "XMLHttpRequest" },
               body: fd,
             });
-            const data = await res.json();
+            const data = await readUploaderJsonResponse(res);
             addImgLog(data.ok, data.msg);
             if (data.ok) {
               imgUploadedUrls[data.seq] = data.url;
@@ -2336,10 +2188,10 @@
               updateImgPrompt();
             }
           } catch (e) {
-            addImgLog(false, "アップロードに失敗しました。");
+            addUploaderErrorLog(e);
           }
-          upBtn.disabled = false;
           upBtn.textContent = "アップロード";
+          buildImgSeats();
         });
 
       // プロンプト生成・入力欄に追加

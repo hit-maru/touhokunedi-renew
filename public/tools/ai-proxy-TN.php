@@ -1,6 +1,8 @@
 <?php
 declare(strict_types=1);
 
+set_time_limit(100);
+
 const AI_PROXY_MAX_BODY_BYTES = 65536;
 const AI_PROXY_MAX_TOKENS = 2000;
 const AI_PROXY_ALLOWED_MODELS = [
@@ -166,7 +168,7 @@ function postJsonToGas(string $gasUrl, array $payload): array
         ],
         CURLOPT_POSTFIELDS => $payloadJson,
         CURLOPT_CONNECTTIMEOUT => 5,
-        CURLOPT_TIMEOUT => 20,
+        CURLOPT_TIMEOUT => 90,
         CURLOPT_FOLLOWLOCATION => true,
         CURLOPT_MAXREDIRS => 3,
     ]);
