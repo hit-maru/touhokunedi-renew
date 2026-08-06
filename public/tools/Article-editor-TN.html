@@ -69,6 +69,14 @@
         color: rgba(255, 255, 255, 0.7);
         letter-spacing: 0.12em;
         line-height: 1.2;
+        text-decoration: none;
+        cursor: pointer;
+        transition: opacity 0.15s;
+      }
+      .logo:hover,
+      .logo:focus-visible {
+        opacity: 0.82;
+        outline: none;
       }
       .logo b {
         display: block;
@@ -601,6 +609,7 @@
       }
       .tabs {
         display: flex;
+        align-items: center;
         border-bottom: 1px solid var(--gray-200);
         background: var(--gray-50);
       }
@@ -614,11 +623,53 @@
         letter-spacing: 0.08em;
         text-transform: uppercase;
         transition: all 0.12s;
+        flex-shrink: 0;
       }
       .tab.active {
         color: var(--teal);
         border-bottom-color: var(--teal);
         background: var(--white);
+      }
+      .code-tab-actions {
+        margin-left: auto;
+        margin-right: 12px;
+        display: none;
+        align-items: center;
+        justify-content: flex-end;
+        gap: 8px;
+        flex-wrap: wrap;
+        padding: 5px 0;
+      }
+      .code-tab-btn {
+        min-height: 28px;
+        padding: 5px 14px;
+        border-radius: 4px;
+        font-size: 12px;
+        font-weight: 700;
+        font-family: var(--font);
+        line-height: 1.3;
+        cursor: pointer;
+        text-decoration: none;
+        border: 1px solid var(--teal);
+        transition:
+          background 0.15s,
+          color 0.15s,
+          border-color 0.15s;
+      }
+      .microcms-link {
+        background: var(--white);
+        color: var(--teal);
+      }
+      .microcms-link:hover {
+        background: var(--teal-light);
+      }
+      .copy-code-btn {
+        background: var(--teal);
+        color: #fff;
+      }
+      .copy-code-btn:hover {
+        background: var(--teal-dark);
+        border-color: var(--teal-dark);
       }
 
       .right-body {
@@ -984,6 +1035,14 @@
           border-right: none;
           border-bottom: 1px solid var(--gray-200);
         }
+        .tabs {
+          flex-wrap: wrap;
+        }
+        .code-tab-actions {
+          width: 100%;
+          margin-left: 12px;
+          justify-content: flex-start;
+        }
       }
     </style>
     <link
@@ -994,7 +1053,12 @@
   <body>
     <div class="app">
       <div class="topbar">
-        <div class="logo">Tohoku Nedzi <b>東北ネヂ製造株式会社</b></div>
+        <a
+          class="logo"
+          href="https://touhokunedi.com/"
+          aria-label="東北ネヂ製造株式会社 トップページへ移動"
+          >Tohoku Nedzi <b>東北ネヂ製造株式会社</b></a
+        >
         <div class="topbar-title">microCMS AI de 記事生成</div>
         <div class="badge">DEMO</div>
       </div>
@@ -1290,27 +1354,22 @@
           <div class="tabs">
             <div class="tab active" data-tab="preview">プレビュー</div>
             <div class="tab" data-tab="code">HTMLコード</div>
-            <button
-              id="copy-code-btn"
-              style="
-                display: none;
-                margin-left: auto;
-                margin-right: 12px;
-                padding: 5px 14px;
-                background: #008b9b;
-                color: #fff;
-                border: none;
-                border-radius: 4px;
-                font-size: 12px;
-                font-weight: 700;
-                cursor: pointer;
-                font-family: var(--font);
-                transition: background 0.15s;
-              "
-              onclick="copyCodeBtn()"
-            >
-              📋 コピー
-            </button>
+            <div class="code-tab-actions" id="code-tab-actions">
+              <a
+                class="code-tab-btn microcms-link"
+                href="https://touhokunedi.microcms.io/apis/news"
+                target="_blank"
+                rel="noopener noreferrer"
+                >microCMSへ</a
+              >
+              <button
+                class="code-tab-btn copy-code-btn"
+                id="copy-code-btn"
+                onclick="copyCodeBtn()"
+              >
+                📋 コピー
+              </button>
+            </div>
             <span
               id="edit-badge"
               style="
@@ -1810,6 +1869,7 @@
       const codeWrap = document.getElementById("code-wrap");
       const editBadge = document.getElementById("edit-badge");
       const editHint = document.getElementById("edit-hint");
+      const codeTabActions = document.getElementById("code-tab-actions");
       let syncTimer = null;
 
       function renderRight() {
@@ -1825,8 +1885,8 @@
           codeWrap.style.display = "";
           codeWrap.textContent = html;
           editBadge.style.display = "none";
-          const _cb = document.getElementById("copy-code-btn");
-          if (_cb) _cb.style.display = html ? "block" : "none";
+          if (codeTabActions)
+            codeTabActions.style.display = html ? "flex" : "none";
         }
         if (document.getElementById("sns-panel")) {
           document.getElementById("sns-panel").classList.add("visible");
@@ -2284,13 +2344,12 @@
 
       // タブ切り替え時にコピーボタンの表示制御
       document.querySelectorAll(".tab").forEach((t) => {
-        t.addEventListener("click", () => {
-          const copyBtn = document.getElementById("copy-code-btn");
-          if (copyBtn)
-            copyBtn.style.display =
-              t.dataset.tab === "code" && html ? "block" : "none";
+          t.addEventListener("click", () => {
+            if (codeTabActions)
+              codeTabActions.style.display =
+                t.dataset.tab === "code" && html ? "flex" : "none";
+          });
         });
-      });
 
       /* ===== SNS展開 ===== */
       const snsPanel = document.getElementById("sns-panel");
